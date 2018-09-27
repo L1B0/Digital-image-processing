@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1026</width>
-    <height>714</height>
+    <width>1135</width>
+    <height>810</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,106 +20,52 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="labelimage">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>711</width>
-      <height>641</height>
+      <x>10</x>
+      <y>10</y>
+      <width>1101</width>
+      <height>761</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
+    <property name="tabPosition">
+     <enum>QTabWidget::West</enum>
     </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>340</y>
-      <width>112</width>
-      <height>91</height>
-     </rect>
+    <property name="currentIndex">
+     <number>4</number>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>2. 灰度级</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="gray_level">
-         <property name="maxLength">
-          <number>3</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="gray_determine">
-       <property name="text">
-        <string>确定</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QPushButton" name="bitPlane">
-    <property name="geometry">
-     <rect>
-      <x>820</x>
-      <y>480</y>
-      <width>161</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>3. 八幅位平面的二值图</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>820</x>
-      <y>190</y>
-      <width>131</width>
-      <height>96</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="font">
-        <font>
-         <pointsize>11</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>1. 采样率</string>
-       </property>
-      </widget>
-     </item>
-     <item>
+    <widget class="QWidget" name="original">
+     <attribute name="title">
+      <string>原图</string>
+     </attribute>
+     <widget class="QLabel" name="original_page">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>991</width>
+        <height>681</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="sampling_rate">
+     <attribute name="title">
+      <string>采样率</string>
+     </attribute>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>780</x>
+        <y>10</y>
+        <width>211</width>
+        <height>33</height>
+       </rect>
+      </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLineEdit" name="width">
@@ -141,7 +87,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="mult">
          <property name="font">
           <font>
            <pointsize>15</pointsize>
@@ -167,16 +113,275 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="sampling">
+         <property name="text">
+          <string>确定</string>
+         </property>
+        </widget>
+       </item>
       </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="re_determine">
+     </widget>
+     <widget class="QLabel" name="sampling_page">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>70</y>
+        <width>1001</width>
+        <height>651</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="gray">
+     <attribute name="title">
+      <string>灰度级</string>
+     </attribute>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>10</y>
+        <width>196</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="gray_level">
+         <property name="maxLength">
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="gray_determine">
+         <property name="text">
+          <string>确定</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="gray_page">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>1011</width>
+        <height>661</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="bitplane">
+     <attribute name="title">
+      <string>位平面</string>
+     </attribute>
+     <widget class="QWidget" name="layoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>1031</width>
+        <height>671</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="bit1">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="bit2">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="bit3">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="bit4">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="bit5">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="bit6">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="bit7">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="bit8">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="bitplane_save">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>10</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string extracomment="Save all images."/>
+      </property>
+      <property name="text">
+       <string>saveAll</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="histogram">
+     <attribute name="title">
+      <string>灰度直方图</string>
+     </attribute>
+     <widget class="QTableWidget" name="histogram_info">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>50</y>
+        <width>411</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <row>
        <property name="text">
-        <string>确定</string>
+        <string/>
        </property>
-      </widget>
-     </item>
-    </layout>
+      </row>
+      <column>
+       <property name="text">
+        <string>像素总数</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>平均灰度</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>中值灰度</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>标准差</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>140</y>
+        <width>951</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="histogram_page">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="histogram_paint" native="true"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>60</y>
+        <width>236</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>阀值</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="threshold"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="threshold_update">
+         <property name="text">
+          <string>确定</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -206,6 +411,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

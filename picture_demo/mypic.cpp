@@ -1,4 +1,4 @@
-#include <func.h>
+#include <mypic.h>
 
 bool isDigitString(const QString& src)
 {
@@ -7,14 +7,25 @@ bool isDigitString(const QString& src)
     return !bool(*s);
 }
 
-char findImageType(QString path)
+void qstring2char(QString ppath)
 {
-    const char *cpath = path.toLatin1().data(); //tostdfstring youkeng!
-    qDebug() << cpath;
+    //toLatin1().data() directly is wrong!
+    QByteArray ba = ppath.toLatin1();
+    cpath = ba.data();
+    qDebug() << "cpath: " << cpath << "len: " << strlen(cpath);
+    return ;
+}
+
+char findImageType(QString ppath)
+{
+    qstring2char(ppath);
+
     for(int i=0;i<strlen(cpath);i++)
     {
+        //qDebug() << "cpath[i]: " << i << cpath[i];
         if(cpath[i] == '.')
         {
+            qDebug() << "imageType: " << cpath[i+1];
             return cpath[i+1];
         }
     }
@@ -69,4 +80,43 @@ void findImageFormat(QImage nowImage)
                                  "QImage::Format_Grayscale8"};
     QMessageBox::information(NULL, QObject::tr("ImageFormat"), imageFormat[nowImage.format()]);
     return ;
+}
+
+int getBit(int n, int moveBit)
+{
+    if((n>>moveBit)%2){
+        return 255;
+    }
+    else return 0;
+}
+
+int interation_gary(double aver)
+{
+    int now_gray[256]={0};
+    for(int i=0;i<imageWidth;i++)
+    {
+        for(int j=0;j<imageHeight;j++)
+        {
+            QRgb a = myImage.pixel(i,j);
+            QColor b = QColor(a);
+            now_gray[b.red()] ++;
+        }
+    }
+    int now=(int)aver,next=-1;
+    while(1)
+    {
+        qDebug() << "now = " << now << "next = " << next;
+        int a=0,b=0,suma=0,sumb=0;
+        for(int i=0;i<=now;i++)
+            a += now_gray[i]*i, suma += now_gray[i];
+        for(int i=now+1;i<256;i++)
+            b += now_gray[i]*i, sumb += now_gray[i];
+        a /= suma;
+        b /= sumb;
+        next = (a+b)/2;
+        if( now == next )
+            break;
+        now = next, next = -1;
+    }
+    return now;
 }

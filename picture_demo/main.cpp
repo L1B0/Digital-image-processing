@@ -5,6 +5,7 @@
 QImage myImage,newImage;
 QString path;
 char imageType;
+const char *cpath;
 int imageWidth,imageHeight,imageGray;
 
 int main(int argc, char *argv[])

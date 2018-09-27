@@ -1,5 +1,5 @@
-#ifndef FUNC_H
-#define FUNC_H
+#ifndef MYPIC_H
+#define MYPIC_H
 
 #include <stdio.h>
 #include <string.h>
@@ -14,15 +14,22 @@
 #include <QMenuBar>
 #include <QToolBar>
 #include <QLabel>
+#include <QTableWidget>
+#include <customtabstyle.h>
+#include <math.h>
 
 extern QImage myImage,newImage;
 extern QString path;
 extern char imageType;
+extern const char *cpath;
 extern int imageWidth,imageHeight,imageGray;
 
 bool isDigitString(const QString& src);
-char findImageType(QString path);
+char findImageType(QString ppath);
 //int findImageGray(QImage nowImage);
 void findImageFormat(QImage nowImage);
+void qstring2char(QString ppath);
+int getBit(int n, int moveBit);
+int interation_gary(double aver);
 
-#endif // FUNC_H
+#endif // MYPIC_H
