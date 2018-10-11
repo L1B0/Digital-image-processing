@@ -25,6 +25,7 @@ public:
     void create_histogram_info(QImage nowImage, double *image_gray, bool flag);
     void create_histogram_paint(QCustomPlot *nowlabel, double *image_gray);
     void point_calc(int pointType);
+    void histogram_equalization(QImage nowImage);
 
 private slots:
     void open();

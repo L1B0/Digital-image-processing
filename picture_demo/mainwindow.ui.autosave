@@ -33,7 +33,7 @@
      <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -424,9 +424,9 @@
       </widget>
       <widget class="QWidget" name="gray_balance">
        <attribute name="title">
-        <string>灰度直方图均衡</string>
+        <string>灰度直方图均衡化</string>
        </attribute>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>30</x>
