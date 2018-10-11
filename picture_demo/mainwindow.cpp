@@ -547,6 +547,7 @@ void MainWindow::histogram_equalization(QImage nowImage)
         }
     }
     ui->gray_bal_image->setPixmap(QPixmap::fromImage(iGray));
+
     newImage = iGray;
 
     create_histogram(ui->gray_bal_paint,newImage,false);
