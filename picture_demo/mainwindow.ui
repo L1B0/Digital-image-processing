@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1135</width>
-    <height>810</height>
+    <width>1189</width>
+    <height>840</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,15 +25,21 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1101</width>
-      <height>761</height>
+      <width>1141</width>
+      <height>781</height>
      </rect>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>5</number>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
     </property>
     <widget class="QWidget" name="original">
      <attribute name="title">
@@ -60,8 +66,8 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>780</x>
-        <y>10</y>
+        <x>60</x>
+        <y>20</y>
         <width>211</width>
         <height>33</height>
        </rect>
@@ -122,18 +128,27 @@
        </item>
       </layout>
      </widget>
-     <widget class="QLabel" name="sampling_page">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>40</x>
         <y>70</y>
-        <width>1001</width>
-        <height>651</height>
+        <width>1011</width>
+        <height>681</height>
        </rect>
       </property>
-      <property name="text">
-       <string/>
-      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="sampling_page">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="sampling_paint" native="true"/>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="gray">
@@ -143,8 +158,8 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>790</x>
-        <y>10</y>
+        <x>50</x>
+        <y>20</y>
         <width>196</width>
         <height>28</height>
        </rect>
@@ -166,18 +181,27 @@
        </item>
       </layout>
      </widget>
-     <widget class="QLabel" name="gray_page">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>40</x>
         <y>60</y>
         <width>1011</width>
-        <height>661</height>
+        <height>691</height>
        </rect>
       </property>
-      <property name="text">
-       <string/>
-      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QLabel" name="gray_page">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="gray_paint" native="true"/>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="bitplane">
@@ -189,8 +213,8 @@
        <rect>
         <x>20</x>
         <y>60</y>
-        <width>1031</width>
-        <height>671</height>
+        <width>1061</width>
+        <height>691</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -324,10 +348,10 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>140</y>
-        <width>951</width>
-        <height>571</height>
+        <x>30</x>
+        <y>120</y>
+        <width>1041</width>
+        <height>631</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -382,6 +406,376 @@
       </layout>
      </widget>
     </widget>
+    <widget class="QWidget" name="point">
+     <attribute name="title">
+      <string>点运算</string>
+     </attribute>
+     <widget class="QTabWidget" name="point_type">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>1061</width>
+        <height>731</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="line_trans">
+       <attribute name="title">
+        <string>线性变换</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>400</y>
+          <width>991</width>
+          <height>271</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QLabel" name="line_trans_image">
+           <property name="text">
+            <string>trans</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCustomPlot" name="line_trans_paint" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>991</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLabel" name="line_ori_image">
+           <property name="text">
+            <string>ori</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCustomPlot" name="line_ori_paint" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>360</y>
+          <width>301</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QLabel" name="line_f1">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>f(D) = </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="line_a1">
+             <property name="maxLength">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="line_d1">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>*D + </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="line_b1">
+             <property name="maxLength">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="line_push">
+           <property name="text">
+            <string>确定</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="nline_trans1">
+       <attribute name="title">
+        <string>非线性变换1</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>400</y>
+          <width>991</width>
+          <height>271</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QLabel" name="nline_trans1_image">
+           <property name="text">
+            <string>trans</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCustomPlot" name="nline_trans1_paint" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>991</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_15">
+         <item>
+          <widget class="QLabel" name="nline_ori1_image">
+           <property name="text">
+            <string>ori</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCustomPlot" name="nline_ori1_paint" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>360</y>
+          <width>294</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_17">
+         <item>
+          <widget class="QLabel" name="nline_f1">
+           <property name="font">
+            <font>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>f(D) = </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="nline_c1">
+           <property name="maxLength">
+            <number>4</number>
+           </property>
+           <property name="placeholderText">
+            <string>c</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="nline_d1">
+           <property name="font">
+            <font>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>*log(D+1)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="nline_push1">
+           <property name="text">
+            <string>确定</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="nline_trans2">
+       <attribute name="title">
+        <string>非线性变换2</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget_6">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>991</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_18">
+         <item>
+          <widget class="QLabel" name="nline_ori2_image">
+           <property name="text">
+            <string>ori</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCustomPlot" name="nline_ori2_paint" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_5">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>400</y>
+          <width>991</width>
+          <height>271</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <widget class="QLabel" name="nline_trans2_image">
+           <property name="text">
+            <string>trans</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCustomPlot" name="nline_trans2_paint" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_7">
+        <property name="geometry">
+         <rect>
+          <x>330</x>
+          <y>360</y>
+          <width>301</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_21">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_22">
+           <item>
+            <widget class="QLabel" name="nline_f2">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>f(D) = </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="nline_a2">
+             <property name="maxLength">
+              <number>5</number>
+             </property>
+             <property name="placeholderText">
+              <string>a</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="nline_d2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>D^</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="nline_b2">
+             <property name="maxLength">
+              <number>5</number>
+             </property>
+             <property name="placeholderText">
+              <string>b</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="nline_push2">
+           <property name="text">
+            <string>确定</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -415,7 +809,7 @@
   <customwidget>
    <class>QCustomPlot</class>
    <extends>QWidget</extends>
-   <header>qcustomplot.h</header>
+   <header location="global">qcustomplot.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

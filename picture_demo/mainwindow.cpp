@@ -25,11 +25,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->width->setPlaceholderText(tr("宽度"));
     ui->length->setPlaceholderText(tr("高度"));
     ui->gray_level->setPlaceholderText(tr("灰度级"));
+    ui->line_a1->setPlaceholderText(tr("a"));
+    ui->line_b1->setPlaceholderText(tr("b"));
 
     //功能栏
     ui->tabWidget->tabBar()->setStyle(new CustomTabStyle);
     ui->tabWidget->setCurrentIndex(0);
-    QCPGraph *phGraph = ui->histogram_paint->addGraph();
+    ui->point_type->tabBar()->setStyle(new CustomTabStyle);
+    ui->point_type->setCurrentIndex(0);
+
+    ui->histogram_paint->addGraph();
+    ui->sampling_paint->addGraph();
+    ui->gray_paint->addGraph();
+    ui->line_ori_paint->addGraph();
+    ui->line_trans_paint->addGraph();
+    ui->nline_ori1_paint->addGraph();
+    ui->nline_trans1_paint->addGraph();
+    ui->nline_ori2_paint->addGraph();
+    ui->nline_trans2_paint->addGraph();
+
 }
 
 MainWindow::~MainWindow()
@@ -37,8 +51,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::clear_all_text()
+{
+    QList<QLineEdit*> allLineEdit = ui->centralWidget->findChildren<QLineEdit*>();
+    for(int i=0;i<allLineEdit.length();i++)
+    {
+        allLineEdit[i]->clear();
+    }
+    return ;
+}
+
 void MainWindow::open()
 {
+    clear_all_text();
     path = QFileDialog::getOpenFileName(this, tr("Open Image"), ".", tr("Image Files(*.jpg *.png *.bmp)"));
     if(path.length() == 0)
     {
@@ -69,9 +94,21 @@ void MainWindow::open()
         ui->gray_page->setPixmap(QPixmap::fromImage(myImage));
         ui->histogram_page->setAlignment(Qt::AlignCenter);
         ui->histogram_page->setPixmap(QPixmap::fromImage(myImage));
+        ui->line_ori_image->setAlignment(Qt::AlignCenter);
+        ui->line_ori_image->setPixmap(QPixmap::fromImage(myImage));
+        ui->nline_ori1_image->setAlignment(Qt::AlignCenter);
+        ui->nline_ori1_image->setPixmap(QPixmap::fromImage(myImage));
+        ui->nline_ori2_image->setAlignment(Qt::AlignCenter);
+        ui->nline_ori2_image->setPixmap(QPixmap::fromImage(myImage));
 
         myshow_bitplane();
-        create_histogram();
+        create_histogram(ui->histogram_paint, myImage, true);
+        create_histogram(ui->sampling_paint, myImage, false);
+        create_histogram(ui->gray_paint, myImage, false);
+        create_histogram(ui->line_ori_paint, myImage, false);
+        create_histogram(ui->nline_ori1_paint, myImage, false);
+        create_histogram(ui->nline_ori2_paint, myImage, false);
+
         ui->tabWidget->setCurrentIndex(0);
     }
     return ;
@@ -94,23 +131,28 @@ void MainWindow::save()
     return ;
 }
 
+bool MainWindow::check_input(QLineEdit *labeltest)
+{
+    if( labeltest->text() == "" )
+    {
+        QMessageBox::information(NULL,tr("Warning"),tr("输入为空!"));
+        labeltest->clear();
+        return false;
+    }
+    if(!isDigitString(labeltest->text().toStdString().c_str()))
+    {
+        QMessageBox::information(NULL,tr("Warning"),tr("请输入数字!"));
+        labeltest->clear();
+        return false;
+    }
+    return true;
+}
+
 void MainWindow::on_sampling_clicked()
 {
     //QMessageBox::information(NULL, tr("Path"), tr("You selected ") + path);
-    if( ui->width->text() == "" || ui->length->text() == "")
-    {
-        QMessageBox::information(NULL,tr("Warning"),tr("输入为空！"));
-        ui->width->clear();
-        ui->length->clear();
+    if( !check_input(ui->width) || !check_input(ui->length) )
         return ;
-    }
-    if(!isDigitString(ui->width->text().toStdString().c_str()) || !isDigitString(ui->length->text().toStdString().c_str()))
-    {
-        QMessageBox::information(NULL,tr("Warning"),tr("请输入数字！"));
-        ui->width->clear();
-        ui->length->clear();
-        return ;
-    }
 
     int imageNewWidth = ui->width->text().toInt(), imageNewHeight = ui->length->text().toInt();
     qDebug() << "newWidth: " << imageNewWidth << "newLength: " << imageNewHeight;
@@ -142,23 +184,15 @@ void MainWindow::on_sampling_clicked()
     //iGray.save("/home/l1b0/Desktop/gray","JPG",-1);
     ui->sampling_page->setPixmap(QPixmap::fromImage(iGray));
     newImage = iGray;
+
+    create_histogram(ui->sampling_paint, newImage, false);
+
     return ;
 }
 
 void MainWindow::on_gray_determine_clicked()
 {
-    if( ui->gray_level->text() == "" )
-    {
-        QMessageBox::information(NULL,tr("Warning"),tr("输入为空!"));
-        ui->gray_level->clear();
-        return ;
-    }
-    if(!isDigitString(ui->gray_level->text().toStdString().c_str()))
-    {
-        QMessageBox::information(NULL,tr("Warning"),tr("请输入数字!"));
-        ui->gray_level->clear();
-        return ;
-    }
+    if( !check_input(ui->gray_level) ) return ;
 
     int level_gray = ui->gray_level->text().toInt();
     if(level_gray <= 0 || level_gray > 256) return ;
@@ -183,6 +217,7 @@ void MainWindow::on_gray_determine_clicked()
     ui->gray_page->setPixmap(QPixmap::fromImage(iGray));
     newImage = iGray;
 
+    create_histogram(ui->gray_paint, newImage, false);
     return ;
 }
 
@@ -295,9 +330,9 @@ void MainWindow::on_bitplane_save_clicked()
     mysave_bitplane();
 }
 
-void MainWindow::create_histogram_info(double *image_gray)
+void MainWindow::create_histogram_info(QImage nowImage, double *image_gray, bool flag)
 {
-    int w = myImage.width(), h = myImage.height();
+    int w = nowImage.width(), h = nowImage.height();
     int pixelNum = w*h, mid_gray=0, image_gray_num[256]={0};
     double average_gary=0, stdev=0;
     qDebug() << "pixelNum: " << pixelNum;
@@ -305,13 +340,14 @@ void MainWindow::create_histogram_info(double *image_gray)
     {
         for(int j=0;j<h;j++)
         {
-            QRgb pixel = myImage.pixel(i,j);
+            QRgb pixel = nowImage.pixel(i,j);
             QColor gray = QColor(pixel);
             int r = gray.red();
             image_gray_num[r] += 1;
             average_gary += r;
         }
     }
+
     average_gary /= pixelNum;
     qDebug() << "average_gray: " << average_gary;
 
@@ -330,6 +366,9 @@ void MainWindow::create_histogram_info(double *image_gray)
 
     for(int i=0;i<256;i++) image_gray[i] = (float)image_gray_num[i]/pixelNum;
 
+    //Not at histogram_page
+    if( !flag ) return ;
+
     qDebug() << ui->histogram_info->rowCount() << ui->histogram_info->columnCount();
     ui->histogram_info->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->histogram_info->setItem(0,0,new QTableWidgetItem(QString("%1").arg(pixelNum)));
@@ -343,7 +382,7 @@ void MainWindow::create_histogram_info(double *image_gray)
     return ;
 }
 
-void MainWindow::create_histogram_paint(double *image_gray)
+void MainWindow::create_histogram_paint(QCustomPlot *nowlabel, double *image_gray)
 {
     QVector<double> x(256,0.0), y(256,0.0);
     double max_y=0.0;
@@ -359,27 +398,29 @@ void MainWindow::create_histogram_paint(double *image_gray)
         max_y = max_y > y[i] ? max_y : y[i];
     }
 
-    ui->histogram_paint->xAxis->setLabel("灰度值");
-    ui->histogram_paint->xAxis->setRange(0,255);
-    ui->histogram_paint->yAxis->setLabel("灰度值占比");
-    ui->histogram_paint->yAxis->setRange(0,max_y);
+    nowlabel->xAxis->setLabel("灰度值");
+    nowlabel->xAxis->setRange(0,255);
+    nowlabel->yAxis->setLabel("灰度值占比");
+    nowlabel->yAxis->setRange(0,max_y);
 
-    ui->histogram_paint->graph(0)->setData(x,y);
-    ui->histogram_paint->replot();// important!!!
+    nowlabel->graph(0)->setData(x,y);
+    nowlabel->replot();// important!!!
     return ;
 }
 
-void MainWindow::create_histogram()
+void MainWindow::create_histogram(QCustomPlot *nowlabel, QImage nowImage, bool flag)
 {
     double image_gray[256];
-    create_histogram_info(image_gray);
-    create_histogram_paint(image_gray);
+    create_histogram_info(nowImage, image_gray, flag);
+    create_histogram_paint(nowlabel, image_gray);
 
     return ;
 }
 
 void MainWindow::on_threshold_update_clicked()
 {
+    if( !check_input(ui->threshold) ) return ;
+
     int threshold_level = ui->threshold->text().toInt();
     if( threshold_level == 256 )
     {
@@ -404,3 +445,81 @@ void MainWindow::on_threshold_update_clicked()
     newImage = iGray;
     return ;
 }
+
+void MainWindow::on_line_push_clicked()
+{
+    point_calc(1);
+}
+
+void MainWindow::on_nline_push1_clicked()
+{
+    point_calc(2);
+}
+
+void MainWindow::on_nline_push2_clicked()
+{
+    point_calc(3);
+}
+
+//改变对应页面的结果
+void MainWindow::point_calc(int pointType)
+{
+    QLabel *trans_image;
+    QCustomPlot *trans_paint;
+    float a,b,c;
+
+    if(pointType == 1)
+    {
+        trans_image = ui->line_trans_image;
+        trans_paint = ui->line_trans_paint;
+        a = ui->line_a1->text().toFloat();
+        b = ui->line_b1->text().toFloat();
+    }
+    else if(pointType == 2)
+    {
+        c = ui->nline_c1->text().toFloat();
+        trans_image = ui->nline_trans1_image;
+        trans_paint = ui->nline_trans1_paint;
+    }
+    else
+    {
+        a = ui->nline_a2->text().toFloat();
+        b = ui->nline_b2->text().toFloat();
+        trans_image = ui->nline_trans2_image;
+        trans_paint = ui->nline_trans2_paint;
+    }
+
+    QImage iGray(imageWidth,imageHeight,myImage.format());
+    qDebug() << "trans_image: " << trans_image->objectName();
+    qDebug() << "trans_paint: " << trans_paint->objectName();
+
+    for(int i=0;i<imageWidth;i++)
+    {
+        for(int j=0;j<imageHeight;j++)
+        {
+            QRgb pixel = myImage.pixel(i,j);
+            QColor clo = QColor(pixel);
+            int r = clo.red(), trans_r;
+            if( pointType == 1 )
+                trans_r = ((int)(a*(float)r+b)) ;
+            else if( pointType == 2 )
+                trans_r = (int)(c*log((double)(r+1)));
+            else
+                trans_r = (int)(a*pow(r,b));
+            if(trans_r > 255) trans_r = 255;
+            //qDebug() << r << trans_r;
+            iGray.setPixel(i,j,qRgb(trans_r,trans_r,trans_r));
+        }
+    }
+
+    trans_image->setPixmap(QPixmap::fromImage(iGray));
+    newImage = iGray;
+
+    create_histogram(trans_paint, newImage, false);
+    qDebug() << "paint finished!";
+    return ;
+}
+
+
+
+

@@ -17,6 +17,7 @@
 #include <QTableWidget>
 #include <customtabstyle.h>
 #include <math.h>
+#include <qcustomplot.h>
 
 extern QImage myImage,newImage;
 extern QString path;
@@ -31,5 +32,6 @@ void findImageFormat(QImage nowImage);
 void qstring2char(QString ppath);
 int getBit(int n, int moveBit);
 int interation_gary(double aver);
+//void my_find_children(QWidget *nowWiget,int pointType,QLabel *trans_image,QCustomPlot *trans_point,float &a,float &b);
 
 #endif // MYPIC_H

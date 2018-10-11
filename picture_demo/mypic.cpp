@@ -120,3 +120,59 @@ int interation_gary(double aver)
     }
     return now;
 }
+
+//void my_find_children(QWidget *nowWiget,int pointType,QLabel *nowimage,QCustomPlot *nowpaint,float &a,float &b)
+//{
+//    QObjectList list = nowWiget->children();
+//
+//    qDebug() << "parent name : " << nowWiget->objectName();
+//    qDebug() << "child num: " << list.length();
+//    foreach (QObject *obj, list) {
+//        qDebug() << "level 1";
+//        qDebug() << obj->metaObject()->className();
+//        qDebug() << "ojcName: " << obj->objectName();
+//        if(obj->metaObject()->className() == QStringLiteral("QWidget")){
+//            qDebug() << "level 2";
+//            QObjectList list2 = obj->children();
+//            foreach (QObject *obj1, list2) {
+//                qDebug() << obj1->metaObject()->className();
+//                qDebug() << "ojc1 Name: " << obj1->objectName();
+//
+//                if(obj1->metaObject()->className() == QStringLiteral("QHBoxLayout"))
+//                {
+//                    qDebug() << "level 3";
+//                    QObjectList list3 = obj1->children();
+//                    foreach (QObject *obj2, list3) {
+//                        qDebug() << "ojc2 Name: " << obj2->objectName();
+//                        if(obj2->metaObject()->className() == QStringLiteral("QLineEdit")){
+//                            QObjectList list4 = obj2->children();
+//                            foreach (QObject *obj3, list4) {
+//                                if(QString("%1").arg(obj3->objectName()).contains("a"))
+//                                    a = qobject_cast<QLineEdit*>(obj3)->text().toFloat();
+//                                else
+//                                    b = qobject_cast<QLineEdit*>(obj3)->text().toFloat();
+//                                qDebug() << "find a or b : " << a << b;
+//                            }
+//                        }
+//
+//                    }
+//                }
+//
+//                else if( QString("%1").arg(obj1->objectName()).contains("trans") && QString("%1").arg(obj1->objectName()).contains("image") )
+//                {
+//                    qDebug() << "find trans image!!!";
+//                    nowimage = qobject_cast<QLabel*>(obj1);
+//                }
+//                else if( QString("%1").arg(obj1->objectName()).contains("trans") && QString("%1").arg(obj1->objectName()).contains("paint") )
+//                {
+//                    qDebug() << "find trans paint!!!";
+//                    nowpaint = qobject_cast<QCustomPlot*>(obj1);
+//                }
+//            }
+//        }
+//    }
+//    qDebug() << "nowimage: " << nowimage->objectName();
+//    qDebug() << "nowpaint: " << nowpaint->objectName();
+//    qDebug() << "find children finished ! ";
+//
+//}

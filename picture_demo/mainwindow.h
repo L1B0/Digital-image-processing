@@ -16,12 +16,15 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void clear_all_text();
+    bool check_input(QLineEdit *labeltest);
     void mysave_bitplane();
     void myshow_bitplane();
     void myshow(int num, char flag);
-    void create_histogram();
-    void create_histogram_info(double *image_gray);
-    void create_histogram_paint(double *image_gray);
+    void create_histogram(QCustomPlot *nowlabel, QImage nowImage, bool flag);
+    void create_histogram_info(QImage nowImage, double *image_gray, bool flag);
+    void create_histogram_paint(QCustomPlot *nowlabel, double *image_gray);
+    void point_calc(int pointType);
 
 private slots:
     void open();
@@ -32,6 +35,12 @@ private slots:
     void on_bitplane_save_clicked();
 
     void on_threshold_update_clicked();
+
+    void on_line_push_clicked();
+
+    void on_nline_push1_clicked();
+
+    void on_nline_push2_clicked();
 
 private:
     Ui::MainWindow *ui;
