@@ -176,3 +176,5 @@ int interationGary(double aver)
 //    qDebug() << "find children finished ! ";
 //
 //}
+
+

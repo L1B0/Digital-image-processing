@@ -568,3 +568,42 @@ void MainWindow::histogramEqualization(QImage nowImage)
     return ;
 }
 
+
+void MainWindow::on_nearest_horizontalSlider_valueChanged(int value)
+{
+    ui->nearest_level->setText(QString("缩放倍数: %1").arg(value));
+
+    int newWidth, newHeight;
+    if(value > 0)
+    {
+        newWidth = imageWidth*(value+1);
+        newHeight = imageHeight*(value+1);
+    }
+    else if(value < 0)
+    {
+        newWidth = imageWidth/(1-value);
+        newHeight = imageHeight/(1-value);
+    }
+    else
+    {
+        newWidth = imageWidth;
+        newHeight = imageHeight;
+    }
+    qDebug() << "width: " << newWidth << "height: " << newHeight;
+    //nearestInsert(&newImage, newWidth, newHeight);
+
+    QImage nowImage(newWidth,newHeight,myImage.format());
+    for(int i=0;i<newWidth;i++)
+    {
+        for(int j=0;j<newHeight;j++)
+        {
+            int ori_i = (int)(i*((double)imageWidth/newWidth)), ori_j = (int)(j*((double)imageHeight/newHeight));
+            QRgb pixel = myImage.pixel(ori_i,ori_j);
+            nowImage.setPixel(i,j,pixel);
+        }
+    }
+    newImage = nowImage;
+    ui->original_page->resize(QSize(newWidth,newHeight));
+    ui->original_page->setPixmap(QPixmap::fromImage(nowImage));
+    return ;
+}

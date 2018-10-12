@@ -33,7 +33,7 @@
      <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>0</number>
     </property>
     <property name="iconSize">
      <size>
@@ -63,7 +63,7 @@
        <string>最近邻插值算法</string>
       </property>
      </widget>
-     <widget class="QLabel" name="nearest_insert_2">
+     <widget class="QLabel" name="bilinear_insert">
       <property name="geometry">
        <rect>
         <x>750</x>
@@ -145,6 +145,80 @@
            </property>
           </widget>
          </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>620</y>
+        <width>341</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_26">
+       <item>
+        <widget class="QLabel" name="bilinear_level">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>缩放倍数: 0    </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="bilinear_horizontalSlider">
+         <property name="minimum">
+          <number>-10</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>620</y>
+        <width>341</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_25">
+       <item>
+        <widget class="QLabel" name="nearest_level">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>缩放倍数: 0    </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="nearest_horizontalSlider">
+         <property name="minimum">
+          <number>-10</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
         </widget>
        </item>
       </layout>

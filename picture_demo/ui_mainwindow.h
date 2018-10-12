@@ -19,6 +19,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
@@ -38,7 +39,7 @@ public:
     QTabWidget *tabWidget;
     QWidget *original;
     QLabel *nearest_insert;
-    QLabel *nearest_insert_2;
+    QLabel *bilinear_insert;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_20;
     QScrollArea *ori_scrollArea;
@@ -48,8 +49,16 @@ public:
     QScrollArea *ori_scrollArea_2;
     QWidget *scrollAreaWidgetContents_3;
     QLabel *original_page_2;
-    QWidget *sampling_rate;
+    QWidget *layoutWidget_3;
+    QHBoxLayout *horizontalLayout_26;
+    QLabel *bilinear_level;
+    QSlider *bilinear_horizontalSlider;
     QWidget *layoutWidget1;
+    QHBoxLayout *horizontalLayout_25;
+    QLabel *nearest_level;
+    QSlider *nearest_horizontalSlider;
+    QWidget *sampling_rate;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout;
     QLineEdit *width;
     QLabel *mult;
@@ -61,7 +70,7 @@ public:
     QLabel *sampling_page;
     QCustomPlot *sampling_paint;
     QWidget *gray;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_2;
     QLineEdit *gray_level;
     QPushButton *gray_determine;
@@ -108,7 +117,7 @@ public:
     QWidget *point;
     QTabWidget *point_type;
     QWidget *line_trans;
-    QWidget *layoutWidget3;
+    QWidget *layoutWidget4;
     QHBoxLayout *horizontalLayout_13;
     QHBoxLayout *horizontalLayout_12;
     QLabel *line_f1;
@@ -127,7 +136,7 @@ public:
     QCustomPlot *line_ori_paint;
     QCustomPlot *line_trans_paint;
     QWidget *nline_trans1;
-    QWidget *layoutWidget4;
+    QWidget *layoutWidget5;
     QHBoxLayout *horizontalLayout_17;
     QLabel *nline_f1;
     QLineEdit *nline_c1;
@@ -196,10 +205,10 @@ public:
         QFont font;
         font.setPointSize(12);
         nearest_insert->setFont(font);
-        nearest_insert_2 = new QLabel(original);
-        nearest_insert_2->setObjectName(QStringLiteral("nearest_insert_2"));
-        nearest_insert_2->setGeometry(QRect(750, 570, 161, 31));
-        nearest_insert_2->setFont(font);
+        bilinear_insert = new QLabel(original);
+        bilinear_insert->setObjectName(QStringLiteral("bilinear_insert"));
+        bilinear_insert->setGeometry(QRect(750, 570, 161, 31));
+        bilinear_insert->setFont(font);
         layoutWidget = new QWidget(original);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(30, 20, 1051, 541));
@@ -240,18 +249,62 @@ public:
 
         horizontalLayout_20->addWidget(ori_scrollArea_2);
 
+        layoutWidget_3 = new QWidget(original);
+        layoutWidget_3->setObjectName(QStringLiteral("layoutWidget_3"));
+        layoutWidget_3->setGeometry(QRect(630, 620, 341, 61));
+        horizontalLayout_26 = new QHBoxLayout(layoutWidget_3);
+        horizontalLayout_26->setSpacing(6);
+        horizontalLayout_26->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_26->setObjectName(QStringLiteral("horizontalLayout_26"));
+        horizontalLayout_26->setContentsMargins(0, 0, 0, 0);
+        bilinear_level = new QLabel(layoutWidget_3);
+        bilinear_level->setObjectName(QStringLiteral("bilinear_level"));
+        bilinear_level->setFont(font);
+
+        horizontalLayout_26->addWidget(bilinear_level);
+
+        bilinear_horizontalSlider = new QSlider(layoutWidget_3);
+        bilinear_horizontalSlider->setObjectName(QStringLiteral("bilinear_horizontalSlider"));
+        bilinear_horizontalSlider->setMinimum(-10);
+        bilinear_horizontalSlider->setMaximum(10);
+        bilinear_horizontalSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_26->addWidget(bilinear_horizontalSlider);
+
+        layoutWidget1 = new QWidget(original);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(90, 620, 341, 61));
+        horizontalLayout_25 = new QHBoxLayout(layoutWidget1);
+        horizontalLayout_25->setSpacing(6);
+        horizontalLayout_25->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_25->setObjectName(QStringLiteral("horizontalLayout_25"));
+        horizontalLayout_25->setContentsMargins(0, 0, 0, 0);
+        nearest_level = new QLabel(layoutWidget1);
+        nearest_level->setObjectName(QStringLiteral("nearest_level"));
+        nearest_level->setFont(font);
+
+        horizontalLayout_25->addWidget(nearest_level);
+
+        nearest_horizontalSlider = new QSlider(layoutWidget1);
+        nearest_horizontalSlider->setObjectName(QStringLiteral("nearest_horizontalSlider"));
+        nearest_horizontalSlider->setMinimum(-10);
+        nearest_horizontalSlider->setMaximum(10);
+        nearest_horizontalSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_25->addWidget(nearest_horizontalSlider);
+
         tabWidget->addTab(original, QString());
         sampling_rate = new QWidget();
         sampling_rate->setObjectName(QStringLiteral("sampling_rate"));
-        layoutWidget1 = new QWidget(sampling_rate);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(60, 20, 211, 33));
-        horizontalLayout = new QHBoxLayout(layoutWidget1);
+        layoutWidget2 = new QWidget(sampling_rate);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(60, 20, 211, 33));
+        horizontalLayout = new QHBoxLayout(layoutWidget2);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        width = new QLineEdit(layoutWidget1);
+        width = new QLineEdit(layoutWidget2);
         width->setObjectName(QStringLiteral("width"));
         sizePolicy.setHeightForWidth(width->sizePolicy().hasHeightForWidth());
         width->setSizePolicy(sizePolicy);
@@ -259,7 +312,7 @@ public:
 
         horizontalLayout->addWidget(width);
 
-        mult = new QLabel(layoutWidget1);
+        mult = new QLabel(layoutWidget2);
         mult->setObjectName(QStringLiteral("mult"));
         QFont font1;
         font1.setPointSize(15);
@@ -269,7 +322,7 @@ public:
 
         horizontalLayout->addWidget(mult);
 
-        length = new QLineEdit(layoutWidget1);
+        length = new QLineEdit(layoutWidget2);
         length->setObjectName(QStringLiteral("length"));
         sizePolicy.setHeightForWidth(length->sizePolicy().hasHeightForWidth());
         length->setSizePolicy(sizePolicy);
@@ -277,7 +330,7 @@ public:
 
         horizontalLayout->addWidget(length);
 
-        sampling = new QPushButton(layoutWidget1);
+        sampling = new QPushButton(layoutWidget2);
         sampling->setObjectName(QStringLiteral("sampling"));
 
         horizontalLayout->addWidget(sampling);
@@ -305,21 +358,21 @@ public:
         tabWidget->addTab(sampling_rate, QString());
         gray = new QWidget();
         gray->setObjectName(QStringLiteral("gray"));
-        layoutWidget2 = new QWidget(gray);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(50, 20, 196, 28));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget2);
+        layoutWidget3 = new QWidget(gray);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(50, 20, 196, 28));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget3);
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        gray_level = new QLineEdit(layoutWidget2);
+        gray_level = new QLineEdit(layoutWidget3);
         gray_level->setObjectName(QStringLiteral("gray_level"));
         gray_level->setMaxLength(3);
 
         horizontalLayout_2->addWidget(gray_level);
 
-        gray_determine = new QPushButton(layoutWidget2);
+        gray_determine = new QPushButton(layoutWidget3);
         gray_determine->setObjectName(QStringLiteral("gray_determine"));
 
         horizontalLayout_2->addWidget(gray_determine);
@@ -520,10 +573,10 @@ public:
         point_type->setGeometry(QRect(20, 10, 1061, 751));
         line_trans = new QWidget();
         line_trans->setObjectName(QStringLiteral("line_trans"));
-        layoutWidget3 = new QWidget(line_trans);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(350, 360, 301, 41));
-        horizontalLayout_13 = new QHBoxLayout(layoutWidget3);
+        layoutWidget4 = new QWidget(line_trans);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(350, 360, 301, 41));
+        horizontalLayout_13 = new QHBoxLayout(layoutWidget4);
         horizontalLayout_13->setSpacing(6);
         horizontalLayout_13->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
@@ -531,7 +584,7 @@ public:
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setSpacing(6);
         horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
-        line_f1 = new QLabel(layoutWidget3);
+        line_f1 = new QLabel(layoutWidget4);
         line_f1->setObjectName(QStringLiteral("line_f1"));
         QFont font3;
         font3.setPointSize(14);
@@ -539,20 +592,20 @@ public:
 
         horizontalLayout_12->addWidget(line_f1);
 
-        line_a1 = new QLineEdit(layoutWidget3);
+        line_a1 = new QLineEdit(layoutWidget4);
         line_a1->setObjectName(QStringLiteral("line_a1"));
         line_a1->setMaxLength(5);
 
         horizontalLayout_12->addWidget(line_a1);
 
-        line_d1 = new QLabel(layoutWidget3);
+        line_d1 = new QLabel(layoutWidget4);
         line_d1->setObjectName(QStringLiteral("line_d1"));
         line_d1->setEnabled(true);
         line_d1->setFont(font3);
 
         horizontalLayout_12->addWidget(line_d1);
 
-        line_b1 = new QLineEdit(layoutWidget3);
+        line_b1 = new QLineEdit(layoutWidget4);
         line_b1->setObjectName(QStringLiteral("line_b1"));
         line_b1->setMaxLength(5);
 
@@ -561,7 +614,7 @@ public:
 
         horizontalLayout_13->addLayout(horizontalLayout_12);
 
-        line_push = new QPushButton(layoutWidget3);
+        line_push = new QPushButton(layoutWidget4);
         line_push->setObjectName(QStringLiteral("line_push"));
 
         horizontalLayout_13->addWidget(line_push);
@@ -611,33 +664,33 @@ public:
         point_type->addTab(line_trans, QString());
         nline_trans1 = new QWidget();
         nline_trans1->setObjectName(QStringLiteral("nline_trans1"));
-        layoutWidget4 = new QWidget(nline_trans1);
-        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(360, 350, 294, 41));
-        horizontalLayout_17 = new QHBoxLayout(layoutWidget4);
+        layoutWidget5 = new QWidget(nline_trans1);
+        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(360, 350, 294, 41));
+        horizontalLayout_17 = new QHBoxLayout(layoutWidget5);
         horizontalLayout_17->setSpacing(6);
         horizontalLayout_17->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_17->setObjectName(QStringLiteral("horizontalLayout_17"));
         horizontalLayout_17->setContentsMargins(0, 0, 0, 0);
-        nline_f1 = new QLabel(layoutWidget4);
+        nline_f1 = new QLabel(layoutWidget5);
         nline_f1->setObjectName(QStringLiteral("nline_f1"));
         nline_f1->setFont(font3);
 
         horizontalLayout_17->addWidget(nline_f1);
 
-        nline_c1 = new QLineEdit(layoutWidget4);
+        nline_c1 = new QLineEdit(layoutWidget5);
         nline_c1->setObjectName(QStringLiteral("nline_c1"));
         nline_c1->setMaxLength(4);
 
         horizontalLayout_17->addWidget(nline_c1);
 
-        nline_d1 = new QLabel(layoutWidget4);
+        nline_d1 = new QLabel(layoutWidget5);
         nline_d1->setObjectName(QStringLiteral("nline_d1"));
         nline_d1->setFont(font3);
 
         horizontalLayout_17->addWidget(nline_d1);
 
-        nline_push1 = new QPushButton(layoutWidget4);
+        nline_push1 = new QPushButton(layoutWidget5);
         nline_push1->setObjectName(QStringLiteral("nline_push1"));
 
         horizontalLayout_17->addWidget(nline_push1);
@@ -785,7 +838,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(5);
+        tabWidget->setCurrentIndex(0);
         gray_hist->setCurrentIndex(1);
         point_type->setCurrentIndex(0);
 
@@ -799,9 +852,11 @@ public:
         openFile->setText(QApplication::translate("MainWindow", "open", nullptr));
         saveFIle->setText(QApplication::translate("MainWindow", "save", nullptr));
         nearest_insert->setText(QApplication::translate("MainWindow", "\346\234\200\350\277\221\351\202\273\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));
-        nearest_insert_2->setText(QApplication::translate("MainWindow", "\345\217\214\347\272\277\346\200\247\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));
+        bilinear_insert->setText(QApplication::translate("MainWindow", "\345\217\214\347\272\277\346\200\247\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));
         original_page->setText(QApplication::translate("MainWindow", "1", nullptr));
         original_page_2->setText(QApplication::translate("MainWindow", "2", nullptr));
+        bilinear_level->setText(QApplication::translate("MainWindow", "\347\274\251\346\224\276\345\200\215\346\225\260: 0    ", nullptr));
+        nearest_level->setText(QApplication::translate("MainWindow", "\347\274\251\346\224\276\345\200\215\346\225\260: 0    ", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(original), QApplication::translate("MainWindow", "\345\216\237\345\233\276", nullptr));
         width->setInputMask(QString());
         width->setPlaceholderText(QString());

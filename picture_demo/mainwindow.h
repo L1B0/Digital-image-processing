@@ -43,6 +43,8 @@ private slots:
 
     void on_nline_push2_clicked();
 
+    void on_nearest_horizontalSlider_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
     QAction *openAction,*saveAction;
