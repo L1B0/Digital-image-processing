@@ -90,7 +90,7 @@ int getBit(int n, int moveBit)
     else return 0;
 }
 
-int interation_gary(double aver)
+int interationGary(double aver)
 {
     int now_gray[256]={0};
     for(int i=0;i<imageWidth;i++)

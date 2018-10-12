@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I. -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt5.11.1/5.11.1/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = picture_demo1.0.0
-DISTDIR = /home/l1b0/Desktop/picture_demo/.tmp/picture_demo1.0.0
+DISTDIR = /home/l1b0/Desktop/Digital-image-processing-master/picture_demo/.tmp/picture_demo1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/opt/Qt5.11.1/5.11.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/opt/Qt5.11.1/5.11.1/gcc_64/lib -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/opt/Qt5.11.1/5.11.1/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -252,8 +252,7 @@ DIST          = /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		picture_demo.pro customtabstyle.h \
 		mainwindow.h \
 		mypic.h \
-		qcustomplot.h \
-		ui_mainwindow.h main.cpp \
+		qcustomplot.h main.cpp \
 		mainwindow.cpp \
 		mypic.cpp \
 		qcustomplot.cpp
@@ -457,7 +456,6 @@ Makefile: picture_demo.pro /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++/qmake.c
 		/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/lex.prf \
 		picture_demo.pro \
-		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5PrintSupport.prl \
 		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Widgets.prl \
 		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Gui.prl \
 		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Core.prl
@@ -651,7 +649,6 @@ Makefile: picture_demo.pro /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++/qmake.c
 /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/yacc.prf:
 /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/lex.prf:
 picture_demo.pro:
-/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5PrintSupport.prl:
 /opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Widgets.prl:
 /opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Gui.prl:
 /opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Core.prl:
@@ -670,7 +667,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents customtabstyle.h mainwindow.h mypic.h qcustomplot.h ui_mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents customtabstyle.h mainwindow.h mypic.h qcustomplot.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp mainwindow.cpp mypic.cpp qcustomplot.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
@@ -1171,10 +1168,47 @@ moc_mainwindow.cpp: mypic.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QTableWidget \
 		customtabstyle.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QProxyStyle \
+		qcustomplot.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QPointer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QSharedPointer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QPaintEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QWheelEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QPixmap \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QVector \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QString \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QMultiMap \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QFlags \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QStack \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QCache \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QOpenGLFramebufferObject \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QOffscreenSurface \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/QGLPixelBuffer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qglpixelbuffer.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qgl.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qglcolormap.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qtopenglglobal.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QtNumeric \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/QtPrintSupport \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/QtPrintSupportDepends \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportglobal.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupport-config.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qabstractprintdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qpagesetupdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintengine.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprinter.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprinterinfo.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QPair \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		mainwindow.h \
 		moc_predefs.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc
-	/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++ -I/home/l1b0/Desktop/picture_demo -I/home/l1b0/Desktop/picture_demo -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++ -I/home/l1b0/Desktop/Digital-image-processing-master/picture_demo -I/home/l1b0/Desktop/Digital-image-processing-master/picture_demo -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_qcustomplot.cpp: /opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/qglobal.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
@@ -1669,7 +1703,7 @@ moc_qcustomplot.cpp: /opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/qglobal.h \
 		qcustomplot.h \
 		moc_predefs.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc
-	/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++ -I/home/l1b0/Desktop/picture_demo -I/home/l1b0/Desktop/picture_demo -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
+	/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++ -I/home/l1b0/Desktop/Digital-image-processing-master/picture_demo -I/home/l1b0/Desktop/Digital-image-processing-master/picture_demo -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -2648,6 +2682,43 @@ main.o: main.cpp mainwindow.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QTableWidget \
 		customtabstyle.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QProxyStyle \
+		qcustomplot.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QPointer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QSharedPointer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QPaintEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QWheelEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QPixmap \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QVector \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QString \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QMultiMap \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QFlags \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QStack \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QCache \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QOpenGLFramebufferObject \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QOffscreenSurface \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/QGLPixelBuffer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qglpixelbuffer.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qgl.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qglcolormap.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qtopenglglobal.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QtNumeric \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/QtPrintSupport \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/QtPrintSupportDepends \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportglobal.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupport-config.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qabstractprintdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qpagesetupdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintengine.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprinter.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprinterinfo.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QPair \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
@@ -3116,17 +3187,44 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QTableWidget \
 		customtabstyle.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QProxyStyle \
-		ui_mainwindow.h \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QAction \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QApplication \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QHBoxLayout \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QHeaderView \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QLineEdit \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QMainWindow \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QPushButton \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QStatusBar \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QTabWidget \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QVBoxLayout
+		qcustomplot.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QPointer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QSharedPointer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QPaintEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QWheelEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QPixmap \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QVector \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QString \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QMultiMap \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QFlags \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QStack \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QCache \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QOpenGLFramebufferObject \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QOffscreenSurface \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/QGLPixelBuffer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qglpixelbuffer.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qgl.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qglcolormap.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qtopenglglobal.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QtNumeric \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/QtPrintSupport \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/QtPrintSupportDepends \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportglobal.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupport-config.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qabstractprintdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qpagesetupdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintengine.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprinter.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprinterinfo.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QPair \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 mypic.o: mypic.cpp mypic.h \
@@ -3592,7 +3690,44 @@ mypic.o: mypic.cpp mypic.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QLabel \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QTableWidget \
 		customtabstyle.h \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QProxyStyle
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QProxyStyle \
+		qcustomplot.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QPointer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QSharedPointer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QPaintEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QWheelEvent \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QPixmap \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QVector \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QString \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QMultiMap \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QFlags \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QStack \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QCache \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QOpenGLFramebufferObject \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QOffscreenSurface \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/QGLPixelBuffer \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qglpixelbuffer.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qgl.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qglcolormap.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtOpenGL/qtopenglglobal.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QtNumeric \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/QtPrintSupport \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/QtPrintSupportDepends \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportglobal.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupport-config.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qabstractprintdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qpagesetupdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintengine.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprinter.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprinterinfo.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/QPair \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewdialog.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mypic.o mypic.cpp
 
 qcustomplot.o: qcustomplot.cpp qcustomplot.h \

@@ -31,7 +31,7 @@ char findImageType(QString ppath);
 void findImageFormat(QImage nowImage);
 void qstring2char(QString ppath);
 int getBit(int n, int moveBit);
-int interation_gary(double aver);
+int interationGary(double aver);
 //void my_find_children(QWidget *nowWiget,int pointType,QLabel *trans_image,QCustomPlot *trans_point,float &a,float &b);
 
 #endif // MYPIC_H

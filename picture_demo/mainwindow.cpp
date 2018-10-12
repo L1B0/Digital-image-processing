@@ -378,7 +378,7 @@ void MainWindow::create_histogram_info(QImage nowImage, double *image_gray, bool
     ui->histogram_info->setItem(0,2,new QTableWidgetItem(QString("%1").arg(mid_gray)));
     ui->histogram_info->setItem(0,3,new QTableWidgetItem(QString("%1").arg(stdev)));
 
-    int best_gray = interation_gary(average_gary);
+    int best_gray = interationGary(average_gary);
     ui->threshold->setPlaceholderText(QString("最佳阀值：%1").arg(best_gray));
     ui->threshold->setText(QString("%1").arg(best_gray));
     return ;
