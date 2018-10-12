@@ -19,7 +19,7 @@
 #include <math.h>
 #include <qcustomplot.h>
 
-extern QImage myImage,newImage;
+extern QImage myImage,newImage,nearestImage,bilinearImage;
 extern QString path;
 extern char imageType;
 extern const char *cpath;

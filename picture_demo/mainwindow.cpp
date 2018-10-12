@@ -89,6 +89,8 @@ void MainWindow::open()
         //初始化功能页面
         ui->original_page->setAlignment(Qt::AlignCenter);
         ui->original_page->setPixmap(QPixmap::fromImage(myImage));
+        ui->original_page_2->setAlignment(Qt::AlignCenter);
+        ui->original_page_2->setPixmap(QPixmap::fromImage(myImage));
         ui->sampling_page->setAlignment(Qt::AlignCenter);
         ui->sampling_page->setPixmap(QPixmap::fromImage(myImage));
         ui->gray_page->setAlignment(Qt::AlignCenter);
@@ -126,6 +128,8 @@ void MainWindow::open()
         ui->nline_ori2_image->resize(QSize(imageWidth,imageHeight));
         ui->nline_trans2_image->resize(QSize(imageWidth,imageHeight));
 
+        //bianhuan
+        nearestImage = bilinearImage = myImage;
     }
     return ;
 }
@@ -603,7 +607,99 @@ void MainWindow::on_nearest_horizontalSlider_valueChanged(int value)
         }
     }
     newImage = nowImage;
+    nearestImage = nowImage;
     ui->original_page->resize(QSize(newWidth,newHeight));
     ui->original_page->setPixmap(QPixmap::fromImage(nowImage));
+    return ;
+}
+
+void MainWindow::on_bilinear_horizontalSlider_valueChanged(int value)
+{
+    ui->bilinear_level->setText(QString("缩放倍数: %1").arg(value));
+
+    int newWidth, newHeight;
+    if(value > 0)
+    {
+        newWidth = imageWidth*(value+1);
+        newHeight = imageHeight*(value+1);
+    }
+    else if(value < 0)
+    {
+        newWidth = imageWidth/(1-value);
+        newHeight = imageHeight/(1-value);
+    }
+    else
+    {
+        newWidth = imageWidth;
+        newHeight = imageHeight;
+    }
+    qDebug() << "width: " << newWidth << "height: " << newHeight;
+
+    QImage nowImage(newWidth,newHeight,myImage.format());
+    for(int i=0;i<newWidth;i++)
+    {
+        for(int j=0;j<newHeight;j++)
+        {
+            double newGray,gray1,gray2,gray3,gray4;
+            double ori_i = i*((double)imageWidth/newWidth), ori_j = j*((double)imageHeight/newHeight);
+            double ori_ii = ori_i-(int)ori_i, ori_jj = ori_j-(int)ori_j;
+
+            gray1 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j)).red();
+            if((int)ori_j+1 == imageHeight && (int)ori_i+1 == imageWidth)
+            {
+                gray2 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j)).red();
+                gray4 = gray3 = gray2;
+            }
+            else if( (int)ori_j+1 == imageHeight )
+            {
+                gray2 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j)).red();
+                gray3 = (double)QColor(myImage.pixel((int)ori_i+1,(int)ori_j)).red();
+                gray4 = gray2;
+            }
+            else if( (int)ori_i+1 == imageWidth )
+            {
+                gray2 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j+1)).red();
+                gray3 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j)).red();
+                gray4 = gray3;
+            }
+            else
+            {
+                gray2 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j+1)).red();
+                gray3 = (double)QColor(myImage.pixel((int)ori_i+1,(int)ori_j)).red();
+                gray4 = (double)QColor(myImage.pixel((int)ori_i+1,(int)ori_j+1)).red();
+            }
+
+            newGray = (1-ori_ii)*(1-ori_jj)*(gray1) + (1-ori_ii)*ori_jj*gray2 + (1-ori_jj)*ori_ii*gray3 + ori_ii*ori_jj*gray4;
+            nowImage.setPixel(i,j,qRgb(newGray,newGray,newGray));
+        }
+    }
+
+    newImage = nowImage;
+    bilinearImage = nowImage;
+    ui->original_page_2->resize(QSize(newWidth,newHeight));
+    ui->original_page_2->setPixmap(QPixmap::fromImage(nowImage));
+
+    return ;
+}
+
+void MainWindow::on_nearest_spin_push_clicked()
+{
+    QMatrix matrix;
+    matrix.rotate(90.0);
+    nearestImage = nearestImage.transformed(matrix,Qt::FastTransformation);
+    ui->original_page->setPixmap(QPixmap::fromImage(nearestImage));
+    ui->original_page->resize(QSize(nearestImage.width(),nearestImage.height()));
+    newImage = nearestImage;
+    return ;
+}
+
+void MainWindow::on_bilinear_spin_push_clicked()
+{
+    QMatrix matrix;
+    matrix.rotate(90.0);
+    bilinearImage = bilinearImage.transformed(matrix,Qt::FastTransformation);
+    ui->original_page_2->setPixmap(QPixmap::fromImage(bilinearImage));
+    ui->original_page_2->resize(QSize(bilinearImage.width(),bilinearImage.height()));
+    newImage = bilinearImage;
     return ;
 }

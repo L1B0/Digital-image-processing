@@ -45,6 +45,12 @@ private slots:
 
     void on_nearest_horizontalSlider_valueChanged(int value);
 
+    void on_bilinear_horizontalSlider_valueChanged(int value);
+
+    void on_nearest_spin_push_clicked();
+
+    void on_bilinear_spin_push_clicked();
+
 private:
     Ui::MainWindow *ui;
     QAction *openAction,*saveAction;

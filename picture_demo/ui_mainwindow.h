@@ -48,6 +48,7 @@ public:
     QLabel *original_page;
     QScrollArea *ori_scrollArea_2;
     QWidget *scrollAreaWidgetContents_3;
+    QHBoxLayout *horizontalLayout_23;
     QLabel *original_page_2;
     QWidget *layoutWidget_3;
     QHBoxLayout *horizontalLayout_26;
@@ -57,6 +58,8 @@ public:
     QHBoxLayout *horizontalLayout_25;
     QLabel *nearest_level;
     QSlider *nearest_horizontalSlider;
+    QPushButton *nearest_spin_push;
+    QPushButton *bilinear_spin_push;
     QWidget *sampling_rate;
     QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout;
@@ -194,7 +197,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 1141, 791));
+        tabWidget->setGeometry(QRect(10, 10, 1161, 791));
         tabWidget->setTabPosition(QTabWidget::West);
         tabWidget->setIconSize(QSize(18, 18));
         original = new QWidget();
@@ -211,7 +214,7 @@ public:
         bilinear_insert->setFont(font);
         layoutWidget = new QWidget(original);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(30, 20, 1051, 541));
+        layoutWidget->setGeometry(QRect(30, 20, 1031, 591));
         horizontalLayout_20 = new QHBoxLayout(layoutWidget);
         horizontalLayout_20->setSpacing(6);
         horizontalLayout_20->setContentsMargins(11, 11, 11, 11);
@@ -222,7 +225,7 @@ public:
         ori_scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 520, 537));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 510, 587));
         horizontalLayout_14 = new QHBoxLayout(scrollAreaWidgetContents_2);
         horizontalLayout_14->setSpacing(6);
         horizontalLayout_14->setContentsMargins(11, 11, 11, 11);
@@ -241,10 +244,16 @@ public:
         ori_scrollArea_2->setWidgetResizable(true);
         scrollAreaWidgetContents_3 = new QWidget();
         scrollAreaWidgetContents_3->setObjectName(QStringLiteral("scrollAreaWidgetContents_3"));
-        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 519, 537));
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 509, 587));
+        horizontalLayout_23 = new QHBoxLayout(scrollAreaWidgetContents_3);
+        horizontalLayout_23->setSpacing(6);
+        horizontalLayout_23->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_23->setObjectName(QStringLiteral("horizontalLayout_23"));
         original_page_2 = new QLabel(scrollAreaWidgetContents_3);
         original_page_2->setObjectName(QStringLiteral("original_page_2"));
-        original_page_2->setGeometry(QRect(20, 20, 471, 501));
+
+        horizontalLayout_23->addWidget(original_page_2);
+
         ori_scrollArea_2->setWidget(scrollAreaWidgetContents_3);
 
         horizontalLayout_20->addWidget(ori_scrollArea_2);
@@ -293,6 +302,16 @@ public:
 
         horizontalLayout_25->addWidget(nearest_horizontalSlider);
 
+        nearest_spin_push = new QPushButton(original);
+        nearest_spin_push->setObjectName(QStringLiteral("nearest_spin_push"));
+        nearest_spin_push->setGeometry(QRect(190, 700, 121, 51));
+        QFont font1;
+        font1.setPointSize(18);
+        nearest_spin_push->setFont(font1);
+        bilinear_spin_push = new QPushButton(original);
+        bilinear_spin_push->setObjectName(QStringLiteral("bilinear_spin_push"));
+        bilinear_spin_push->setGeometry(QRect(760, 700, 121, 51));
+        bilinear_spin_push->setFont(font1);
         tabWidget->addTab(original, QString());
         sampling_rate = new QWidget();
         sampling_rate->setObjectName(QStringLiteral("sampling_rate"));
@@ -314,11 +333,11 @@ public:
 
         mult = new QLabel(layoutWidget2);
         mult->setObjectName(QStringLiteral("mult"));
-        QFont font1;
-        font1.setPointSize(15);
-        font1.setBold(false);
-        font1.setWeight(50);
-        mult->setFont(font1);
+        QFont font2;
+        font2.setPointSize(15);
+        font2.setBold(false);
+        font2.setWeight(50);
+        mult->setFont(font2);
 
         horizontalLayout->addWidget(mult);
 
@@ -463,9 +482,7 @@ public:
         bitplane_save = new QPushButton(bitplane);
         bitplane_save->setObjectName(QStringLiteral("bitplane_save"));
         bitplane_save->setGeometry(QRect(440, 10, 101, 31));
-        QFont font2;
-        font2.setPointSize(18);
-        bitplane_save->setFont(font2);
+        bitplane_save->setFont(font1);
         tabWidget->addTab(bitplane, QString());
         histogram = new QWidget();
         histogram->setObjectName(QStringLiteral("histogram"));
@@ -857,6 +874,8 @@ public:
         original_page_2->setText(QApplication::translate("MainWindow", "2", nullptr));
         bilinear_level->setText(QApplication::translate("MainWindow", "\347\274\251\346\224\276\345\200\215\346\225\260: 0    ", nullptr));
         nearest_level->setText(QApplication::translate("MainWindow", "\347\274\251\346\224\276\345\200\215\346\225\260: 0    ", nullptr));
+        nearest_spin_push->setText(QApplication::translate("MainWindow", "\346\227\213\350\275\254", nullptr));
+        bilinear_spin_push->setText(QApplication::translate("MainWindow", "\346\227\213\350\275\254", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(original), QApplication::translate("MainWindow", "\345\216\237\345\233\276", nullptr));
         width->setInputMask(QString());
         width->setPlaceholderText(QString());
