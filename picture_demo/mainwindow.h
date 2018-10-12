@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <mypic.h>
-
+#include <QScrollArea>
 class QAction;
 
 namespace Ui {
@@ -16,16 +16,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void clear_all_text();
-    bool check_input(QLineEdit *labeltest);
-    void mysave_bitplane();
-    void myshow_bitplane();
-    void myshow(int num, char flag);
-    void create_histogram(QCustomPlot *nowlabel, QImage nowImage, bool flag);
-    void create_histogram_info(QImage nowImage, double *image_gray, bool flag);
-    void create_histogram_paint(QCustomPlot *nowlabel, double *image_gray);
-    void point_calc(int pointType);
-    void histogram_equalization(QImage nowImage);
+    void clearAllText();
+    bool checkInput(QLineEdit *labeltest);
+    void mySaveBitplane();
+    void myShowBitplane();
+    void myShow(int num, char flag);
+    void createHistogram(QCustomPlot *nowlabel, QImage nowImage, bool flag);
+    void createHistogramInfo(QImage nowImage, double *image_gray, bool flag);
+    void createHistogramPaint(QCustomPlot *nowlabel, double *image_gray);
+    void pointCalc(int pointType);
+    void histogramEqualization(QImage nowImage);
 
 private slots:
     void open();

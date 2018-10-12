@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I. -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtXml -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt5.11.1/5.11.1/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = picture_demo1.0.0
-DISTDIR = /home/l1b0/Desktop/Digital-image-processing-master/picture_demo/.tmp/picture_demo1.0.0
+DISTDIR = /media/l1b0/Windows/Users/李博/Desktop/信安/github/Digital-image-processing/picture_demo/.tmp/picture_demo1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/opt/Qt5.11.1/5.11.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/opt/Qt5.11.1/5.11.1/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/opt/Qt5.11.1/5.11.1/gcc_64/lib -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Xml -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -456,8 +456,10 @@ Makefile: picture_demo.pro /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++/qmake.c
 		/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/lex.prf \
 		picture_demo.pro \
+		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5PrintSupport.prl \
 		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Widgets.prl \
 		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Gui.prl \
+		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Xml.prl \
 		/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Core.prl
 	$(QMAKE) -o Makefile picture_demo.pro
 /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/spec_pre.prf:
@@ -649,8 +651,10 @@ Makefile: picture_demo.pro /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++/qmake.c
 /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/yacc.prf:
 /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/lex.prf:
 picture_demo.pro:
+/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5PrintSupport.prl:
 /opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Widgets.prl:
 /opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Gui.prl:
+/opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Xml.prl:
 /opt/Qt5.11.1/5.11.1/gcc_64/lib/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile picture_demo.pro
@@ -1208,7 +1212,7 @@ moc_mainwindow.cpp: mypic.h \
 		mainwindow.h \
 		moc_predefs.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc
-	/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++ -I/home/l1b0/Desktop/Digital-image-processing-master/picture_demo -I/home/l1b0/Desktop/Digital-image-processing-master/picture_demo -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++ -I/media/l1b0/Windows/Users/李博/Desktop/信安/github/Digital-image-processing/picture_demo -I/media/l1b0/Windows/Users/李博/Desktop/信安/github/Digital-image-processing/picture_demo -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtXml -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_qcustomplot.cpp: /opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/qglobal.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
@@ -1703,7 +1707,7 @@ moc_qcustomplot.cpp: /opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore/qglobal.h \
 		qcustomplot.h \
 		moc_predefs.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc
-	/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++ -I/home/l1b0/Desktop/Digital-image-processing-master/picture_demo -I/home/l1b0/Desktop/Digital-image-processing-master/picture_demo -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
+	/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/linux-g++ -I/media/l1b0/Windows/Users/李博/Desktop/信安/github/Digital-image-processing/picture_demo -I/media/l1b0/Windows/Users/李博/Desktop/信安/github/Digital-image-processing/picture_demo -I/opt/Qt5.11.1/5.11.1/gcc_64/include -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtXml -I/opt/Qt5.11.1/5.11.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -3224,7 +3228,18 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewdialog.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QAction \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QApplication \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QHBoxLayout \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QHeaderView \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QMainWindow \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QPushButton \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QScrollArea \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QStatusBar \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QTabWidget \
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 mypic.o: mypic.cpp mypic.h \

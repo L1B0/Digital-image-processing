@@ -26,14 +26,14 @@
       <x>10</x>
       <y>10</y>
       <width>1141</width>
-      <height>781</height>
+      <height>791</height>
      </rect>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>5</number>
     </property>
     <property name="iconSize">
      <size>
@@ -45,18 +45,109 @@
      <attribute name="title">
       <string>原图</string>
      </attribute>
-     <widget class="QLabel" name="original_page">
+     <widget class="QLabel" name="nearest_insert">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>570</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>最近邻插值算法</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nearest_insert_2">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>570</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>双线性插值算法</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>40</y>
-        <width>991</width>
-        <height>681</height>
+        <y>20</y>
+        <width>1051</width>
+        <height>541</height>
        </rect>
       </property>
-      <property name="text">
-       <string/>
-      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_20">
+       <item>
+        <widget class="QScrollArea" name="ori_scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>520</width>
+            <height>537</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_14">
+           <item>
+            <widget class="QLabel" name="original_page">
+             <property name="text">
+              <string>1</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QScrollArea" name="ori_scrollArea_2">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>519</width>
+            <height>537</height>
+           </rect>
+          </property>
+          <widget class="QLabel" name="original_page_2">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>471</width>
+             <height>501</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>2</string>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="sampling_rate">
@@ -128,27 +219,47 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QScrollArea" name="sampling_scrollArea">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>30</x>
         <y>70</y>
-        <width>1011</width>
-        <height>681</height>
+        <width>511</width>
+        <height>691</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
-       <item>
-        <widget class="QLabel" name="sampling_page">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCustomPlot" name="sampling_paint" native="true"/>
-       </item>
-      </layout>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_13">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>509</width>
+         <height>689</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <widget class="QLabel" name="sampling_page">
+          <property name="text">
+           <string>sam</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QCustomPlot" name="sampling_paint" native="true">
+      <property name="geometry">
+       <rect>
+        <x>549</x>
+        <y>71</y>
+        <width>501</width>
+        <height>691</height>
+       </rect>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="gray">
@@ -181,27 +292,47 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QScrollArea" name="gray_scrollArea">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>30</x>
         <y>60</y>
-        <width>1011</width>
-        <height>691</height>
+        <width>511</width>
+        <height>711</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_9">
-       <item>
-        <widget class="QLabel" name="gray_page">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCustomPlot" name="gray_paint" native="true"/>
-       </item>
-      </layout>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_12">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>509</width>
+         <height>709</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLabel" name="gray_page">
+          <property name="text">
+           <string>gary</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QCustomPlot" name="gray_paint" native="true">
+      <property name="geometry">
+       <rect>
+        <x>549</x>
+        <y>61</y>
+        <width>501</width>
+        <height>711</height>
+       </rect>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="bitplane">
@@ -399,54 +530,94 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="layoutWidget_9">
+       <widget class="QScrollArea" name="histogram_scrollArea">
         <property name="geometry">
          <rect>
           <x>20</x>
           <y>80</y>
-          <width>991</width>
+          <width>491</width>
           <height>621</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLabel" name="histogram_page">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCustomPlot" name="histogram_paint" native="true"/>
-         </item>
-        </layout>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_11">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>489</width>
+           <height>619</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QLabel" name="histogram_page">
+            <property name="text">
+             <string>hist</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QCustomPlot" name="histogram_paint" native="true">
+        <property name="geometry">
+         <rect>
+          <x>519</x>
+          <y>81</y>
+          <width>491</width>
+          <height>619</height>
+         </rect>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="gray_balance">
        <attribute name="title">
         <string>灰度直方图均衡化</string>
        </attribute>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QScrollArea" name="gray_bal_scrollArea">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>20</y>
-          <width>1001</width>
+          <x>25</x>
+          <y>17</y>
+          <width>491</width>
           <height>661</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_19">
-         <item>
-          <widget class="QLabel" name="gray_bal_image">
-           <property name="text">
-            <string>gray_balance_image</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCustomPlot" name="gray_bal_paint" native="true"/>
-         </item>
-        </layout>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_10">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>489</width>
+           <height>659</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QLabel" name="gray_bal_image">
+            <property name="text">
+             <string>gray_balance_image</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QCustomPlot" name="gray_bal_paint" native="true">
+        <property name="geometry">
+         <rect>
+          <x>534</x>
+          <y>21</y>
+          <width>496</width>
+          <height>659</height>
+         </rect>
+        </property>
        </widget>
       </widget>
      </widget>
@@ -461,66 +632,16 @@
         <x>20</x>
         <y>10</y>
         <width>1061</width>
-        <height>731</height>
+        <height>751</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="line_trans">
        <attribute name="title">
         <string>线性变换</string>
        </attribute>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>400</y>
-          <width>991</width>
-          <height>271</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_11">
-         <item>
-          <widget class="QLabel" name="line_trans_image">
-           <property name="text">
-            <string>trans</string>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCustomPlot" name="line_trans_paint" native="true"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>20</y>
-          <width>991</width>
-          <height>341</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <widget class="QLabel" name="line_ori_image">
-           <property name="text">
-            <string>ori</string>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCustomPlot" name="line_ori_paint" native="true"/>
-         </item>
-        </layout>
-       </widget>
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
@@ -585,66 +706,106 @@
          </item>
         </layout>
        </widget>
+       <widget class="QScrollArea" name="line_ori_scrollArea">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>491</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_8">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>489</width>
+           <height>339</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QLabel" name="line_ori_image">
+            <property name="text">
+             <string>ori</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QScrollArea" name="line_trans_scrollArea">
+        <property name="geometry">
+         <rect>
+          <x>29</x>
+          <y>399</y>
+          <width>491</width>
+          <height>311</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_9">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>489</width>
+           <height>309</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_19">
+          <item>
+           <widget class="QLabel" name="line_trans_image">
+            <property name="text">
+             <string>trans</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QCustomPlot" name="line_ori_paint" native="true">
+        <property name="geometry">
+         <rect>
+          <x>529</x>
+          <y>21</y>
+          <width>491</width>
+          <height>339</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QCustomPlot" name="line_trans_paint" native="true">
+        <property name="geometry">
+         <rect>
+          <x>529</x>
+          <y>401</y>
+          <width>491</width>
+          <height>311</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="nline_trans1">
        <attribute name="title">
         <string>非线性变换1</string>
        </attribute>
-       <widget class="QWidget" name="layoutWidget_3">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>400</y>
-          <width>991</width>
-          <height>271</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_14">
-         <item>
-          <widget class="QLabel" name="nline_trans1_image">
-           <property name="text">
-            <string>trans</string>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCustomPlot" name="nline_trans1_paint" native="true"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_4">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>20</y>
-          <width>991</width>
-          <height>341</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_15">
-         <item>
-          <widget class="QLabel" name="nline_ori1_image">
-           <property name="text">
-            <string>ori</string>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCustomPlot" name="nline_ori1_paint" native="true"/>
-         </item>
-        </layout>
-       </widget>
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>350</x>
-          <y>360</y>
+          <x>360</x>
+          <y>350</y>
           <width>294</width>
           <height>41</height>
          </rect>
@@ -693,61 +854,101 @@
          </item>
         </layout>
        </widget>
+       <widget class="QScrollArea" name="nline_ori1_scrollArea">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>491</width>
+          <height>331</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_5">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>489</width>
+           <height>329</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
+          <item>
+           <widget class="QLabel" name="nline_ori1_image">
+            <property name="text">
+             <string>ori</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QCustomPlot" name="nline_trans1_paint" native="true">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>390</y>
+          <width>491</width>
+          <height>321</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QScrollArea" name="nline_trans1_scrollArea">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>390</y>
+          <width>491</width>
+          <height>321</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_7">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>489</width>
+           <height>319</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_24">
+          <item>
+           <widget class="QLabel" name="nline_trans1_image">
+            <property name="text">
+             <string>ori</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QCustomPlot" name="nline_ori1_paint" native="true">
+        <property name="geometry">
+         <rect>
+          <x>529</x>
+          <y>21</y>
+          <width>491</width>
+          <height>331</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="nline_trans2">
        <attribute name="title">
         <string>非线性变换2</string>
        </attribute>
-       <widget class="QWidget" name="layoutWidget_6">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>20</y>
-          <width>991</width>
-          <height>341</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_18">
-         <item>
-          <widget class="QLabel" name="nline_ori2_image">
-           <property name="text">
-            <string>ori</string>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCustomPlot" name="nline_ori2_paint" native="true"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_5">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>400</y>
-          <width>991</width>
-          <height>271</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_16">
-         <item>
-          <widget class="QLabel" name="nline_trans2_image">
-           <property name="text">
-            <string>trans</string>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCustomPlot" name="nline_trans2_paint" native="true"/>
-         </item>
-        </layout>
-       </widget>
        <widget class="QWidget" name="layoutWidget_7">
         <property name="geometry">
          <rect>
@@ -817,6 +1018,96 @@
           </widget>
          </item>
         </layout>
+       </widget>
+       <widget class="QCustomPlot" name="nline_ori2_paint" native="true">
+        <property name="geometry">
+         <rect>
+          <x>539</x>
+          <y>21</y>
+          <width>481</width>
+          <height>339</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QScrollArea" name="nline_ori2_scrollArea">
+        <property name="geometry">
+         <rect>
+          <x>29</x>
+          <y>19</y>
+          <width>501</width>
+          <height>341</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>499</width>
+           <height>339</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_18">
+          <item>
+           <widget class="QLabel" name="nline_ori2_image">
+            <property name="text">
+             <string>ori</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QScrollArea" name="nline_trans2_scrollArea">
+        <property name="geometry">
+         <rect>
+          <x>28</x>
+          <y>397</y>
+          <width>501</width>
+          <height>311</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_4">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>499</width>
+           <height>309</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <item>
+           <widget class="QLabel" name="nline_trans2_image">
+            <property name="text">
+             <string>trans</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QCustomPlot" name="nline_trans2_paint" native="true">
+        <property name="geometry">
+         <rect>
+          <x>540</x>
+          <y>400</y>
+          <width>481</width>
+          <height>301</height>
+         </rect>
+        </property>
        </widget>
       </widget>
      </widget>

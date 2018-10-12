@@ -52,7 +52,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::clear_all_text()
+void MainWindow::clearAllText()
 {
     QList<QLineEdit*> allLineEdit = ui->centralWidget->findChildren<QLineEdit*>();
     for(int i=0;i<allLineEdit.length();i++)
@@ -64,7 +64,7 @@ void MainWindow::clear_all_text()
 
 void MainWindow::open()
 {
-    clear_all_text();
+    clearAllText();
     path = QFileDialog::getOpenFileName(this, tr("Open Image"), ".", tr("Image Files(*.jpg *.png *.bmp)"));
     if(path.length() == 0)
     {
@@ -102,16 +102,30 @@ void MainWindow::open()
         ui->nline_ori2_image->setAlignment(Qt::AlignCenter);
         ui->nline_ori2_image->setPixmap(QPixmap::fromImage(myImage));
 
-        myshow_bitplane();
-        create_histogram(ui->histogram_paint, myImage, true);
-        create_histogram(ui->sampling_paint, myImage, false);
-        create_histogram(ui->gray_paint, myImage, false);
-        create_histogram(ui->line_ori_paint, myImage, false);
-        create_histogram(ui->nline_ori1_paint, myImage, false);
-        create_histogram(ui->nline_ori2_paint, myImage, false);
+        myShowBitplane();
+        createHistogram(ui->histogram_paint, myImage, true);
+        createHistogram(ui->sampling_paint, myImage, false);
+        createHistogram(ui->gray_paint, myImage, false);
+        createHistogram(ui->line_ori_paint, myImage, false);
+        createHistogram(ui->nline_ori1_paint, myImage, false);
+        createHistogram(ui->nline_ori2_paint, myImage, false);
 
-        histogram_equalization(myImage); // Histogram equalization
+        histogramEqualization(myImage); // Histogram equalization
         ui->tabWidget->setCurrentIndex(0);
+
+        //滚动条
+        ui->original_page->resize(QSize(imageWidth,imageHeight));
+        ui->original_page_2->resize(QSize(imageWidth,imageHeight));
+        ui->sampling_page->resize(QSize(imageWidth,imageHeight));
+        ui->gray_page->resize(QSize(imageWidth,imageHeight));
+        ui->gray_bal_image->resize(QSize(imageWidth,imageHeight));
+        ui->line_ori_image->resize(QSize(imageWidth,imageHeight));
+        ui->line_trans_image->resize(QSize(imageWidth,imageHeight));
+        ui->nline_ori1_image->resize(QSize(imageWidth,imageHeight));
+        ui->nline_trans1_image->resize(QSize(imageWidth,imageHeight));
+        ui->nline_ori2_image->resize(QSize(imageWidth,imageHeight));
+        ui->nline_trans2_image->resize(QSize(imageWidth,imageHeight));
+
     }
     return ;
 }
@@ -133,7 +147,7 @@ void MainWindow::save()
     return ;
 }
 
-bool MainWindow::check_input(QLineEdit *labeltest)
+bool MainWindow::checkInput(QLineEdit *labeltest)
 {
     if( labeltest->text() == "" )
     {
@@ -153,7 +167,7 @@ bool MainWindow::check_input(QLineEdit *labeltest)
 void MainWindow::on_sampling_clicked()
 {
     //QMessageBox::information(NULL, tr("Path"), tr("You selected ") + path);
-    if( !check_input(ui->width) || !check_input(ui->length) )
+    if( !checkInput(ui->width) || !checkInput(ui->length) )
         return ;
 
     int imageNewWidth = ui->width->text().toInt(), imageNewHeight = ui->length->text().toInt();
@@ -187,14 +201,14 @@ void MainWindow::on_sampling_clicked()
     ui->sampling_page->setPixmap(QPixmap::fromImage(iGray));
     newImage = iGray;
 
-    create_histogram(ui->sampling_paint, newImage, false);
+    createHistogram(ui->sampling_paint, newImage, false);
 
     return ;
 }
 
 void MainWindow::on_gray_determine_clicked()
 {
-    if( !check_input(ui->gray_level) ) return ;
+    if( !checkInput(ui->gray_level) ) return ;
 
     int level_gray = ui->gray_level->text().toInt();
     if(level_gray <= 0 || level_gray > 256) return ;
@@ -219,25 +233,25 @@ void MainWindow::on_gray_determine_clicked()
     ui->gray_page->setPixmap(QPixmap::fromImage(iGray));
     newImage = iGray;
 
-    create_histogram(ui->gray_paint, newImage, false);
+    createHistogram(ui->gray_paint, newImage, false);
     return ;
 }
 
-void MainWindow::mysave_bitplane()
+void MainWindow::mySaveBitplane()
 {
     for(int i=1;i<=8;i++)
-        myshow(i,'a');
+        myShow(i,'a');
     return ;
 }
 
-void MainWindow::myshow_bitplane()
+void MainWindow::myShowBitplane()
 {
     for(int i=1;i<=8;i++)
-        myshow(i,'h');
+        myShow(i,'h');
     return ;
 }
 
-void MainWindow::myshow(int num, char flag)
+void MainWindow::myShow(int num, char flag)
 {
     int w = myImage.width(), h = myImage.height();
     //qDebug() << "myshow: " << "width = " << w << "height = " << h;
@@ -329,10 +343,10 @@ void MainWindow::myshow(int num, char flag)
 
 void MainWindow::on_bitplane_save_clicked()
 {
-    mysave_bitplane();
+    mySaveBitplane();
 }
 
-void MainWindow::create_histogram_info(QImage nowImage, double *image_gray, bool flag)
+void MainWindow::createHistogramInfo(QImage nowImage, double *image_gray, bool flag)
 {
     int w = nowImage.width(), h = nowImage.height();
     int pixelNum = w*h, mid_gray=0, image_gray_num[256]={0};
@@ -384,7 +398,7 @@ void MainWindow::create_histogram_info(QImage nowImage, double *image_gray, bool
     return ;
 }
 
-void MainWindow::create_histogram_paint(QCustomPlot *nowlabel, double *image_gray)
+void MainWindow::createHistogramPaint(QCustomPlot *nowlabel, double *image_gray)
 {
     QVector<double> x(256,0.0), y(256,0.0);
     double max_y=0.0;
@@ -410,18 +424,18 @@ void MainWindow::create_histogram_paint(QCustomPlot *nowlabel, double *image_gra
     return ;
 }
 
-void MainWindow::create_histogram(QCustomPlot *nowlabel, QImage nowImage, bool flag)
+void MainWindow::createHistogram(QCustomPlot *nowlabel, QImage nowImage, bool flag)
 {
     double image_gray[256];
-    create_histogram_info(nowImage, image_gray, flag);
-    create_histogram_paint(nowlabel, image_gray);
+    createHistogramInfo(nowImage, image_gray, flag);
+    createHistogramPaint(nowlabel, image_gray);
 
     return ;
 }
 
 void MainWindow::on_threshold_update_clicked()
 {
-    if( !check_input(ui->threshold) ) return ;
+    if( !checkInput(ui->threshold) ) return ;
 
     int threshold_level = ui->threshold->text().toInt();
     if( threshold_level == 256 )
@@ -450,21 +464,21 @@ void MainWindow::on_threshold_update_clicked()
 
 void MainWindow::on_line_push_clicked()
 {
-    point_calc(1);
+    pointCalc(1);
 }
 
 void MainWindow::on_nline_push1_clicked()
 {
-    point_calc(2);
+    pointCalc(2);
 }
 
 void MainWindow::on_nline_push2_clicked()
 {
-    point_calc(3);
+    pointCalc(3);
 }
 
 //改变对应页面的结果
-void MainWindow::point_calc(int pointType)
+void MainWindow::pointCalc(int pointType)
 {
     QLabel *trans_image;
     QCustomPlot *trans_paint;
@@ -517,17 +531,17 @@ void MainWindow::point_calc(int pointType)
     trans_image->setPixmap(QPixmap::fromImage(iGray));
     newImage = iGray;
 
-    create_histogram(trans_paint, newImage, false);
+    createHistogram(trans_paint, newImage, false);
     qDebug() << "paint finished!";
     return ;
 }
 
-void MainWindow::histogram_equalization(QImage nowImage)
+void MainWindow::histogramEqualization(QImage nowImage)
 {
     double image_gray[256], sum=0;
     int new_gary[256]={0};
 
-    create_histogram_info(nowImage,image_gray,false);
+    createHistogramInfo(nowImage,image_gray,false);
     QImage iGray(imageWidth,imageHeight,myImage.format());
 
     for(int i=0;i<256;i++)
@@ -550,7 +564,7 @@ void MainWindow::histogram_equalization(QImage nowImage)
 
     newImage = iGray;
 
-    create_histogram(ui->gray_bal_paint,newImage,false);
+    createHistogram(ui->gray_bal_paint,newImage,false);
     return ;
 }
 
