@@ -135,6 +135,8 @@ void MainWindow::open()
 }
 void MainWindow::save()
 {
+    QMessageBox::information(NULL, tr("Tabwidget"), QString("You want to save %1").arg(ui->tabWidget->currentIndex()));
+    int tabIndex = ui->tabWidget->currentIndex();
     QString fileName = QFileDialog::getSaveFileName(this,tr("Save Image"),"",tr("Image Files(*.jpg *.png *bmp)"));
     qDebug() << fileName;
     if(fileName.length() == 0)
@@ -183,8 +185,8 @@ void MainWindow::on_sampling_clicked()
     if(imageNewWidth <= 0 || imageNewWidth > imageWidth || imageNewHeight <= 0 || imageNewHeight > imageHeight) return ;
     qDebug() << imageWidth << imageHeight << wspace << hspace;
 
-    QImage iGray(imageWidth,imageHeight,myImage.format());
-
+    QImage *iGray = new QImage(imageWidth,imageHeight,myImage.format());
+    initImage(iGray);
     for(int i=0;i<imageNewWidth;i++)
     {
         for(int j=0;j<imageNewHeight;j++)
@@ -196,14 +198,19 @@ void MainWindow::on_sampling_clicked()
                 for(int jj=0;jj<hspace;jj++)
                 {
                     if( ((i*wspace+ii) < imageWidth) && ((j*hspace+jj) < imageHeight) )
-                        iGray.setPixel(i*wspace+ii,j*hspace+jj,pixel);
+                    {
+                        if(iGray->format() == QImage::Format_Indexed8)
+                            iGray->setPixel(i*wspace+ii,j*hspace+jj,QColor(pixel).red());
+                        else
+                            iGray->setPixel(i*wspace+ii,j*hspace+jj,pixel);
+                    }
                 }
             }
         }
     }
     //iGray.save("/home/l1b0/Desktop/gray","JPG",-1);
-    ui->sampling_page->setPixmap(QPixmap::fromImage(iGray));
-    newImage = iGray;
+    ui->sampling_page->setPixmap(QPixmap::fromImage(*iGray));
+    newImage = *iGray;
 
     createHistogram(ui->sampling_paint, newImage, false);
 
@@ -218,8 +225,8 @@ void MainWindow::on_gray_determine_clicked()
     if(level_gray <= 0 || level_gray > 256) return ;
     qDebug() << "level_gray: " << level_gray;
 
-    QImage iGray = QImage(imageWidth,imageHeight,myImage.format());
-
+    QImage *iGray = new QImage(imageWidth,imageHeight,myImage.format());
+    initImage(iGray);
     for(int i=0;i<imageWidth;i++)
     {
         for(int j=0;j<imageHeight;j++)
@@ -230,12 +237,15 @@ void MainWindow::on_gray_determine_clicked()
             //qDebug() << r << level_g;
             r = level_g*(r/level_g);
             QRgb newpixel = qRgb(r,r,r);
-            iGray.setPixel(i,j,newpixel);
+            if(iGray->format() == QImage::Format_Indexed8)
+                iGray->setPixel(i,j,r);
+            else
+                iGray->setPixel(i,j,newpixel);
         }
     }
     //iGray.save("/home/l1b0/Desktop/gray","JPG",-1);
-    ui->gray_page->setPixmap(QPixmap::fromImage(iGray));
-    newImage = iGray;
+    ui->gray_page->setPixmap(QPixmap::fromImage(*iGray));
+    newImage = *iGray;
 
     createHistogram(ui->gray_paint, newImage, false);
     return ;
@@ -259,23 +269,24 @@ void MainWindow::myShow(int num, char flag)
 {
     int w = myImage.width(), h = myImage.height();
     //qDebug() << "myshow: " << "width = " << w << "height = " << h;
-    QImage bitplaneImage(w,h,myImage.format());
-
+    QImage *bitplaneImage = new QImage(w,h,myImage.format());
+    initImage(bitplaneImage);
     for(int i=0;i<w;i++)
     {
         for(int j=0;j<h;j++)
         {
             QRgb pixel = myImage.pixel(i,j);
             QColor gray = QColor(pixel);
-            int r = gray.red(), g = gray.green(), b = gray.blue();
+            int r = gray.red();
             //qDebug() << "r=" << r << "g=" << g << "b=" << b;
             r = getBit(r,num-1);
-            g = getBit(g,num-1);
-            b = getBit(b,num-1);
             //qDebug() << "r=" << r << "g=" << g << "b=" << b;
-            QRgb newpixel = qRgb(r,g,b);
+            QRgb newpixel = qRgb(r,r,r);
             //qDebug() << "myshow: i = " << i << "j = " << j;
-            bitplaneImage.setPixel(i,j,newpixel);
+            if(bitplaneImage->format() == QImage::Format_Indexed8)
+                bitplaneImage->setPixel(i,j,r);
+            else
+                bitplaneImage->setPixel(i,j,newpixel);
         }
     }
 
@@ -285,42 +296,42 @@ void MainWindow::myShow(int num, char flag)
         case 1:
             ui->bit1->setScaledContents(true);
             ui->bit1->setAlignment(Qt::AlignCenter);
-            ui->bit1->setPixmap(QPixmap::fromImage(bitplaneImage));
+            ui->bit1->setPixmap(QPixmap::fromImage(*bitplaneImage));
             break;
         case 2:
             ui->bit2->setScaledContents(true);
             ui->bit2->setAlignment(Qt::AlignCenter);
-            ui->bit2->setPixmap(QPixmap::fromImage(bitplaneImage));
+            ui->bit2->setPixmap(QPixmap::fromImage(*bitplaneImage));
             break;
         case 3:
             ui->bit3->setScaledContents(true);
             ui->bit3->setAlignment(Qt::AlignCenter);
-            ui->bit3->setPixmap(QPixmap::fromImage(bitplaneImage));
+            ui->bit3->setPixmap(QPixmap::fromImage(*bitplaneImage));
             break;
         case 4:
             ui->bit4->setScaledContents(true);
             ui->bit4->setAlignment(Qt::AlignCenter);
-            ui->bit4->setPixmap(QPixmap::fromImage(bitplaneImage));
+            ui->bit4->setPixmap(QPixmap::fromImage(*bitplaneImage));
             break;
         case 5:
             ui->bit5->setScaledContents(true);
             ui->bit5->setAlignment(Qt::AlignCenter);
-            ui->bit5->setPixmap(QPixmap::fromImage(bitplaneImage));
+            ui->bit5->setPixmap(QPixmap::fromImage(*bitplaneImage));
             break;
         case 6:
             ui->bit6->setScaledContents(true);
             ui->bit6->setAlignment(Qt::AlignCenter);
-            ui->bit6->setPixmap(QPixmap::fromImage(bitplaneImage));
+            ui->bit6->setPixmap(QPixmap::fromImage(*bitplaneImage));
             break;
         case 7:
             ui->bit7->setScaledContents(true);
             ui->bit7->setAlignment(Qt::AlignCenter);
-            ui->bit7->setPixmap(QPixmap::fromImage(bitplaneImage));
+            ui->bit7->setPixmap(QPixmap::fromImage(*bitplaneImage));
             break;
         case 8:
             ui->bit8->setScaledContents(true);
             ui->bit8->setAlignment(Qt::AlignCenter);
-            ui->bit8->setPixmap(QPixmap::fromImage(bitplaneImage));
+            ui->bit8->setPixmap(QPixmap::fromImage(*bitplaneImage));
             break;
         default:
             break;
@@ -340,7 +351,7 @@ void MainWindow::myShow(int num, char flag)
         QMessageBox::information(NULL, tr("Path"), tr("Your images saved at ") + savePath);
         //qDebug() << savePath;
 
-        bitplaneImage.save(savePath);
+        bitplaneImage->save(savePath);
     }
     return ;
 }
@@ -447,8 +458,8 @@ void MainWindow::on_threshold_update_clicked()
         ui->histogram_page->setPixmap(QPixmap::fromImage(myImage));
         return ;
     }
-    QImage iGray(imageWidth,imageHeight,myImage.format());
-
+    QImage *iGray = new QImage(imageWidth,imageHeight,myImage.format());
+    initImage(iGray);
     for(int i=0;i<imageWidth;i++)
     {
         for(int j=0;j<imageHeight;j++)
@@ -456,13 +467,20 @@ void MainWindow::on_threshold_update_clicked()
             QRgb pixel = myImage.pixel(i,j);
             QColor clo = QColor(pixel);
             int r = clo.red();
-            if( r > threshold_level ) iGray.setPixel(i,j,qRgb(255,255,255));
-            else iGray.setPixel(i,j,qRgb(0,0,0));
+            if( r > threshold_level )
+                if(iGray->format() == QImage::Format_Indexed8)
+                    iGray->setPixel(i,j,255);
+                else
+                    iGray->setPixel(i,j,qRgb(255,255,255));
+            else if(iGray->format() == QImage::Format_Indexed8)
+                    iGray->setPixel(i,j,0);
+            else
+                iGray->setPixel(i,j,qRgb(0,0,0));
         }
     }
     //iGray.save("/home/l1b0/Desktop/gray","JPG",-1);
-    ui->histogram_page->setPixmap(QPixmap::fromImage(iGray));
-    newImage = iGray;
+    ui->histogram_page->setPixmap(QPixmap::fromImage(*iGray));
+    newImage = *iGray;
     return ;
 }
 
@@ -509,7 +527,8 @@ void MainWindow::pointCalc(int pointType)
         trans_paint = ui->nline_trans2_paint;
     }
 
-    QImage iGray(imageWidth,imageHeight,myImage.format());
+    QImage *iGray = new QImage(imageWidth,imageHeight,myImage.format());
+    initImage(iGray);
     qDebug() << "trans_image: " << trans_image->objectName();
     qDebug() << "trans_paint: " << trans_paint->objectName();
 
@@ -528,12 +547,15 @@ void MainWindow::pointCalc(int pointType)
                 trans_r = (int)(a*pow(r,b));
             if(trans_r > 255) trans_r = 255;
             //qDebug() << r << trans_r;
-            iGray.setPixel(i,j,qRgb(trans_r,trans_r,trans_r));
+            if(iGray->format() == QImage::Format_Indexed8)
+                iGray->setPixel(i,j,trans_r);
+            else
+                iGray->setPixel(i,j,qRgb(trans_r,trans_r,trans_r));
         }
     }
 
-    trans_image->setPixmap(QPixmap::fromImage(iGray));
-    newImage = iGray;
+    trans_image->setPixmap(QPixmap::fromImage(*iGray));
+    newImage = *iGray;
 
     createHistogram(trans_paint, newImage, false);
     qDebug() << "paint finished!";
@@ -546,8 +568,8 @@ void MainWindow::histogramEqualization(QImage nowImage)
     int new_gary[256]={0};
 
     createHistogramInfo(nowImage,image_gray,false);
-    QImage iGray(imageWidth,imageHeight,myImage.format());
-
+    QImage *iGray = new QImage(imageWidth,imageHeight,myImage.format());
+    initImage(iGray);
     for(int i=0;i<256;i++)
     {
         sum += image_gray[i];
@@ -561,12 +583,15 @@ void MainWindow::histogramEqualization(QImage nowImage)
             QColor clo = QColor(pixel);
             int r = clo.red(), nowgray = new_gary[r];
 
-            iGray.setPixel(i,j,qRgb(nowgray,nowgray,nowgray));
+            if(iGray->format() == QImage::Format_Indexed8)
+                iGray->setPixel(i,j,nowgray);
+            else
+                iGray->setPixel(i,j,qRgb(nowgray,nowgray,nowgray));
         }
     }
-    ui->gray_bal_image->setPixmap(QPixmap::fromImage(iGray));
+    ui->gray_bal_image->setPixmap(QPixmap::fromImage(*iGray));
 
-    newImage = iGray;
+    newImage = *iGray;
 
     createHistogram(ui->gray_bal_paint,newImage,false);
     return ;
@@ -596,20 +621,25 @@ void MainWindow::on_nearest_horizontalSlider_valueChanged(int value)
     qDebug() << "width: " << newWidth << "height: " << newHeight;
     //nearestInsert(&newImage, newWidth, newHeight);
 
-    QImage nowImage(newWidth,newHeight,myImage.format());
+    QImage *nowImage = new QImage(newWidth,newHeight,myImage.format());
+    initImage(nowImage);
     for(int i=0;i<newWidth;i++)
     {
         for(int j=0;j<newHeight;j++)
         {
             int ori_i = (int)(i*((double)imageWidth/newWidth)), ori_j = (int)(j*((double)imageHeight/newHeight));
             QRgb pixel = myImage.pixel(ori_i,ori_j);
-            nowImage.setPixel(i,j,pixel);
+            if(nowImage->format() == QImage::Format_Indexed8)
+                nowImage->setPixel(i,j,QColor(pixel).red());
+            else
+                nowImage->setPixel(i,j,pixel);
         }
     }
-    newImage = nowImage;
-    nearestImage = nowImage;
+    newImage = *nowImage;
+    nearestImage = *nowImage;
+
     ui->original_page->resize(QSize(newWidth,newHeight));
-    ui->original_page->setPixmap(QPixmap::fromImage(nowImage));
+    ui->original_page->setPixmap(QPixmap::fromImage(*nowImage));
     return ;
 }
 
@@ -635,7 +665,8 @@ void MainWindow::on_bilinear_horizontalSlider_valueChanged(int value)
     }
     qDebug() << "width: " << newWidth << "height: " << newHeight;
 
-    QImage nowImage(newWidth,newHeight,myImage.format());
+    QImage *nowImage = new QImage(newWidth,newHeight,myImage.format());
+    initImage(nowImage);
     for(int i=0;i<newWidth;i++)
     {
         for(int j=0;j<newHeight;j++)
@@ -647,20 +678,17 @@ void MainWindow::on_bilinear_horizontalSlider_valueChanged(int value)
             gray1 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j)).red();
             if((int)ori_j+1 == imageHeight && (int)ori_i+1 == imageWidth)
             {
-                gray2 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j)).red();
                 gray4 = gray3 = gray2;
             }
             else if( (int)ori_j+1 == imageHeight )
             {
-                gray2 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j)).red();
                 gray3 = (double)QColor(myImage.pixel((int)ori_i+1,(int)ori_j)).red();
-                gray4 = gray2;
+                gray4 = gray2 = gray1;
             }
             else if( (int)ori_i+1 == imageWidth )
             {
                 gray2 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j+1)).red();
-                gray3 = (double)QColor(myImage.pixel((int)ori_i,(int)ori_j)).red();
-                gray4 = gray3;
+                gray4 = gray3 = gray1;
             }
             else
             {
@@ -670,14 +698,18 @@ void MainWindow::on_bilinear_horizontalSlider_valueChanged(int value)
             }
 
             newGray = (1-ori_ii)*(1-ori_jj)*(gray1) + (1-ori_ii)*ori_jj*gray2 + (1-ori_jj)*ori_ii*gray3 + ori_ii*ori_jj*gray4;
-            nowImage.setPixel(i,j,qRgb(newGray,newGray,newGray));
+
+            if(nowImage->format() == QImage::Format_Indexed8)
+                nowImage->setPixel(i,j,newGray);
+            else
+                nowImage->setPixel(i,j,qRgb(newGray,newGray,newGray));
         }
     }
 
-    newImage = nowImage;
-    bilinearImage = nowImage;
+    newImage = *nowImage;
+    bilinearImage = *nowImage;
     ui->original_page_2->resize(QSize(newWidth,newHeight));
-    ui->original_page_2->setPixmap(QPixmap::fromImage(nowImage));
+    ui->original_page_2->setPixmap(QPixmap::fromImage(*nowImage));
 
     return ;
 }

@@ -177,4 +177,19 @@ int interationGary(double aver)
 //
 //}
 
+void initImage(QImage *nowImage)
+{
+    switch (myImage.format()) {
+        case QImage::Format_Indexed8:{
+            QVector<QRgb> grayTable;
+            for(int i = 0; i < 256; i++)
+               grayTable.push_back(qRgb(i,i,i));
+            nowImage->setColorTable(grayTable);
+            //QMessageBox::information(NULL, QObject::tr("Color"), QString("%1").arg(nowImage->colorCount()));
+            break;
+        }
+        default:
 
+        break;
+    }
+}

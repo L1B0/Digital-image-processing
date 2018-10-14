@@ -33,6 +33,6 @@ void qstring2char(QString ppath);
 int getBit(int n, int moveBit);
 int interationGary(double aver);
 //void my_find_children(QWidget *nowWiget,int pointType,QLabel *trans_image,QCustomPlot *trans_point,float &a,float &b);
-
+void initImage(QImage *nowImage);
 
 #endif // MYPIC_H
