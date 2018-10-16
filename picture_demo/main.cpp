@@ -2,7 +2,7 @@
 #include <QApplication>
 
 //very important
-QImage myImage,newImage,nearestImage,bilinearImage;
+QImage myImage;
 QString path;
 char imageType;
 const char *cpath;

@@ -16,11 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
     file->addAction(openAction);
     connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
 
-    saveAction = new QAction(tr("&Save"), this);
-    saveAction->setShortcut(QKeySequence::Save);
-    saveAction->setStatusTip(tr("Save a file."));
-    file->addAction(saveAction);
-    connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
+    //saveAction = new QAction(tr("&Save"), this);
+    //saveAction->setShortcut(QKeySequence::Save);
+    //saveAction->setStatusTip(tr("Save a file."));
+    //file->addAction(saveAction);
+    //connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
 
     ui->width->setPlaceholderText(tr("宽度"));
     ui->length->setPlaceholderText(tr("高度"));
@@ -45,11 +45,60 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->nline_trans2_paint->addGraph();
     ui->gray_bal_paint->addGraph();
 
+    QScrollArea *ori_scrollarea = new QScrollArea(ui->original);
+    ori_scrollarea->setGeometry(QRect(10, 10, 525, 537));
+    ori_scrollarea->setWidget(ui->original_page);
+
+    QScrollArea *ori_scrollArea_2 = new QScrollArea(ui->original);
+    ori_scrollArea_2->setGeometry(QRect(545, 10, 525, 537));
+    ori_scrollArea_2->setWidget(ui->original_page_2);
+
+    QScrollArea *sampling_scrollArea = new QScrollArea(ui->sampling_rate);
+    sampling_scrollArea->setGeometry(QRect(30, 70, 511, 691));
+    sampling_scrollArea->setWidget(ui->sampling_page);
+    QScrollArea *gray_scrollArea = new QScrollArea(ui->gray);
+    gray_scrollArea->setGeometry(QRect(30, 60, 511, 711));
+    gray_scrollArea->setWidget(ui->gray_page);
+    QScrollArea *histogram_scrollArea = new QScrollArea(ui->gray_count);
+    histogram_scrollArea->setGeometry(QRect(20, 80, 491, 621));
+    histogram_scrollArea->setWidget(ui->histogram_page);
+    QScrollArea *gray_bal_scrollArea = new QScrollArea(ui->gray_balance);
+    gray_bal_scrollArea->setGeometry(QRect(25, 17, 491, 661));
+    gray_bal_scrollArea->setWidget(ui->gray_bal_image);
+    QScrollArea *line_ori_scrollArea = new QScrollArea(ui->line_trans);
+    line_ori_scrollArea->setGeometry(QRect(30, 20, 491, 341));
+    line_ori_scrollArea->setWidget(ui->line_ori_image);
+    QScrollArea *line_trans_scrollArea = new QScrollArea(ui->line_trans);
+    line_trans_scrollArea->setGeometry(QRect(29, 399, 491, 311));
+    line_trans_scrollArea->setWidget(ui->line_trans_image);
+    QScrollArea *nline_ori1_scrollArea = new QScrollArea(ui->nline_trans1);
+    nline_ori1_scrollArea->setGeometry(QRect(30, 20, 491, 331));
+    nline_ori1_scrollArea->setWidget(ui->nline_ori1_image);
+    QScrollArea *nline_trans1_scrollArea = new QScrollArea(ui->nline_trans1);
+    nline_trans1_scrollArea->setGeometry(QRect(30, 390, 491, 321));
+    nline_trans1_scrollArea->setWidget(ui->nline_trans1_image);
+    QScrollArea *nline_ori2_scrollArea = new QScrollArea(ui->nline_trans2);
+    nline_ori2_scrollArea->setGeometry(QRect(29, 19, 501, 341));
+    nline_ori2_scrollArea->setWidget(ui->nline_ori2_image);
+    QScrollArea *nline_trans2_scrollArea = new QScrollArea(ui->nline_trans2);
+    nline_trans2_scrollArea->setGeometry(QRect(28, 397, 501, 311));
+    nline_trans2_scrollArea->setWidget(ui->nline_trans2_image);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_action_saveMenu_triggered()
+{
+    QMessageBox::information(NULL, QObject::tr("Save"), QObject::tr("Save test!!!"));
+    int mouse_x = QCursor::pos().x();
+    int mouse_y = QCursor::pos().y();
+    qDebug() << mouse_x << mouse_y;
+    QWidget *action = QApplication::widgetAt(mouse_x, mouse_y);//获取鼠标点击处的控件
+    if( action != NULL )
+        QMessageBox::information(NULL, QObject::tr("Widget Name"), QString("%1").arg(action->objectName()));
 }
 
 void MainWindow::clearAllText()
@@ -87,22 +136,15 @@ void MainWindow::open()
 
         qDebug() << "open: " << "width = " << imageWidth << "height = " << imageHeight;
         //初始化功能页面
-        ui->original_page->setAlignment(Qt::AlignCenter);
-        ui->original_page->setPixmap(QPixmap::fromImage(myImage));
-        ui->original_page_2->setAlignment(Qt::AlignCenter);
-        ui->original_page_2->setPixmap(QPixmap::fromImage(myImage));
-        ui->sampling_page->setAlignment(Qt::AlignCenter);
-        ui->sampling_page->setPixmap(QPixmap::fromImage(myImage));
-        ui->gray_page->setAlignment(Qt::AlignCenter);
-        ui->gray_page->setPixmap(QPixmap::fromImage(myImage));
-        ui->histogram_page->setAlignment(Qt::AlignCenter);
-        ui->histogram_page->setPixmap(QPixmap::fromImage(myImage));
-        ui->line_ori_image->setAlignment(Qt::AlignCenter);
-        ui->line_ori_image->setPixmap(QPixmap::fromImage(myImage));
-        ui->nline_ori1_image->setAlignment(Qt::AlignCenter);
-        ui->nline_ori1_image->setPixmap(QPixmap::fromImage(myImage));
-        ui->nline_ori2_image->setAlignment(Qt::AlignCenter);
-        ui->nline_ori2_image->setPixmap(QPixmap::fromImage(myImage));
+        pale.setBrush(this->backgroundRole(),QBrush(myImage));
+        ui->original_page->setPalette(pale);
+        ui->original_page_2->setPalette(pale);
+        ui->sampling_page->setPalette(pale);
+        ui->gray_page->setPalette(pale);
+        ui->histogram_page->setPalette(pale);
+        ui->line_ori_image->setPalette(pale);
+        ui->nline_ori1_image->setPalette(pale);
+        ui->nline_ori2_image->setPalette(pale);
 
         myShowBitplane();
         createHistogram(ui->histogram_paint, myImage, true);
@@ -114,10 +156,13 @@ void MainWindow::open()
 
         histogramEqualization(myImage); // Histogram equalization
         ui->tabWidget->setCurrentIndex(0);
+        ui->gray_hist->setCurrentIndex(0);
 
         //滚动条
+
         ui->original_page->resize(QSize(imageWidth,imageHeight));
         ui->original_page_2->resize(QSize(imageWidth,imageHeight));
+        ui->histogram_page->resize(QSize(imageWidth,imageHeight));
         ui->sampling_page->resize(QSize(imageWidth,imageHeight));
         ui->gray_page->resize(QSize(imageWidth,imageHeight));
         ui->gray_bal_image->resize(QSize(imageWidth,imageHeight));
@@ -127,27 +172,6 @@ void MainWindow::open()
         ui->nline_trans1_image->resize(QSize(imageWidth,imageHeight));
         ui->nline_ori2_image->resize(QSize(imageWidth,imageHeight));
         ui->nline_trans2_image->resize(QSize(imageWidth,imageHeight));
-
-        //bianhuan
-        nearestImage = bilinearImage = myImage;
-    }
-    return ;
-}
-void MainWindow::save()
-{
-    QMessageBox::information(NULL, tr("Tabwidget"), QString("You want to save %1").arg(ui->tabWidget->currentIndex()));
-    int tabIndex = ui->tabWidget->currentIndex();
-    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Image"),"",tr("Image Files(*.jpg *.png *bmp)"));
-    qDebug() << fileName;
-    if(fileName.length() == 0)
-    {
-        QMessageBox::information(NULL, tr("Path"), tr("You didn't select any files."));
-    }
-    else
-    {
-        QMessageBox::information(NULL, tr("Path"), tr("You selected ") + fileName);
-        qDebug() << imageType;
-        newImage.save(fileName);
 
     }
     return ;
@@ -209,10 +233,11 @@ void MainWindow::on_sampling_clicked()
         }
     }
     //iGray.save("/home/l1b0/Desktop/gray","JPG",-1);
-    ui->sampling_page->setPixmap(QPixmap::fromImage(*iGray));
-    newImage = *iGray;
+    pale.setBrush(this->backgroundRole(),QBrush(*iGray));
+    ui->sampling_page->setPalette(pale);
+    ui->sampling_page->saveImage = *iGray;
 
-    createHistogram(ui->sampling_paint, newImage, false);
+    createHistogram(ui->sampling_paint, ui->sampling_page->saveImage, false);
 
     return ;
 }
@@ -244,10 +269,11 @@ void MainWindow::on_gray_determine_clicked()
         }
     }
     //iGray.save("/home/l1b0/Desktop/gray","JPG",-1);
-    ui->gray_page->setPixmap(QPixmap::fromImage(*iGray));
-    newImage = *iGray;
+    pale.setBrush(this->backgroundRole(),QBrush(*iGray));
+    ui->gray_page->setPalette(pale);
+    ui->gray_page->saveImage = *iGray;
 
-    createHistogram(ui->gray_paint, newImage, false);
+    createHistogram(ui->gray_paint, ui->gray_page->saveImage, false);
     return ;
 }
 
@@ -278,8 +304,9 @@ void MainWindow::myShow(int num, char flag)
             QRgb pixel = myImage.pixel(i,j);
             QColor gray = QColor(pixel);
             int r = gray.red();
-            //qDebug() << "r=" << r << "g=" << g << "b=" << b;
+            if(i < 5 && j < 5) qDebug() << "r=" << r;
             r = getBit(r,num-1);
+            if(i < 5 && j < 5) qDebug() << "r=" << r;
             //qDebug() << "r=" << r << "g=" << g << "b=" << b;
             QRgb newpixel = qRgb(r,r,r);
             //qDebug() << "myshow: i = " << i << "j = " << j;
@@ -455,7 +482,8 @@ void MainWindow::on_threshold_update_clicked()
     int threshold_level = ui->threshold->text().toInt();
     if( threshold_level == 256 )
     {
-        ui->histogram_page->setPixmap(QPixmap::fromImage(myImage));
+        pale.setBrush(this->backgroundRole(),QBrush(myImage));
+        ui->histogram_page->setPalette(pale);
         return ;
     }
     QImage *iGray = new QImage(imageWidth,imageHeight,myImage.format());
@@ -479,30 +507,31 @@ void MainWindow::on_threshold_update_clicked()
         }
     }
     //iGray.save("/home/l1b0/Desktop/gray","JPG",-1);
-    ui->histogram_page->setPixmap(QPixmap::fromImage(*iGray));
-    newImage = *iGray;
+    pale.setBrush(this->backgroundRole(),QBrush(*iGray));
+    ui->histogram_page->setPalette(pale);
+    ui->histogram_page->saveImage = *iGray;
     return ;
 }
 
 void MainWindow::on_line_push_clicked()
 {
-    pointCalc(1);
+    ui->line_trans_image->saveImage = *(pointCalc(1));
 }
 
 void MainWindow::on_nline_push1_clicked()
 {
-    pointCalc(2);
+    ui->nline_trans1_image->saveImage = *(pointCalc(2));
 }
 
 void MainWindow::on_nline_push2_clicked()
 {
-    pointCalc(3);
+    ui->nline_trans2_image->saveImage = *(pointCalc(3));
 }
 
 //改变对应页面的结果
-void MainWindow::pointCalc(int pointType)
+QImage* MainWindow::pointCalc(int pointType)
 {
-    QLabel *trans_image;
+    QWidget *trans_image;
     QCustomPlot *trans_paint;
     float a,b,c;
 
@@ -554,12 +583,12 @@ void MainWindow::pointCalc(int pointType)
         }
     }
 
-    trans_image->setPixmap(QPixmap::fromImage(*iGray));
-    newImage = *iGray;
+    pale.setBrush(this->backgroundRole(),QBrush(*iGray));
+    trans_image->setPalette(pale);
 
-    createHistogram(trans_paint, newImage, false);
+    createHistogram(trans_paint, *iGray, false);
     qDebug() << "paint finished!";
-    return ;
+    return iGray;
 }
 
 void MainWindow::histogramEqualization(QImage nowImage)
@@ -589,11 +618,11 @@ void MainWindow::histogramEqualization(QImage nowImage)
                 iGray->setPixel(i,j,qRgb(nowgray,nowgray,nowgray));
         }
     }
-    ui->gray_bal_image->setPixmap(QPixmap::fromImage(*iGray));
+    pale.setBrush(this->backgroundRole(),QBrush(*iGray));
+    ui->gray_bal_image->setPalette(pale);
+    ui->gray_bal_image->saveImage = *iGray;
 
-    newImage = *iGray;
-
-    createHistogram(ui->gray_bal_paint,newImage,false);
+    createHistogram(ui->gray_bal_paint,ui->gray_bal_image->saveImage,false);
     return ;
 }
 
@@ -635,11 +664,11 @@ void MainWindow::on_nearest_horizontalSlider_valueChanged(int value)
                 nowImage->setPixel(i,j,pixel);
         }
     }
-    newImage = *nowImage;
-    nearestImage = *nowImage;
+    ui->original_page->saveImage = *nowImage;
 
     ui->original_page->resize(QSize(newWidth,newHeight));
-    ui->original_page->setPixmap(QPixmap::fromImage(*nowImage));
+    pale.setBrush(this->backgroundRole(),QBrush(ui->original_page->saveImage));
+    ui->original_page->setPalette(pale);
     return ;
 }
 
@@ -706,10 +735,10 @@ void MainWindow::on_bilinear_horizontalSlider_valueChanged(int value)
         }
     }
 
-    newImage = *nowImage;
-    bilinearImage = *nowImage;
+    ui->original_page_2->saveImage = *nowImage;
     ui->original_page_2->resize(QSize(newWidth,newHeight));
-    ui->original_page_2->setPixmap(QPixmap::fromImage(*nowImage));
+    pale.setBrush(this->backgroundRole(),QBrush(ui->original_page_2->saveImage));
+    ui->original_page_2->setPalette(pale);
 
     return ;
 }
@@ -718,10 +747,10 @@ void MainWindow::on_nearest_spin_push_clicked()
 {
     QMatrix matrix;
     matrix.rotate(90.0);
-    nearestImage = nearestImage.transformed(matrix,Qt::FastTransformation);
-    ui->original_page->setPixmap(QPixmap::fromImage(nearestImage));
-    ui->original_page->resize(QSize(nearestImage.width(),nearestImage.height()));
-    newImage = nearestImage;
+    ui->original_page->saveImage = ui->original_page->saveImage.transformed(matrix,Qt::FastTransformation);
+    pale.setBrush(this->backgroundRole(),QBrush(ui->original_page->saveImage));
+    ui->original_page->setPalette(pale);
+    //ui->original_page->resize(QSize(nearestImage.width(),nearestImage.height()));
     return ;
 }
 
@@ -729,9 +758,8 @@ void MainWindow::on_bilinear_spin_push_clicked()
 {
     QMatrix matrix;
     matrix.rotate(90.0);
-    bilinearImage = bilinearImage.transformed(matrix,Qt::FastTransformation);
-    ui->original_page_2->setPixmap(QPixmap::fromImage(bilinearImage));
-    ui->original_page_2->resize(QSize(bilinearImage.width(),bilinearImage.height()));
-    newImage = bilinearImage;
+    ui->original_page_2->saveImage = ui->original_page_2->saveImage.transformed(matrix,Qt::FastTransformation);
+    pale.setBrush(this->backgroundRole(),QBrush(ui->original_page_2->saveImage));
+    ui->original_page_2->setPalette(pale);
     return ;
 }

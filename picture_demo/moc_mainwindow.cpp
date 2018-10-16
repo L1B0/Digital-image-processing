@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[16];
-    char stringdata0[336];
+    char stringdata0[360];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,22 +34,22 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 4), // "open"
 QT_MOC_LITERAL(2, 16, 0), // ""
-QT_MOC_LITERAL(3, 17, 4), // "save"
-QT_MOC_LITERAL(4, 22, 25), // "on_gray_determine_clicked"
-QT_MOC_LITERAL(5, 48, 19), // "on_sampling_clicked"
-QT_MOC_LITERAL(6, 68, 24), // "on_bitplane_save_clicked"
-QT_MOC_LITERAL(7, 93, 27), // "on_threshold_update_clicked"
-QT_MOC_LITERAL(8, 121, 20), // "on_line_push_clicked"
-QT_MOC_LITERAL(9, 142, 22), // "on_nline_push1_clicked"
-QT_MOC_LITERAL(10, 165, 22), // "on_nline_push2_clicked"
-QT_MOC_LITERAL(11, 188, 40), // "on_nearest_horizontalSlider_v..."
-QT_MOC_LITERAL(12, 229, 5), // "value"
-QT_MOC_LITERAL(13, 235, 41), // "on_bilinear_horizontalSlider_..."
-QT_MOC_LITERAL(14, 277, 28), // "on_nearest_spin_push_clicked"
-QT_MOC_LITERAL(15, 306, 29) // "on_bilinear_spin_push_clicked"
+QT_MOC_LITERAL(3, 17, 25), // "on_gray_determine_clicked"
+QT_MOC_LITERAL(4, 43, 19), // "on_sampling_clicked"
+QT_MOC_LITERAL(5, 63, 24), // "on_bitplane_save_clicked"
+QT_MOC_LITERAL(6, 88, 27), // "on_threshold_update_clicked"
+QT_MOC_LITERAL(7, 116, 20), // "on_line_push_clicked"
+QT_MOC_LITERAL(8, 137, 22), // "on_nline_push1_clicked"
+QT_MOC_LITERAL(9, 160, 22), // "on_nline_push2_clicked"
+QT_MOC_LITERAL(10, 183, 40), // "on_nearest_horizontalSlider_v..."
+QT_MOC_LITERAL(11, 224, 5), // "value"
+QT_MOC_LITERAL(12, 230, 41), // "on_bilinear_horizontalSlider_..."
+QT_MOC_LITERAL(13, 272, 28), // "on_nearest_spin_push_clicked"
+QT_MOC_LITERAL(14, 301, 29), // "on_bilinear_spin_push_clicked"
+QT_MOC_LITERAL(15, 331, 28) // "on_action_saveMenu_triggered"
 
     },
-    "MainWindow\0open\0\0save\0on_gray_determine_clicked\0"
+    "MainWindow\0open\0\0on_gray_determine_clicked\0"
     "on_sampling_clicked\0on_bitplane_save_clicked\0"
     "on_threshold_update_clicked\0"
     "on_line_push_clicked\0on_nline_push1_clicked\0"
@@ -57,7 +57,8 @@ QT_MOC_LITERAL(15, 306, 29) // "on_bilinear_spin_push_clicked"
     "on_nearest_horizontalSlider_valueChanged\0"
     "value\0on_bilinear_horizontalSlider_valueChanged\0"
     "on_nearest_spin_push_clicked\0"
-    "on_bilinear_spin_push_clicked"
+    "on_bilinear_spin_push_clicked\0"
+    "on_action_saveMenu_triggered"
 };
 #undef QT_MOC_LITERAL
 
@@ -83,9 +84,9 @@ static const uint qt_meta_data_MainWindow[] = {
        7,    0,   84,    2, 0x08 /* Private */,
        8,    0,   85,    2, 0x08 /* Private */,
        9,    0,   86,    2, 0x08 /* Private */,
-      10,    0,   87,    2, 0x08 /* Private */,
-      11,    1,   88,    2, 0x08 /* Private */,
-      13,    1,   91,    2, 0x08 /* Private */,
+      10,    1,   87,    2, 0x08 /* Private */,
+      12,    1,   90,    2, 0x08 /* Private */,
+      13,    0,   93,    2, 0x08 /* Private */,
       14,    0,   94,    2, 0x08 /* Private */,
       15,    0,   95,    2, 0x08 /* Private */,
 
@@ -98,9 +99,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   11,
+    QMetaType::Void, QMetaType::Int,   11,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   12,
-    QMetaType::Void, QMetaType::Int,   12,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -114,18 +115,18 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->open(); break;
-        case 1: _t->save(); break;
-        case 2: _t->on_gray_determine_clicked(); break;
-        case 3: _t->on_sampling_clicked(); break;
-        case 4: _t->on_bitplane_save_clicked(); break;
-        case 5: _t->on_threshold_update_clicked(); break;
-        case 6: _t->on_line_push_clicked(); break;
-        case 7: _t->on_nline_push1_clicked(); break;
-        case 8: _t->on_nline_push2_clicked(); break;
-        case 9: _t->on_nearest_horizontalSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 10: _t->on_bilinear_horizontalSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 11: _t->on_nearest_spin_push_clicked(); break;
-        case 12: _t->on_bilinear_spin_push_clicked(); break;
+        case 1: _t->on_gray_determine_clicked(); break;
+        case 2: _t->on_sampling_clicked(); break;
+        case 3: _t->on_bitplane_save_clicked(); break;
+        case 4: _t->on_threshold_update_clicked(); break;
+        case 5: _t->on_line_push_clicked(); break;
+        case 6: _t->on_nline_push1_clicked(); break;
+        case 7: _t->on_nline_push2_clicked(); break;
+        case 8: _t->on_nearest_horizontalSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->on_bilinear_horizontalSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 10: _t->on_nearest_spin_push_clicked(); break;
+        case 11: _t->on_bilinear_spin_push_clicked(); break;
+        case 12: _t->on_action_saveMenu_triggered(); break;
         default: ;
         }
     }

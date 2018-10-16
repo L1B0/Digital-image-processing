@@ -32,25 +32,6 @@ char findImageType(QString ppath)
     return 0;
 }
 
-//int findImageGray(QImage nowImage)
-//{
-//    int nowGray=0;
-//    for(int j=0;j<imageWidth;j++)
-//    {
-//        QRgb pixel = nowImage.pixel(0,j);
-//        QColor gray = QColor(pixel);
-//        int k, r = gray.red(), g = gray.green(), b = gray.blue();
-//        qDebug() << "gray: " << r << g << b;
-//        for(k=1;k<255;k++)
-//        {
-//            if(r%k != 0)
-//                break;
-//        }
-//        nowGray = nowGray > 256/(k-1) ? nowGray : ;
-//    }
-//    return nowGray;
-//}
-
 void findImageFormat(QImage nowImage)
 {
     char imageFormat[26][50] = {"QImage::Format_Invalid",

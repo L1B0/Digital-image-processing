@@ -24,12 +24,12 @@ public:
     void createHistogram(QCustomPlot *nowlabel, QImage nowImage, bool flag);
     void createHistogramInfo(QImage nowImage, double *image_gray, bool flag);
     void createHistogramPaint(QCustomPlot *nowlabel, double *image_gray);
-    void pointCalc(int pointType);
+    QImage* pointCalc(int pointType);
     void histogramEqualization(QImage nowImage);
 
 private slots:
     void open();
-    void save();
+    //void save();
 
     void on_gray_determine_clicked();
     void on_sampling_clicked();
@@ -51,10 +51,12 @@ private slots:
 
     void on_bilinear_spin_push_clicked();
 
+    void on_action_saveMenu_triggered();
+
 private:
     Ui::MainWindow *ui;
-    QAction *openAction,*saveAction;
-
+    QAction *openAction;//*saveAction;
+    QPalette pale;
 };
 
 #endif // MAINWINDOW_H

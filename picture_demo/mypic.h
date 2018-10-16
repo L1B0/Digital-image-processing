@@ -14,12 +14,13 @@
 #include <QMenuBar>
 #include <QToolBar>
 #include <QLabel>
+#include <QScrollArea>
 #include <QTableWidget>
 #include <customtabstyle.h>
 #include <math.h>
 #include <qcustomplot.h>
 
-extern QImage myImage,newImage,nearestImage,bilinearImage;
+extern QImage myImage;
 extern QString path;
 extern char imageType;
 extern const char *cpath;

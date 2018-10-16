@@ -18,6 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += customtabstyle.h mainwindow.h mypic.h qcustomplot.h
+HEADERS += customtabstyle.h mainwindow.h mypic.h qcustomplot.h \
+    mywidget.h
 FORMS += mainwindow.ui
-SOURCES += main.cpp mainwindow.cpp mypic.cpp qcustomplot.cpp
+SOURCES += main.cpp mainwindow.cpp mypic.cpp qcustomplot.cpp \
+    mywidget.cpp
