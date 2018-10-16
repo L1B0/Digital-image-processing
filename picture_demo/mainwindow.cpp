@@ -7,10 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //文件打开保存
-    QMenu *file = menuBar()->addMenu(tr("&File"));
+    //文件打开
+    QMenu *file = menuBar()->addMenu(tr("&文件"));
 
-    openAction = new QAction(tr("&Open"), this);
+    openAction = new QAction(tr("&打开"), this);
     openAction->setShortcut(QKeySequence::Open);
     openAction->setStatusTip(tr("Open a file."));
     file->addAction(openAction);

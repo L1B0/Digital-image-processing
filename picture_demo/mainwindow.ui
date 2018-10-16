@@ -43,7 +43,7 @@
     </property>
     <widget class="QWidget" name="original">
      <attribute name="title">
-      <string>原图</string>
+      <string>图像放缩</string>
      </attribute>
      <widget class="QLabel" name="nearest_insert">
       <property name="geometry">

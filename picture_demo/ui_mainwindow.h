@@ -664,7 +664,7 @@ public:
         nearest_level->setText(QApplication::translate("MainWindow", "\347\274\251\346\224\276\345\200\215\346\225\260: 0    ", nullptr));
         nearest_spin_push->setText(QApplication::translate("MainWindow", "\346\227\213\350\275\254", nullptr));
         bilinear_spin_push->setText(QApplication::translate("MainWindow", "\346\227\213\350\275\254", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(original), QApplication::translate("MainWindow", "\345\216\237\345\233\276", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(original), QApplication::translate("MainWindow", "\345\233\276\345\203\217\346\224\276\347\274\251", nullptr));
         width->setInputMask(QString());
         width->setPlaceholderText(QString());
         mult->setText(QApplication::translate("MainWindow", "*", nullptr));
