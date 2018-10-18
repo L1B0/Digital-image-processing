@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <mypic.h>
+#include <imagesmooth.h>
 #include <QScrollArea>
 class QAction;
 
@@ -26,6 +27,9 @@ public:
     void createHistogramPaint(QCustomPlot *nowlabel, double *image_gray);
     QImage* pointCalc(int pointType);
     void histogramEqualization(QImage nowImage);
+    void imageSmoothAverage(int mode);
+    void imageSmoothMid(int mode);
+    void imageSmoothNeighbor(int mode);
 
 private slots:
     void open();
@@ -52,6 +56,22 @@ private slots:
     void on_bilinear_spin_push_clicked();
 
     void on_action_saveMenu_triggered();
+
+    void on_averageType1_clicked();
+
+    void on_averageType2_clicked();
+
+    void on_averageType3_clicked();
+
+    void on_midType1_clicked();
+
+    void on_midType2_clicked();
+
+    void on_midType3_clicked();
+
+    void on_neighborType1_clicked();
+
+    void on_neighborType2_clicked();
 
 private:
     Ui::MainWindow *ui;

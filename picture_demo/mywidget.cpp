@@ -3,7 +3,7 @@
 mywidget::mywidget(QWidget *parent):
     QWidget(parent)
 {
-    QAction *saveMenu = new QAction("save");
+    QAction *saveMenu = new QAction("保存");
     this->addAction(saveMenu);
     //QMessageBox::information(NULL,QString("Init"),QString("Successfully"));
     connect(saveMenu,SIGNAL(triggered(bool)),this,SLOT(saveSlotClicked()));

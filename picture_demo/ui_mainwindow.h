@@ -136,6 +136,39 @@ public:
     QCustomPlot *nline_trans2_paint;
     mywidget *nline_ori2_image;
     mywidget *nline_trans2_image;
+    QWidget *smooth;
+    QTabWidget *smooth_type;
+    QWidget *average_trans;
+    QCustomPlot *average_paint;
+    mywidget *average_page;
+    QWidget *layoutWidget5;
+    QHBoxLayout *horizontalLayout_8;
+    QLabel *average_mode;
+    QHBoxLayout *horizontalLayout_5;
+    QPushButton *averageType1;
+    QPushButton *averageType2;
+    QPushButton *averageType3;
+    QWidget *mid_trans;
+    QCustomPlot *mid_paint;
+    mywidget *mid_page;
+    QWidget *layoutWidget_4;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *average_mode_2;
+    QHBoxLayout *horizontalLayout_10;
+    QPushButton *midType1;
+    QPushButton *midType2;
+    QPushButton *midType3;
+    QWidget *neighbor_trans;
+    QCustomPlot *neighbor_paint;
+    mywidget *neighbor_page;
+    QWidget *layoutWidget_5;
+    QHBoxLayout *horizontalLayout_11;
+    QLabel *neighbor_mode;
+    QLabel *neighbor_K;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_14;
+    QPushButton *neighborType1;
+    QPushButton *neighborType2;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -143,7 +176,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1204, 855);
+        MainWindow->resize(1258, 887);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -159,24 +192,24 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 1171, 801));
+        tabWidget->setGeometry(QRect(10, 10, 1221, 831));
         tabWidget->setTabPosition(QTabWidget::West);
         tabWidget->setIconSize(QSize(18, 18));
         original = new QWidget();
         original->setObjectName(QStringLiteral("original"));
         nearest_insert = new QLabel(original);
         nearest_insert->setObjectName(QStringLiteral("nearest_insert"));
-        nearest_insert->setGeometry(QRect(210, 570, 161, 31));
+        nearest_insert->setGeometry(QRect(220, 600, 161, 31));
         QFont font;
         font.setPointSize(12);
         nearest_insert->setFont(font);
         bilinear_insert = new QLabel(original);
         bilinear_insert->setObjectName(QStringLiteral("bilinear_insert"));
-        bilinear_insert->setGeometry(QRect(750, 570, 161, 31));
+        bilinear_insert->setGeometry(QRect(810, 590, 161, 31));
         bilinear_insert->setFont(font);
         layoutWidget_3 = new QWidget(original);
         layoutWidget_3->setObjectName(QStringLiteral("layoutWidget_3"));
-        layoutWidget_3->setGeometry(QRect(630, 620, 341, 61));
+        layoutWidget_3->setGeometry(QRect(720, 640, 341, 61));
         horizontalLayout_26 = new QHBoxLayout(layoutWidget_3);
         horizontalLayout_26->setSpacing(6);
         horizontalLayout_26->setContentsMargins(11, 11, 11, 11);
@@ -198,7 +231,7 @@ public:
 
         layoutWidget = new QWidget(original);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(90, 620, 341, 61));
+        layoutWidget->setGeometry(QRect(140, 650, 341, 61));
         horizontalLayout_25 = new QHBoxLayout(layoutWidget);
         horizontalLayout_25->setSpacing(6);
         horizontalLayout_25->setContentsMargins(11, 11, 11, 11);
@@ -220,21 +253,21 @@ public:
 
         nearest_spin_push = new QPushButton(original);
         nearest_spin_push->setObjectName(QStringLiteral("nearest_spin_push"));
-        nearest_spin_push->setGeometry(QRect(190, 700, 121, 51));
+        nearest_spin_push->setGeometry(QRect(250, 730, 121, 51));
         QFont font1;
         font1.setPointSize(18);
         nearest_spin_push->setFont(font1);
         bilinear_spin_push = new QPushButton(original);
         bilinear_spin_push->setObjectName(QStringLiteral("bilinear_spin_push"));
-        bilinear_spin_push->setGeometry(QRect(760, 700, 121, 51));
+        bilinear_spin_push->setGeometry(QRect(830, 730, 121, 51));
         bilinear_spin_push->setFont(font1);
         original_page = new mywidget(original);
         original_page->setObjectName(QStringLiteral("original_page"));
-        original_page->setGeometry(QRect(20, 10, 521, 541));
+        original_page->setGeometry(QRect(20, 10, 561, 571));
         original_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         original_page_2 = new mywidget(original);
         original_page_2->setObjectName(QStringLiteral("original_page_2"));
-        original_page_2->setGeometry(QRect(559, 9, 541, 541));
+        original_page_2->setGeometry(QRect(620, 10, 561, 571));
         original_page_2->setContextMenuPolicy(Qt::ActionsContextMenu);
         tabWidget->addTab(original, QString());
         sampling_rate = new QWidget();
@@ -280,11 +313,11 @@ public:
 
         sampling_paint = new QCustomPlot(sampling_rate);
         sampling_paint->setObjectName(QStringLiteral("sampling_paint"));
-        sampling_paint->setGeometry(QRect(549, 71, 501, 691));
+        sampling_paint->setGeometry(QRect(630, 70, 521, 721));
         sampling_paint->setContextMenuPolicy(Qt::ActionsContextMenu);
         sampling_page = new mywidget(sampling_rate);
         sampling_page->setObjectName(QStringLiteral("sampling_page"));
-        sampling_page->setGeometry(QRect(29, 70, 511, 691));
+        sampling_page->setGeometry(QRect(29, 70, 581, 721));
         sampling_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         tabWidget->addTab(sampling_rate, QString());
         gray = new QWidget();
@@ -310,18 +343,18 @@ public:
 
         gray_paint = new QCustomPlot(gray);
         gray_paint->setObjectName(QStringLiteral("gray_paint"));
-        gray_paint->setGeometry(QRect(549, 61, 501, 711));
+        gray_paint->setGeometry(QRect(630, 60, 521, 731));
         gray_paint->setContextMenuPolicy(Qt::ActionsContextMenu);
         gray_page = new mywidget(gray);
         gray_page->setObjectName(QStringLiteral("gray_page"));
-        gray_page->setGeometry(QRect(29, 60, 511, 711));
+        gray_page->setGeometry(QRect(29, 60, 571, 731));
         gray_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         tabWidget->addTab(gray, QString());
         bitplane = new QWidget();
         bitplane->setObjectName(QStringLiteral("bitplane"));
         layoutWidget_2 = new QWidget(bitplane);
         layoutWidget_2->setObjectName(QStringLiteral("layoutWidget_2"));
-        layoutWidget_2->setGeometry(QRect(20, 60, 1061, 691));
+        layoutWidget_2->setGeometry(QRect(20, 60, 1121, 721));
         verticalLayout = new QVBoxLayout(layoutWidget_2);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -388,7 +421,7 @@ public:
         histogram->setObjectName(QStringLiteral("histogram"));
         gray_hist = new QTabWidget(histogram);
         gray_hist->setObjectName(QStringLiteral("gray_hist"));
-        gray_hist->setGeometry(QRect(20, 10, 1061, 741));
+        gray_hist->setGeometry(QRect(20, 10, 1131, 781));
         gray_count = new QWidget();
         gray_count->setObjectName(QStringLiteral("gray_count"));
         histogram_info = new QTableWidget(gray_count);
@@ -440,20 +473,20 @@ public:
 
         histogram_paint = new QCustomPlot(gray_count);
         histogram_paint->setObjectName(QStringLiteral("histogram_paint"));
-        histogram_paint->setGeometry(QRect(519, 81, 491, 619));
+        histogram_paint->setGeometry(QRect(580, 80, 511, 631));
         histogram_page = new mywidget(gray_count);
         histogram_page->setObjectName(QStringLiteral("histogram_page"));
-        histogram_page->setGeometry(QRect(29, 80, 481, 621));
+        histogram_page->setGeometry(QRect(29, 80, 531, 631));
         histogram_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         gray_hist->addTab(gray_count, QString());
         gray_balance = new QWidget();
         gray_balance->setObjectName(QStringLiteral("gray_balance"));
         gray_bal_paint = new QCustomPlot(gray_balance);
         gray_bal_paint->setObjectName(QStringLiteral("gray_bal_paint"));
-        gray_bal_paint->setGeometry(QRect(534, 21, 496, 659));
+        gray_bal_paint->setGeometry(QRect(575, 20, 521, 691));
         gray_bal_image = new mywidget(gray_balance);
         gray_bal_image->setObjectName(QStringLiteral("gray_bal_image"));
-        gray_bal_image->setGeometry(QRect(19, 20, 501, 661));
+        gray_bal_image->setGeometry(QRect(19, 20, 541, 691));
         gray_bal_image->setContextMenuPolicy(Qt::ActionsContextMenu);
         gray_hist->addTab(gray_balance, QString());
         tabWidget->addTab(histogram, QString());
@@ -461,7 +494,7 @@ public:
         point->setObjectName(QStringLiteral("point"));
         point_type = new QTabWidget(point);
         point_type->setObjectName(QStringLiteral("point_type"));
-        point_type->setGeometry(QRect(20, 10, 1061, 751));
+        point_type->setGeometry(QRect(20, 10, 1141, 791));
         line_trans = new QWidget();
         line_trans->setObjectName(QStringLiteral("line_trans"));
         layoutWidget3 = new QWidget(line_trans);
@@ -512,17 +545,17 @@ public:
 
         line_ori_paint = new QCustomPlot(line_trans);
         line_ori_paint->setObjectName(QStringLiteral("line_ori_paint"));
-        line_ori_paint->setGeometry(QRect(529, 21, 491, 339));
+        line_ori_paint->setGeometry(QRect(570, 18, 531, 341));
         line_trans_paint = new QCustomPlot(line_trans);
         line_trans_paint->setObjectName(QStringLiteral("line_trans_paint"));
-        line_trans_paint->setGeometry(QRect(529, 401, 491, 311));
+        line_trans_paint->setGeometry(QRect(570, 400, 531, 341));
         line_ori_image = new mywidget(line_trans);
         line_ori_image->setObjectName(QStringLiteral("line_ori_image"));
-        line_ori_image->setGeometry(QRect(29, 20, 491, 341));
+        line_ori_image->setGeometry(QRect(29, 20, 531, 341));
         line_ori_image->setContextMenuPolicy(Qt::ActionsContextMenu);
         line_trans_image = new mywidget(line_trans);
         line_trans_image->setObjectName(QStringLiteral("line_trans_image"));
-        line_trans_image->setGeometry(QRect(29, 400, 491, 311));
+        line_trans_image->setGeometry(QRect(30, 400, 531, 341));
         line_trans_image->setContextMenuPolicy(Qt::ActionsContextMenu);
         point_type->addTab(line_trans, QString());
         nline_trans1 = new QWidget();
@@ -560,17 +593,17 @@ public:
 
         nline_trans1_paint = new QCustomPlot(nline_trans1);
         nline_trans1_paint->setObjectName(QStringLiteral("nline_trans1_paint"));
-        nline_trans1_paint->setGeometry(QRect(530, 390, 491, 321));
+        nline_trans1_paint->setGeometry(QRect(570, 400, 531, 331));
         nline_ori1_paint = new QCustomPlot(nline_trans1);
         nline_ori1_paint->setObjectName(QStringLiteral("nline_ori1_paint"));
-        nline_ori1_paint->setGeometry(QRect(529, 21, 491, 331));
+        nline_ori1_paint->setGeometry(QRect(570, 20, 531, 331));
         nline_ori1_image = new mywidget(nline_trans1);
         nline_ori1_image->setObjectName(QStringLiteral("nline_ori1_image"));
-        nline_ori1_image->setGeometry(QRect(29, 20, 491, 331));
+        nline_ori1_image->setGeometry(QRect(29, 20, 531, 331));
         nline_ori1_image->setContextMenuPolicy(Qt::ActionsContextMenu);
         nline_trans1_image = new mywidget(nline_trans1);
         nline_trans1_image->setObjectName(QStringLiteral("nline_trans1_image"));
-        nline_trans1_image->setGeometry(QRect(29, 390, 491, 321));
+        nline_trans1_image->setGeometry(QRect(29, 400, 531, 331));
         nline_trans1_image->setContextMenuPolicy(Qt::ActionsContextMenu);
         point_type->addTab(nline_trans1, QString());
         nline_trans2 = new QWidget();
@@ -621,20 +654,172 @@ public:
 
         nline_ori2_paint = new QCustomPlot(nline_trans2);
         nline_ori2_paint->setObjectName(QStringLiteral("nline_ori2_paint"));
-        nline_ori2_paint->setGeometry(QRect(539, 21, 481, 339));
+        nline_ori2_paint->setGeometry(QRect(570, 18, 531, 341));
         nline_trans2_paint = new QCustomPlot(nline_trans2);
         nline_trans2_paint->setObjectName(QStringLiteral("nline_trans2_paint"));
-        nline_trans2_paint->setGeometry(QRect(540, 400, 481, 301));
+        nline_trans2_paint->setGeometry(QRect(570, 400, 531, 331));
         nline_ori2_image = new mywidget(nline_trans2);
         nline_ori2_image->setObjectName(QStringLiteral("nline_ori2_image"));
-        nline_ori2_image->setGeometry(QRect(29, 20, 501, 341));
+        nline_ori2_image->setGeometry(QRect(29, 20, 531, 341));
         nline_ori2_image->setContextMenuPolicy(Qt::ActionsContextMenu);
         nline_trans2_image = new mywidget(nline_trans2);
         nline_trans2_image->setObjectName(QStringLiteral("nline_trans2_image"));
-        nline_trans2_image->setGeometry(QRect(29, 400, 501, 301));
+        nline_trans2_image->setGeometry(QRect(29, 400, 531, 331));
         nline_trans2_image->setContextMenuPolicy(Qt::ActionsContextMenu);
         point_type->addTab(nline_trans2, QString());
         tabWidget->addTab(point, QString());
+        smooth = new QWidget();
+        smooth->setObjectName(QStringLiteral("smooth"));
+        smooth_type = new QTabWidget(smooth);
+        smooth_type->setObjectName(QStringLiteral("smooth_type"));
+        smooth_type->setGeometry(QRect(20, 10, 1141, 791));
+        average_trans = new QWidget();
+        average_trans->setObjectName(QStringLiteral("average_trans"));
+        average_paint = new QCustomPlot(average_trans);
+        average_paint->setObjectName(QStringLiteral("average_paint"));
+        average_paint->setGeometry(QRect(570, 70, 531, 671));
+        average_page = new mywidget(average_trans);
+        average_page->setObjectName(QStringLiteral("average_page"));
+        average_page->setGeometry(QRect(30, 70, 531, 671));
+        average_page->setContextMenuPolicy(Qt::ActionsContextMenu);
+        layoutWidget5 = new QWidget(average_trans);
+        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(30, 20, 306, 37));
+        horizontalLayout_8 = new QHBoxLayout(layoutWidget5);
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        horizontalLayout_8->setContentsMargins(0, 0, 0, 0);
+        average_mode = new QLabel(layoutWidget5);
+        average_mode->setObjectName(QStringLiteral("average_mode"));
+        average_mode->setFont(font3);
+
+        horizontalLayout_8->addWidget(average_mode);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        averageType1 = new QPushButton(layoutWidget5);
+        averageType1->setObjectName(QStringLiteral("averageType1"));
+        averageType1->setFont(font);
+
+        horizontalLayout_5->addWidget(averageType1);
+
+        averageType2 = new QPushButton(layoutWidget5);
+        averageType2->setObjectName(QStringLiteral("averageType2"));
+        averageType2->setFont(font);
+
+        horizontalLayout_5->addWidget(averageType2);
+
+        averageType3 = new QPushButton(layoutWidget5);
+        averageType3->setObjectName(QStringLiteral("averageType3"));
+        averageType3->setFont(font);
+
+        horizontalLayout_5->addWidget(averageType3);
+
+
+        horizontalLayout_8->addLayout(horizontalLayout_5);
+
+        smooth_type->addTab(average_trans, QString());
+        mid_trans = new QWidget();
+        mid_trans->setObjectName(QStringLiteral("mid_trans"));
+        mid_paint = new QCustomPlot(mid_trans);
+        mid_paint->setObjectName(QStringLiteral("mid_paint"));
+        mid_paint->setGeometry(QRect(570, 60, 531, 671));
+        mid_page = new mywidget(mid_trans);
+        mid_page->setObjectName(QStringLiteral("mid_page"));
+        mid_page->setGeometry(QRect(29, 60, 531, 671));
+        mid_page->setContextMenuPolicy(Qt::ActionsContextMenu);
+        layoutWidget_4 = new QWidget(mid_trans);
+        layoutWidget_4->setObjectName(QStringLiteral("layoutWidget_4"));
+        layoutWidget_4->setGeometry(QRect(30, 20, 322, 37));
+        horizontalLayout_9 = new QHBoxLayout(layoutWidget_4);
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
+        average_mode_2 = new QLabel(layoutWidget_4);
+        average_mode_2->setObjectName(QStringLiteral("average_mode_2"));
+        average_mode_2->setFont(font3);
+
+        horizontalLayout_9->addWidget(average_mode_2);
+
+        horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setSpacing(6);
+        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
+        midType1 = new QPushButton(layoutWidget_4);
+        midType1->setObjectName(QStringLiteral("midType1"));
+        midType1->setFont(font);
+
+        horizontalLayout_10->addWidget(midType1);
+
+        midType2 = new QPushButton(layoutWidget_4);
+        midType2->setObjectName(QStringLiteral("midType2"));
+        midType2->setFont(font);
+
+        horizontalLayout_10->addWidget(midType2);
+
+        midType3 = new QPushButton(layoutWidget_4);
+        midType3->setObjectName(QStringLiteral("midType3"));
+        midType3->setFont(font);
+
+        horizontalLayout_10->addWidget(midType3);
+
+
+        horizontalLayout_9->addLayout(horizontalLayout_10);
+
+        smooth_type->addTab(mid_trans, QString());
+        neighbor_trans = new QWidget();
+        neighbor_trans->setObjectName(QStringLiteral("neighbor_trans"));
+        neighbor_paint = new QCustomPlot(neighbor_trans);
+        neighbor_paint->setObjectName(QStringLiteral("neighbor_paint"));
+        neighbor_paint->setGeometry(QRect(570, 50, 531, 681));
+        neighbor_page = new mywidget(neighbor_trans);
+        neighbor_page->setObjectName(QStringLiteral("neighbor_page"));
+        neighbor_page->setGeometry(QRect(29, 50, 531, 681));
+        neighbor_page->setContextMenuPolicy(Qt::ActionsContextMenu);
+        layoutWidget_5 = new QWidget(neighbor_trans);
+        layoutWidget_5->setObjectName(QStringLiteral("layoutWidget_5"));
+        layoutWidget_5->setGeometry(QRect(30, 10, 232, 37));
+        horizontalLayout_11 = new QHBoxLayout(layoutWidget_5);
+        horizontalLayout_11->setSpacing(6);
+        horizontalLayout_11->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        horizontalLayout_11->setContentsMargins(0, 0, 0, 0);
+        neighbor_mode = new QLabel(layoutWidget_5);
+        neighbor_mode->setObjectName(QStringLiteral("neighbor_mode"));
+        neighbor_mode->setFont(font3);
+
+        horizontalLayout_11->addWidget(neighbor_mode);
+
+        neighbor_K = new QLabel(layoutWidget_5);
+        neighbor_K->setObjectName(QStringLiteral("neighbor_K"));
+        neighbor_K->setFont(font3);
+
+        horizontalLayout_11->addWidget(neighbor_K);
+
+        widget = new QWidget(neighbor_trans);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(270, 10, 202, 40));
+        horizontalLayout_14 = new QHBoxLayout(widget);
+        horizontalLayout_14->setSpacing(6);
+        horizontalLayout_14->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_14->setObjectName(QStringLiteral("horizontalLayout_14"));
+        horizontalLayout_14->setContentsMargins(0, 0, 0, 0);
+        neighborType1 = new QPushButton(widget);
+        neighborType1->setObjectName(QStringLiteral("neighborType1"));
+        neighborType1->setFont(font3);
+
+        horizontalLayout_14->addWidget(neighborType1);
+
+        neighborType2 = new QPushButton(widget);
+        neighborType2->setObjectName(QStringLiteral("neighborType2"));
+        neighborType2->setFont(font3);
+
+        horizontalLayout_14->addWidget(neighborType2);
+
+        smooth_type->addTab(neighbor_trans, QString());
+        tabWidget->addTab(smooth, QString());
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -645,9 +830,10 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
-        gray_hist->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(6);
+        gray_hist->setCurrentIndex(1);
         point_type->setCurrentIndex(0);
+        smooth_type->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -699,21 +885,39 @@ public:
         gray_hist->setTabText(gray_hist->indexOf(gray_balance), QApplication::translate("MainWindow", "\347\201\260\345\272\246\347\233\264\346\226\271\345\233\276\345\235\207\350\241\241\345\214\226", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(histogram), QApplication::translate("MainWindow", "\347\201\260\345\272\246\347\233\264\346\226\271\345\233\276", nullptr));
         line_f1->setText(QApplication::translate("MainWindow", "f(D) = ", nullptr));
+        line_a1->setPlaceholderText(QApplication::translate("MainWindow", "-1", nullptr));
         line_d1->setText(QApplication::translate("MainWindow", "*D + ", nullptr));
+        line_b1->setPlaceholderText(QApplication::translate("MainWindow", "255", nullptr));
         line_push->setText(QApplication::translate("MainWindow", "\347\241\256\345\256\232", nullptr));
         point_type->setTabText(point_type->indexOf(line_trans), QApplication::translate("MainWindow", "\347\272\277\346\200\247\345\217\230\346\215\242", nullptr));
         nline_f1->setText(QApplication::translate("MainWindow", "f(D) = ", nullptr));
-        nline_c1->setPlaceholderText(QApplication::translate("MainWindow", "c", nullptr));
+        nline_c1->setPlaceholderText(QApplication::translate("MainWindow", "25", nullptr));
         nline_d1->setText(QApplication::translate("MainWindow", "*log(D+1)", nullptr));
         nline_push1->setText(QApplication::translate("MainWindow", "\347\241\256\345\256\232", nullptr));
         point_type->setTabText(point_type->indexOf(nline_trans1), QApplication::translate("MainWindow", "\351\235\236\347\272\277\346\200\247\345\217\230\346\215\2421", nullptr));
         nline_f2->setText(QApplication::translate("MainWindow", "f(D) = ", nullptr));
-        nline_a2->setPlaceholderText(QApplication::translate("MainWindow", "a", nullptr));
+        nline_a2->setPlaceholderText(QApplication::translate("MainWindow", "1", nullptr));
         nline_d2->setText(QApplication::translate("MainWindow", "D^", nullptr));
-        nline_b2->setPlaceholderText(QApplication::translate("MainWindow", "b", nullptr));
+        nline_b2->setPlaceholderText(QApplication::translate("MainWindow", "1.15", nullptr));
         nline_push2->setText(QApplication::translate("MainWindow", "\347\241\256\345\256\232", nullptr));
         point_type->setTabText(point_type->indexOf(nline_trans2), QApplication::translate("MainWindow", "\351\235\236\347\272\277\346\200\247\345\217\230\346\215\2422", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(point), QApplication::translate("MainWindow", "\347\202\271\350\277\220\347\256\227", nullptr));
+        average_mode->setText(QApplication::translate("MainWindow", "\346\250\241\346\235\277:", nullptr));
+        averageType1->setText(QApplication::translate("MainWindow", "3*3", nullptr));
+        averageType2->setText(QApplication::translate("MainWindow", "5*5", nullptr));
+        averageType3->setText(QApplication::translate("MainWindow", "7*7", nullptr));
+        smooth_type->setTabText(smooth_type->indexOf(average_trans), QApplication::translate("MainWindow", "\345\235\207\345\200\274", nullptr));
+        average_mode_2->setText(QApplication::translate("MainWindow", "\346\250\241\346\235\277:", nullptr));
+        midType1->setText(QApplication::translate("MainWindow", "\344\270\211\351\230\266\346\226\271\345\275\242", nullptr));
+        midType2->setText(QApplication::translate("MainWindow", "\344\270\211\351\230\266\347\216\257\345\275\242", nullptr));
+        midType3->setText(QApplication::translate("MainWindow", "\344\272\224\351\230\266\345\215\201\345\255\227\345\275\242", nullptr));
+        smooth_type->setTabText(smooth_type->indexOf(mid_trans), QApplication::translate("MainWindow", "\344\270\255\345\200\274", nullptr));
+        neighbor_mode->setText(QApplication::translate("MainWindow", "\346\250\241\346\235\277: \344\270\211\351\230\266\346\226\271\345\275\242", nullptr));
+        neighbor_K->setText(QApplication::translate("MainWindow", "K = 3", nullptr));
+        neighborType1->setText(QApplication::translate("MainWindow", "K\350\277\221\351\202\273\345\235\207\345\200\274", nullptr));
+        neighborType2->setText(QApplication::translate("MainWindow", "K\350\277\221\351\202\273\344\270\255\345\200\274", nullptr));
+        smooth_type->setTabText(smooth_type->indexOf(neighbor_trans), QApplication::translate("MainWindow", "K\351\202\273\345\237\237", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(smooth), QApplication::translate("MainWindow", "\345\233\276\345\203\217\345\271\263\346\273\221", nullptr));
     } // retranslateUi
 
 };

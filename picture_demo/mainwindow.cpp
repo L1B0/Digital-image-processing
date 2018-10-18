@@ -44,6 +44,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->nline_ori2_paint->addGraph();
     ui->nline_trans2_paint->addGraph();
     ui->gray_bal_paint->addGraph();
+    ui->average_paint->addGraph();
+    ui->mid_paint->addGraph();
+    ui->neighbor_paint->addGraph();
 
     QScrollArea *ori_scrollarea = new QScrollArea(ui->original);
     ori_scrollarea->setGeometry(QRect(10, 10, 525, 537));
@@ -83,6 +86,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QScrollArea *nline_trans2_scrollArea = new QScrollArea(ui->nline_trans2);
     nline_trans2_scrollArea->setGeometry(QRect(28, 397, 501, 311));
     nline_trans2_scrollArea->setWidget(ui->nline_trans2_image);
+    QScrollArea *average_scrollarea = new QScrollArea(ui->average_trans);
+    average_scrollarea->setGeometry(QRect(30,70,531,671));
+    average_scrollarea->setWidget(ui->average_page);
+    QScrollArea *mid_scrollarea = new QScrollArea(ui->mid_trans);
+    mid_scrollarea->setGeometry(QRect(30,70,531,671));
+    mid_scrollarea->setWidget(ui->mid_page);
+    QScrollArea *neighbor_scrollarea = new QScrollArea(ui->neighbor_trans);
+    neighbor_scrollarea->setGeometry(QRect(30,70,531,671));
+    neighbor_scrollarea->setWidget(ui->neighbor_page);
+
 }
 
 MainWindow::~MainWindow()
@@ -145,6 +158,9 @@ void MainWindow::open()
         ui->line_ori_image->setPalette(pale);
         ui->nline_ori1_image->setPalette(pale);
         ui->nline_ori2_image->setPalette(pale);
+        ui->average_page->setPalette(pale);
+        ui->mid_page->setPalette(pale);
+        ui->neighbor_page->setPalette(pale);
 
         myShowBitplane();
         createHistogram(ui->histogram_paint, myImage, true);
@@ -153,10 +169,14 @@ void MainWindow::open()
         createHistogram(ui->line_ori_paint, myImage, false);
         createHistogram(ui->nline_ori1_paint, myImage, false);
         createHistogram(ui->nline_ori2_paint, myImage, false);
+        createHistogram(ui->average_paint, myImage, false);
+        createHistogram(ui->mid_paint, myImage, false);
+        createHistogram(ui->neighbor_paint, myImage, false);
 
         histogramEqualization(myImage); // Histogram equalization
         ui->tabWidget->setCurrentIndex(0);
         ui->gray_hist->setCurrentIndex(0);
+        ui->smooth_type->setCurrentIndex(0);
 
         //滚动条
 
@@ -172,7 +192,9 @@ void MainWindow::open()
         ui->nline_trans1_image->resize(QSize(imageWidth,imageHeight));
         ui->nline_ori2_image->resize(QSize(imageWidth,imageHeight));
         ui->nline_trans2_image->resize(QSize(imageWidth,imageHeight));
-
+        ui->average_page->resize(QSize(imageWidth,imageHeight));
+        ui->mid_page->resize(QSize(imageWidth,imageHeight));
+        ui->neighbor_page->resize(QSize(imageWidth,imageHeight));
     }
     return ;
 }
@@ -304,9 +326,7 @@ void MainWindow::myShow(int num, char flag)
             QRgb pixel = myImage.pixel(i,j);
             QColor gray = QColor(pixel);
             int r = gray.red();
-            if(i < 5 && j < 5) qDebug() << "r=" << r;
             r = getBit(r,num-1);
-            if(i < 5 && j < 5) qDebug() << "r=" << r;
             //qDebug() << "r=" << r << "g=" << g << "b=" << b;
             QRgb newpixel = qRgb(r,r,r);
             //qDebug() << "myshow: i = " << i << "j = " << j;
@@ -762,4 +782,77 @@ void MainWindow::on_bilinear_spin_push_clicked()
     pale.setBrush(this->backgroundRole(),QBrush(ui->original_page_2->saveImage));
     ui->original_page_2->setPalette(pale);
     return ;
+}
+
+void MainWindow::imageSmoothAverage(int mode)
+{
+    imageSmooth a;
+    QImage* iGray = a.imageSimpleBlur(myImage,mode);
+    ui->average_page->saveImage = *iGray;
+    pale.setBrush(this->backgroundRole(),QBrush(ui->average_page->saveImage));
+    ui->average_page->setPalette(pale);
+    createHistogram(ui->average_paint, ui->average_page->saveImage, false);
+    return ;
+}
+
+void MainWindow::on_averageType1_clicked()
+{
+    imageSmoothAverage(3);
+}
+
+void MainWindow::on_averageType2_clicked()
+{
+    imageSmoothAverage(5);
+}
+
+void MainWindow::on_averageType3_clicked()
+{
+    imageSmoothAverage(7);
+}
+
+void MainWindow::imageSmoothMid(int mode)
+{
+    imageSmooth a;
+    QImage* iGray = a.imageMdianBlur(myImage,mode);
+    ui->mid_page->saveImage = *iGray;
+    pale.setBrush(this->backgroundRole(),QBrush(ui->mid_page->saveImage));
+    ui->mid_page->setPalette(pale);
+    createHistogram(ui->mid_paint, ui->mid_page->saveImage, false);
+    return ;
+}
+
+void MainWindow::on_midType1_clicked()
+{
+    imageSmoothMid(1);
+}
+
+void MainWindow::on_midType2_clicked()
+{
+    imageSmoothMid(2);
+}
+
+void MainWindow::on_midType3_clicked()
+{
+    imageSmoothMid(3);
+}
+
+void MainWindow::imageSmoothNeighbor(int mode)
+{
+    imageSmooth a;
+    QImage* iGray = a.imageNeighborBlur(myImage,mode);
+    ui->neighbor_page->saveImage = *iGray;
+    pale.setBrush(this->backgroundRole(),QBrush(ui->neighbor_page->saveImage));
+    ui->neighbor_page->setPalette(pale);
+    createHistogram(ui->neighbor_paint, ui->neighbor_page->saveImage, false);
+    return ;
+}
+
+void MainWindow::on_neighborType1_clicked()
+{
+    imageSmoothNeighbor(1);
+}
+
+void MainWindow::on_neighborType2_clicked()
+{
+    imageSmoothNeighbor(2);
 }

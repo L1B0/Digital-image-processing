@@ -8,7 +8,13 @@
 * **语言**：C++
 * **依赖**：qmake
 
-### 2. 使用说明
+### 2. 编译
+
+```
+QT+=core widgets printsupport
+```
+
+
 
 
 
