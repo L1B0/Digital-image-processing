@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1189</width>
-    <height>840</height>
+    <width>1204</width>
+    <height>855</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,8 +25,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1161</width>
-      <height>791</height>
+      <width>1171</width>
+      <height>801</height>
      </rect>
     </property>
     <property name="tabPosition">

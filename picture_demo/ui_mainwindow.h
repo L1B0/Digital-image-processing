@@ -143,7 +143,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1189, 840);
+        MainWindow->resize(1204, 855);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -159,7 +159,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 1161, 791));
+        tabWidget->setGeometry(QRect(10, 10, 1171, 801));
         tabWidget->setTabPosition(QTabWidget::West);
         tabWidget->setIconSize(QSize(18, 18));
         original = new QWidget();
