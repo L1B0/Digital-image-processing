@@ -4,7 +4,9 @@
 
 ### 1. 环境说明
 
-
+* **运行环境**：Linux(deepin) - Qt Creator 4.6.2 based on Qt 5.11.1
+* **语言**：C++
+* **依赖**：qmake
 
 ### 2. 使用说明
 
