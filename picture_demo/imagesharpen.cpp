@@ -36,7 +36,7 @@ QImage* imageSharpen::imageSharpenSobel(QImage nowImage)
     QMessageBox::information(NULL, QObject::tr("Path"), QObject::tr("Sobel"));
     QImage* result = new QImage(nowImage.width(),nowImage.height(),nowImage.format());
     initImage(result);
-    int dx[9] = {-1,0,1,-2,0,2,-1,0,1}, dy[9] = {-1,-2,1,0,0,0,1,2,1};
+    int dx[9] = {-1,0,1,-2,0,2,-1,0,1}, dy[9] = {-1,-2,-1,0,0,0,1,2,1};
     for(int i=0;i<nowImage.width();i++)
     {
         for(int j=0;j<nowImage.height();j++)
@@ -53,21 +53,21 @@ QImage* imageSharpen::imageSharpenSobel(QImage nowImage)
                 }
                 else if( x >= 0 && x < nowImage.width() )
                 {
-                    ddx += dx[k]*QColor(nowImage.pixel(x,y-k/3+1)).red();
-                    ddy += dy[k]*QColor(nowImage.pixel(x,y-k/3+1)).red();
+                    ddx += dx[k]*QColor(nowImage.pixel(x,j-k/3+1)).red();
+                    ddy += dy[k]*QColor(nowImage.pixel(x,j-k/3+1)).red();
                 }
                 else if( y >= 0 && y < nowImage.height() )
                 {
-                    ddx += dx[k]*QColor(nowImage.pixel(x-k%3+1,y)).red();
-                    ddy += dy[k]*QColor(nowImage.pixel(x-k%3+1,y)).red();
+                    ddx += dx[k]*QColor(nowImage.pixel(i-k%3+1,y)).red();
+                    ddy += dy[k]*QColor(nowImage.pixel(i  -k%3+1,y)).red();
                 }
                 else
                 {
-                    ddx += dx[k]*QColor(nowImage.pixel(x-k%3+1,y-k/3+1)).red();
-                    ddy += dy[k]*QColor(nowImage.pixel(x-k%3+1,y-k/3+1)).red();
+                    ddx += dx[k]*QColor(nowImage.pixel(i-k%3+1,j-k/3+1)).red();
+                    ddy += dy[k]*QColor(nowImage.pixel(i-k%3+1,j-k/3+1)).red();
                 }
             }
-            newGray = (int)sqrt((ddx*ddx+ddy+ddy));
+            newGray = (int)sqrt((ddx*ddx+ddy*ddy))%256;
             if( nowImage.format() == QImage::Format_Indexed8 )
                 result->setPixel(i,j,newGray);
             else
