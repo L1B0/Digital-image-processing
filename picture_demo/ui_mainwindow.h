@@ -165,10 +165,19 @@ public:
     QHBoxLayout *horizontalLayout_11;
     QLabel *neighbor_mode;
     QLabel *neighbor_K;
-    QWidget *widget;
+    QWidget *layoutWidget6;
     QHBoxLayout *horizontalLayout_14;
     QPushButton *neighborType1;
     QPushButton *neighborType2;
+    QWidget *sharpen;
+    QCustomPlot *sharpen_paint;
+    mywidget *sharpen_page;
+    QWidget *layoutWidget7;
+    QHBoxLayout *horizontalLayout_15;
+    QPushButton *sharpenRoberts;
+    QPushButton *sharpenSobel;
+    QPushButton *sharpenLapla;
+    QPushButton *sharpenmode;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -798,21 +807,21 @@ public:
 
         horizontalLayout_11->addWidget(neighbor_K);
 
-        widget = new QWidget(neighbor_trans);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(270, 10, 202, 40));
-        horizontalLayout_14 = new QHBoxLayout(widget);
+        layoutWidget6 = new QWidget(neighbor_trans);
+        layoutWidget6->setObjectName(QStringLiteral("layoutWidget6"));
+        layoutWidget6->setGeometry(QRect(270, 10, 202, 40));
+        horizontalLayout_14 = new QHBoxLayout(layoutWidget6);
         horizontalLayout_14->setSpacing(6);
         horizontalLayout_14->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_14->setObjectName(QStringLiteral("horizontalLayout_14"));
         horizontalLayout_14->setContentsMargins(0, 0, 0, 0);
-        neighborType1 = new QPushButton(widget);
+        neighborType1 = new QPushButton(layoutWidget6);
         neighborType1->setObjectName(QStringLiteral("neighborType1"));
         neighborType1->setFont(font3);
 
         horizontalLayout_14->addWidget(neighborType1);
 
-        neighborType2 = new QPushButton(widget);
+        neighborType2 = new QPushButton(layoutWidget6);
         neighborType2->setObjectName(QStringLiteral("neighborType2"));
         neighborType2->setFont(font3);
 
@@ -820,6 +829,47 @@ public:
 
         smooth_type->addTab(neighbor_trans, QString());
         tabWidget->addTab(smooth, QString());
+        sharpen = new QWidget();
+        sharpen->setObjectName(QStringLiteral("sharpen"));
+        sharpen_paint = new QCustomPlot(sharpen);
+        sharpen_paint->setObjectName(QStringLiteral("sharpen_paint"));
+        sharpen_paint->setGeometry(QRect(631, 60, 521, 731));
+        sharpen_paint->setContextMenuPolicy(Qt::ActionsContextMenu);
+        sharpen_page = new mywidget(sharpen);
+        sharpen_page->setObjectName(QStringLiteral("sharpen_page"));
+        sharpen_page->setGeometry(QRect(30, 60, 571, 731));
+        sharpen_page->setContextMenuPolicy(Qt::ActionsContextMenu);
+        layoutWidget7 = new QWidget(sharpen);
+        layoutWidget7->setObjectName(QStringLiteral("layoutWidget7"));
+        layoutWidget7->setGeometry(QRect(30, 10, 301, 51));
+        horizontalLayout_15 = new QHBoxLayout(layoutWidget7);
+        horizontalLayout_15->setSpacing(6);
+        horizontalLayout_15->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_15->setObjectName(QStringLiteral("horizontalLayout_15"));
+        horizontalLayout_15->setContentsMargins(0, 0, 0, 0);
+        sharpenRoberts = new QPushButton(layoutWidget7);
+        sharpenRoberts->setObjectName(QStringLiteral("sharpenRoberts"));
+        sharpenRoberts->setFont(font3);
+
+        horizontalLayout_15->addWidget(sharpenRoberts);
+
+        sharpenSobel = new QPushButton(layoutWidget7);
+        sharpenSobel->setObjectName(QStringLiteral("sharpenSobel"));
+        sharpenSobel->setFont(font3);
+
+        horizontalLayout_15->addWidget(sharpenSobel);
+
+        sharpenLapla = new QPushButton(layoutWidget7);
+        sharpenLapla->setObjectName(QStringLiteral("sharpenLapla"));
+        sharpenLapla->setFont(font3);
+
+        horizontalLayout_15->addWidget(sharpenLapla);
+
+        sharpenmode = new QPushButton(sharpen);
+        sharpenmode->setObjectName(QStringLiteral("sharpenmode"));
+        sharpenmode->setGeometry(QRect(410, 10, 111, 41));
+        sharpenmode->setFont(font3);
+        tabWidget->addTab(sharpen, QString());
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -830,10 +880,10 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(6);
+        tabWidget->setCurrentIndex(7);
         gray_hist->setCurrentIndex(1);
         point_type->setCurrentIndex(0);
-        smooth_type->setCurrentIndex(1);
+        smooth_type->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -918,6 +968,11 @@ public:
         neighborType2->setText(QApplication::translate("MainWindow", "K\350\277\221\351\202\273\344\270\255\345\200\274", nullptr));
         smooth_type->setTabText(smooth_type->indexOf(neighbor_trans), QApplication::translate("MainWindow", "K\351\202\273\345\237\237", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(smooth), QApplication::translate("MainWindow", "\345\233\276\345\203\217\345\271\263\346\273\221", nullptr));
+        sharpenRoberts->setText(QApplication::translate("MainWindow", "Roberts", nullptr));
+        sharpenSobel->setText(QApplication::translate("MainWindow", "Sobel", nullptr));
+        sharpenLapla->setText(QApplication::translate("MainWindow", "Laplacian", nullptr));
+        sharpenmode->setText(QApplication::translate("MainWindow", "\350\207\252\345\256\232\344\271\211\346\250\241\346\235\277", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(sharpen), QApplication::translate("MainWindow", "\345\233\276\345\203\217\351\224\220\345\214\226", nullptr));
     } // retranslateUi
 
 };

@@ -2,9 +2,7 @@
 #define IMAGESMOOTH_H
 
 #include <iostream>
-#include <QImage>
 #include <mypic.h>
-#include <QDebug>
 #include <algorithm>
 using namespace std;
 

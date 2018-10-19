@@ -3,6 +3,8 @@
 
 #include <mypic.h>
 #include <imagesmooth.h>
+#include <imagesharpen.h>
+#include "imagesharpenmode.h"
 #include <QScrollArea>
 class QAction;
 
@@ -30,6 +32,7 @@ public:
     void imageSmoothAverage(int mode);
     void imageSmoothMid(int mode);
     void imageSmoothNeighbor(int mode);
+    void imageSharpenTrans(imageSharpen b, int mode,int x, int y);
 
 private slots:
     void open();
@@ -72,6 +75,14 @@ private slots:
     void on_neighborType1_clicked();
 
     void on_neighborType2_clicked();
+
+    void on_sharpenRoberts_clicked();
+
+    void on_sharpenSobel_clicked();
+
+    void on_sharpenLapla_clicked();
+
+    void on_sharpenmode_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -25,8 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->width->setPlaceholderText(tr("宽度"));
     ui->length->setPlaceholderText(tr("高度"));
     ui->gray_level->setPlaceholderText(tr("灰度级"));
-    ui->line_a1->setPlaceholderText(tr("a"));
-    ui->line_b1->setPlaceholderText(tr("b"));
 
     //功能栏
     ui->tabWidget->tabBar()->setStyle(new CustomTabStyle);
@@ -47,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->average_paint->addGraph();
     ui->mid_paint->addGraph();
     ui->neighbor_paint->addGraph();
+    ui->sharpen_paint->addGraph();
 
     QScrollArea *ori_scrollarea = new QScrollArea(ui->original);
     ori_scrollarea->setGeometry(QRect(10, 10, 525, 537));
@@ -95,6 +94,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QScrollArea *neighbor_scrollarea = new QScrollArea(ui->neighbor_trans);
     neighbor_scrollarea->setGeometry(QRect(30,70,531,671));
     neighbor_scrollarea->setWidget(ui->neighbor_page);
+    QScrollArea *sharpen_scrollarea = new QScrollArea(ui->sharpen);
+    sharpen_scrollarea->setGeometry(QRect(30,60,571,731));
+    sharpen_scrollarea->setWidget(ui->sharpen_page);
 
 }
 
@@ -161,6 +163,7 @@ void MainWindow::open()
         ui->average_page->setPalette(pale);
         ui->mid_page->setPalette(pale);
         ui->neighbor_page->setPalette(pale);
+        ui->sharpen_page->setPalette(pale);
 
         myShowBitplane();
         createHistogram(ui->histogram_paint, myImage, true);
@@ -172,6 +175,7 @@ void MainWindow::open()
         createHistogram(ui->average_paint, myImage, false);
         createHistogram(ui->mid_paint, myImage, false);
         createHistogram(ui->neighbor_paint, myImage, false);
+        createHistogram(ui->sharpen_paint, myImage, false);
 
         histogramEqualization(myImage); // Histogram equalization
         ui->tabWidget->setCurrentIndex(0);
@@ -195,6 +199,7 @@ void MainWindow::open()
         ui->average_page->resize(QSize(imageWidth,imageHeight));
         ui->mid_page->resize(QSize(imageWidth,imageHeight));
         ui->neighbor_page->resize(QSize(imageWidth,imageHeight));
+        ui->sharpen_page->resize(QSize(imageWidth,imageHeight));
     }
     return ;
 }
@@ -855,4 +860,54 @@ void MainWindow::on_neighborType1_clicked()
 void MainWindow::on_neighborType2_clicked()
 {
     imageSmoothNeighbor(2);
+}
+
+void MainWindow::imageSharpenTrans(imageSharpen a, int mode, int x, int y)
+{
+    QImage* iGray;
+
+    if(mode == 1) iGray = a.imageSharpenRoberts(myImage);
+    else if(mode == 2) iGray = a.imageSharpenSobel(myImage);
+    else if(mode == 3) iGray = a.imageSharpenLapla(myImage);
+    else iGray = a.imageSharpenMode(myImage,x,y);
+    ui->sharpen_page->saveImage = *iGray;
+    pale.setBrush(this->backgroundRole(),QBrush(ui->sharpen_page->saveImage));
+    ui->sharpen_page->setPalette(pale);
+    createHistogram(ui->sharpen_paint, ui->sharpen_page->saveImage, false);
+    return ;
+}
+
+void MainWindow::on_sharpenRoberts_clicked()
+{
+    imageSharpen b;
+    imageSharpenTrans(b,1,0,0);
+}
+
+void MainWindow::on_sharpenSobel_clicked()
+{
+    imageSharpen b;
+    imageSharpenTrans(b,2,0,0);
+}
+
+void MainWindow::on_sharpenLapla_clicked()
+{
+    imageSharpen b;
+    imageSharpenTrans(b,3,0,0);
+}
+
+void MainWindow::on_sharpenmode_clicked()
+{
+    imageSharpenMode ism;
+    ism.flag = true;
+    ism.setWindowTitle(QString("自定义模板"));
+    while(1)
+    {
+        int f = ism.exec();
+        if( f == QDialog::Accepted && ism.flag == true )
+        {
+            imageSharpenTrans(ism.now,4,ism.x,ism.y);
+        }
+        if( f == QDialog::Rejected ) return ;
+    }
+
 }

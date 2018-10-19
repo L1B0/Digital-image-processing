@@ -24,11 +24,16 @@ HEADERS += customtabstyle.h \
            mypic.h \
            mywidget.h \
            qcustomplot.h \
-           ui_mainwindow.h
-FORMS += mainwindow.ui
+           ui_mainwindow.h \
+    imagesharpen.h \
+    imagesharpenmode.h
+FORMS += mainwindow.ui \
+    imagesharpenmode.ui
 SOURCES += imagesmooth.cpp \
            main.cpp \
            mainwindow.cpp \
            mypic.cpp \
            mywidget.cpp \
-           qcustomplot.cpp
+           qcustomplot.cpp \
+    imagesharpen.cpp \
+    imagesharpenmode.cpp

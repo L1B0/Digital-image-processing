@@ -41,6 +41,7 @@ QImage* imageSmooth::imageMdianBlur(QImage nowImage, int mode)
 {
     QImage* result = new QImage(nowImage.width(),nowImage.height(),nowImage.format());
     initImage(result);
+
     for(int i=0;i<nowImage.width();i++)
     {
         for(int j=0;j<nowImage.height();j++)
@@ -104,33 +105,33 @@ QImage* imageSmooth::imageNeighborBlur(QImage nowImage, int mode)
     {
         for(int j=0;j<nowImage.height();j++)
         {
-            int newGray,sum=0,array[11];
-            array[sum++] = QColor(nowImage.pixel(i,j)).red();
+            int newGray=0,sum=0,array[11];
 
             for(int k=-1;k<=1;k++)
                 for(int l=-1;l<=1;l++)
                 {
-                    if(k!=0 && l!=0 && (i+k) >= 0 && (i+k) < nowImage.width() && (j+l) >= 0 && (j+l) < nowImage.height())
+                    if((i+k) >= 0 && (i+k) < nowImage.width() && (j+l) >= 0 && (j+l) < nowImage.height())
                     {
-                        array[sum] = QColor(nowImage.pixel(i+k,j+l)).red();
-                        sum ++;
+                        //qDebug() << i+k << j+l;
+                        array[sum++] = QColor(nowImage.pixel(i+k,j+l)).red();
                     }
                 }
             sort(array,array+sum);
             if(mode == 1)
             {
-                int k;
+                int k=0;
+                //qDebug() << sum;
                 for(k=0;k<sum;k++)
                     if(array[k] == QColor(nowImage.pixel(i,j)).red())
                         break;
                 if(k == 0)
                     newGray = (array[0]+array[1]+array[2])/3;
-                else
+                else if(sum>2)
                     newGray = (array[k-1]+array[k+1]+array[k])/3;
             }
             else
             {
-                int k;
+                int k=0;
                 for(k=0;k<sum;k++)
                     if(array[k] == QColor(nowImage.pixel(i,j)).red())
                         break;

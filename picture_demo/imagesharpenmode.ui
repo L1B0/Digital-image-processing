@@ -1,25 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>imageSharpenMode</class>
- <widget name="imageSharpenMode" class="QDialog">
+ <widget class="QDialog" name="imageSharpenMode">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>568</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget name="buttonBox" class="QDialogButtonBox">
+  <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>240</y>
+     <x>190</x>
+     <y>340</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -31,8 +29,141 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>140</y>
+     <width>521</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <row>
+    <property name="text">
+     <string>y1</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>y2</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>y3</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>y4</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>y5</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>x1</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>x2</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>x3</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>x4</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>x5</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>90</y>
+     <width>247</width>
+     <height>55</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLineEdit" name="x">
+      <property name="placeholderText">
+       <string>x</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>26</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>*</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="y">
+      <property name="placeholderText">
+       <string>y</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>20</y>
+     <width>318</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>请输入您的自定义模板（最大不超过5*5）</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>若长或宽为偶数，默认中心取右下角</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
- <pixmapfunction/>
  <resources/>
  <connections>
   <connection>
