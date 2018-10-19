@@ -11,7 +11,7 @@
 ### 2. 编译
 
 ```
-QT+=core widgets printsupport
+QT+=core widgets printsupport // vim picture_demo.pro
 ```
 
 
