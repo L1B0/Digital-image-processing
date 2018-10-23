@@ -38,6 +38,8 @@ public:
     QWidget *centralWidget;
     QTabWidget *tabWidget;
     QWidget *original;
+    mywidget *original_page;
+    QWidget *scaling;
     QLabel *nearest_insert;
     QLabel *bilinear_insert;
     QWidget *layoutWidget_3;
@@ -50,8 +52,8 @@ public:
     QSlider *nearest_horizontalSlider;
     QPushButton *nearest_spin_push;
     QPushButton *bilinear_spin_push;
-    mywidget *original_page;
-    mywidget *original_page_2;
+    mywidget *scaling_page;
+    mywidget *scaling_page_2;
     QWidget *sampling_rate;
     QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout;
@@ -201,22 +203,29 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 1221, 831));
+        tabWidget->setGeometry(QRect(10, 10, 1191, 831));
         tabWidget->setTabPosition(QTabWidget::West);
         tabWidget->setIconSize(QSize(18, 18));
         original = new QWidget();
         original->setObjectName(QStringLiteral("original"));
-        nearest_insert = new QLabel(original);
+        original_page = new mywidget(original);
+        original_page->setObjectName(QStringLiteral("original_page"));
+        original_page->setGeometry(QRect(20, 30, 1081, 751));
+        original_page->setContextMenuPolicy(Qt::ActionsContextMenu);
+        tabWidget->addTab(original, QString());
+        scaling = new QWidget();
+        scaling->setObjectName(QStringLiteral("scaling"));
+        nearest_insert = new QLabel(scaling);
         nearest_insert->setObjectName(QStringLiteral("nearest_insert"));
         nearest_insert->setGeometry(QRect(220, 600, 161, 31));
         QFont font;
         font.setPointSize(12);
         nearest_insert->setFont(font);
-        bilinear_insert = new QLabel(original);
+        bilinear_insert = new QLabel(scaling);
         bilinear_insert->setObjectName(QStringLiteral("bilinear_insert"));
         bilinear_insert->setGeometry(QRect(810, 590, 161, 31));
         bilinear_insert->setFont(font);
-        layoutWidget_3 = new QWidget(original);
+        layoutWidget_3 = new QWidget(scaling);
         layoutWidget_3->setObjectName(QStringLiteral("layoutWidget_3"));
         layoutWidget_3->setGeometry(QRect(720, 640, 341, 61));
         horizontalLayout_26 = new QHBoxLayout(layoutWidget_3);
@@ -238,7 +247,7 @@ public:
 
         horizontalLayout_26->addWidget(bilinear_horizontalSlider);
 
-        layoutWidget = new QWidget(original);
+        layoutWidget = new QWidget(scaling);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(140, 650, 341, 61));
         horizontalLayout_25 = new QHBoxLayout(layoutWidget);
@@ -260,25 +269,25 @@ public:
 
         horizontalLayout_25->addWidget(nearest_horizontalSlider);
 
-        nearest_spin_push = new QPushButton(original);
+        nearest_spin_push = new QPushButton(scaling);
         nearest_spin_push->setObjectName(QStringLiteral("nearest_spin_push"));
         nearest_spin_push->setGeometry(QRect(250, 730, 121, 51));
         QFont font1;
         font1.setPointSize(18);
         nearest_spin_push->setFont(font1);
-        bilinear_spin_push = new QPushButton(original);
+        bilinear_spin_push = new QPushButton(scaling);
         bilinear_spin_push->setObjectName(QStringLiteral("bilinear_spin_push"));
         bilinear_spin_push->setGeometry(QRect(830, 730, 121, 51));
         bilinear_spin_push->setFont(font1);
-        original_page = new mywidget(original);
-        original_page->setObjectName(QStringLiteral("original_page"));
-        original_page->setGeometry(QRect(20, 10, 561, 571));
-        original_page->setContextMenuPolicy(Qt::ActionsContextMenu);
-        original_page_2 = new mywidget(original);
-        original_page_2->setObjectName(QStringLiteral("original_page_2"));
-        original_page_2->setGeometry(QRect(620, 10, 561, 571));
-        original_page_2->setContextMenuPolicy(Qt::ActionsContextMenu);
-        tabWidget->addTab(original, QString());
+        scaling_page = new mywidget(scaling);
+        scaling_page->setObjectName(QStringLiteral("scaling_page"));
+        scaling_page->setGeometry(QRect(20, 10, 561, 571));
+        scaling_page->setContextMenuPolicy(Qt::ActionsContextMenu);
+        scaling_page_2 = new mywidget(scaling);
+        scaling_page_2->setObjectName(QStringLiteral("scaling_page_2"));
+        scaling_page_2->setGeometry(QRect(620, 10, 561, 571));
+        scaling_page_2->setContextMenuPolicy(Qt::ActionsContextMenu);
+        tabWidget->addTab(scaling, QString());
         sampling_rate = new QWidget();
         sampling_rate->setObjectName(QStringLiteral("sampling_rate"));
         layoutWidget1 = new QWidget(sampling_rate);
@@ -293,7 +302,7 @@ public:
         width->setObjectName(QStringLiteral("width"));
         sizePolicy.setHeightForWidth(width->sizePolicy().hasHeightForWidth());
         width->setSizePolicy(sizePolicy);
-        width->setMaxLength(3);
+        width->setMaxLength(5);
 
         horizontalLayout->addWidget(width);
 
@@ -311,7 +320,7 @@ public:
         length->setObjectName(QStringLiteral("length"));
         sizePolicy.setHeightForWidth(length->sizePolicy().hasHeightForWidth());
         length->setSizePolicy(sizePolicy);
-        length->setMaxLength(3);
+        length->setMaxLength(5);
 
         horizontalLayout->addWidget(length);
 
@@ -880,8 +889,8 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(6);
-        gray_hist->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
+        gray_hist->setCurrentIndex(0);
         point_type->setCurrentIndex(0);
         smooth_type->setCurrentIndex(2);
 
@@ -894,13 +903,17 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         openFile->setText(QApplication::translate("MainWindow", "open", nullptr));
         saveFIle->setText(QApplication::translate("MainWindow", "save", nullptr));
+#ifndef QT_NO_ACCESSIBILITY
+        original->setAccessibleDescription(QString());
+#endif // QT_NO_ACCESSIBILITY
+        tabWidget->setTabText(tabWidget->indexOf(original), QApplication::translate("MainWindow", "\345\216\237\345\233\276", nullptr));
         nearest_insert->setText(QApplication::translate("MainWindow", "\346\234\200\350\277\221\351\202\273\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));
         bilinear_insert->setText(QApplication::translate("MainWindow", "\345\217\214\347\272\277\346\200\247\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));
         bilinear_level->setText(QApplication::translate("MainWindow", "\347\274\251\346\224\276\345\200\215\346\225\260: 0    ", nullptr));
         nearest_level->setText(QApplication::translate("MainWindow", "\347\274\251\346\224\276\345\200\215\346\225\260: 0    ", nullptr));
         nearest_spin_push->setText(QApplication::translate("MainWindow", "\346\227\213\350\275\254", nullptr));
         bilinear_spin_push->setText(QApplication::translate("MainWindow", "\346\227\213\350\275\254", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(original), QApplication::translate("MainWindow", "\345\233\276\345\203\217\346\224\276\347\274\251", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(scaling), QApplication::translate("MainWindow", "\345\233\276\345\203\217\346\224\276\347\274\251", nullptr));
         width->setInputMask(QString());
         width->setPlaceholderText(QString());
         mult->setText(QApplication::translate("MainWindow", "*", nullptr));

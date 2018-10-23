@@ -1,6 +1,6 @@
 # Digital-image-processing
 
->  ## Author: 1120162015 李博
+>  ## Author: L1B0
 
 *请在连接**外网**的前提下用**markdown编辑器**打开，保证最佳效果:-)*
 

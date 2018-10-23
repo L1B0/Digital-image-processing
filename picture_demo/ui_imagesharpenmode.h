@@ -37,6 +37,7 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QLabel *label_3;
+    QLabel *label_4;
 
     void setupUi(QDialog *imageSharpenMode)
     {
@@ -101,7 +102,7 @@ public:
 
         widget = new QWidget(imageSharpenMode);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(110, 20, 318, 60));
+        widget->setGeometry(QRect(110, 10, 331, 81));
         verticalLayout = new QVBoxLayout(widget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -118,6 +119,12 @@ public:
         label_3->setFont(font1);
 
         verticalLayout->addWidget(label_3);
+
+        label_4 = new QLabel(widget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setFont(font1);
+
+        verticalLayout->addWidget(label_4);
 
 
         retranslateUi(imageSharpenMode);
@@ -155,6 +162,7 @@ public:
         y->setPlaceholderText(QApplication::translate("imageSharpenMode", "y", nullptr));
         label->setText(QApplication::translate("imageSharpenMode", "\350\257\267\350\276\223\345\205\245\346\202\250\347\232\204\350\207\252\345\256\232\344\271\211\346\250\241\346\235\277\357\274\210\346\234\200\345\244\247\344\270\215\350\266\205\350\277\2075*5\357\274\211", nullptr));
         label_3->setText(QApplication::translate("imageSharpenMode", "\350\213\245\351\225\277\346\210\226\345\256\275\344\270\272\345\201\266\346\225\260\357\274\214\351\273\230\350\256\244\344\270\255\345\277\203\345\217\226\345\217\263\344\270\213\350\247\222", nullptr));
+        label_4->setText(QApplication::translate("imageSharpenMode", "\350\257\267\344\273\216\345\267\246\344\270\212\350\247\222\345\274\200\345\247\213\350\276\223\345\205\245!", nullptr));
     } // retranslateUi
 
 };

@@ -5,6 +5,7 @@ imageSharpen::imageSharpen()
 
 }
 
+//锐化-Roberts
 QImage* imageSharpen::imageSharpenRoberts(QImage nowImage)
 {
     QMessageBox::information(NULL, QObject::tr("Sharpen"), QObject::tr("Roberts"));
@@ -30,7 +31,7 @@ QImage* imageSharpen::imageSharpenRoberts(QImage nowImage)
 
     return result;
 }
-
+//锐化-Sobel
 QImage* imageSharpen::imageSharpenSobel(QImage nowImage)
 {
     QMessageBox::information(NULL, QObject::tr("Path"), QObject::tr("Sobel"));
@@ -77,7 +78,7 @@ QImage* imageSharpen::imageSharpenSobel(QImage nowImage)
 
     return result;
 }
-
+//锐化-Lapla
 QImage* imageSharpen::imageSharpenLapla(QImage nowImage)
 {
     QMessageBox::information(NULL, QObject::tr("Path"), QObject::tr("Lapla"));
@@ -108,7 +109,7 @@ QImage* imageSharpen::imageSharpenLapla(QImage nowImage)
 
     return result;
 }
-
+//图像增强-自定义
 QImage* imageSharpen::imageSharpenMode(QImage nowImage, int x, int y)
 {
     QImage* result = new QImage(nowImage.width(),nowImage.height(),nowImage.format());

@@ -131,9 +131,9 @@
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>20</y>
-     <width>318</width>
-     <height>60</height>
+     <y>10</y>
+     <width>331</width>
+     <height>81</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -158,6 +158,18 @@
       </property>
       <property name="text">
        <string>若长或宽为偶数，默认中心取右下角</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>请从左上角开始输入!</string>
       </property>
      </widget>
     </item>

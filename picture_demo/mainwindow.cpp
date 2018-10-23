@@ -26,12 +26,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->length->setPlaceholderText(tr("高度"));
     ui->gray_level->setPlaceholderText(tr("灰度级"));
 
-    //功能栏
+    //tabwidget自定义样式
     ui->tabWidget->tabBar()->setStyle(new CustomTabStyle);
     ui->tabWidget->setCurrentIndex(0);
     ui->point_type->tabBar()->setStyle(new CustomTabStyle);
     ui->point_type->setCurrentIndex(0);
+    ui->gray_hist->tabBar()->setStyle(new CustomTabStyle);
+    ui->gray_hist->setCurrentIndex(0);
+    ui->point_type->tabBar()->setStyle(new CustomTabStyle);
+    ui->point_type->setCurrentIndex(0);
+    ui->smooth_type->tabBar()->setStyle(new CustomTabStyle);
+    ui->smooth_type->setCurrentIndex(0);
 
+    //为画图标类添加段落
     ui->histogram_paint->addGraph();
     ui->sampling_paint->addGraph();
     ui->gray_paint->addGraph();
@@ -47,13 +54,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->neighbor_paint->addGraph();
     ui->sharpen_paint->addGraph();
 
-    QScrollArea *ori_scrollarea = new QScrollArea(ui->original);
-    ori_scrollarea->setGeometry(QRect(10, 10, 525, 537));
-    ori_scrollarea->setWidget(ui->original_page);
+    //添加滑动条
+    QScrollArea *original_scrollarea = new QScrollArea(ui->original);
+    original_scrollarea->setGeometry(QRect(20,30,1081,751));
+    original_scrollarea->setWidget(ui->original_page);
+    QScrollArea *scaling_scrollarea = new QScrollArea(ui->scaling);
+    scaling_scrollarea->setGeometry(QRect(10, 10, 525, 537));
+    scaling_scrollarea->setWidget(ui->scaling_page);
 
-    QScrollArea *ori_scrollArea_2 = new QScrollArea(ui->original);
-    ori_scrollArea_2->setGeometry(QRect(545, 10, 525, 537));
-    ori_scrollArea_2->setWidget(ui->original_page_2);
+    QScrollArea *scaling_scrollarea_2 = new QScrollArea(ui->scaling);
+    scaling_scrollarea_2->setGeometry(QRect(545, 10, 525, 537));
+    scaling_scrollarea_2->setWidget(ui->scaling_page_2);
 
     QScrollArea *sampling_scrollArea = new QScrollArea(ui->sampling_rate);
     sampling_scrollArea->setGeometry(QRect(30, 70, 511, 691));
@@ -67,9 +78,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QScrollArea *gray_bal_scrollArea = new QScrollArea(ui->gray_balance);
     gray_bal_scrollArea->setGeometry(QRect(25, 17, 491, 661));
     gray_bal_scrollArea->setWidget(ui->gray_bal_image);
-    QScrollArea *line_ori_scrollArea = new QScrollArea(ui->line_trans);
-    line_ori_scrollArea->setGeometry(QRect(30, 20, 491, 341));
-    line_ori_scrollArea->setWidget(ui->line_ori_image);
+    QScrollArea *line_scaling_scrollarea = new QScrollArea(ui->line_trans);
+    line_scaling_scrollarea->setGeometry(QRect(30, 20, 491, 341));
+    line_scaling_scrollarea->setWidget(ui->line_ori_image);
     QScrollArea *line_trans_scrollArea = new QScrollArea(ui->line_trans);
     line_trans_scrollArea->setGeometry(QRect(29, 399, 491, 311));
     line_trans_scrollArea->setWidget(ui->line_trans_image);
@@ -105,17 +116,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_action_saveMenu_triggered()
-{
-    QMessageBox::information(NULL, QObject::tr("Save"), QObject::tr("Save test!!!"));
-    int mouse_x = QCursor::pos().x();
-    int mouse_y = QCursor::pos().y();
-    qDebug() << mouse_x << mouse_y;
-    QWidget *action = QApplication::widgetAt(mouse_x, mouse_y);//获取鼠标点击处的控件
-    if( action != NULL )
-        QMessageBox::information(NULL, QObject::tr("Widget Name"), QString("%1").arg(action->objectName()));
-}
-
+//将输入清除
 void MainWindow::clearAllText()
 {
     QList<QLineEdit*> allLineEdit = ui->centralWidget->findChildren<QLineEdit*>();
@@ -126,6 +127,7 @@ void MainWindow::clearAllText()
     return ;
 }
 
+//打开图片
 void MainWindow::open()
 {
     clearAllText();
@@ -153,7 +155,8 @@ void MainWindow::open()
         //初始化功能页面
         pale.setBrush(this->backgroundRole(),QBrush(myImage));
         ui->original_page->setPalette(pale);
-        ui->original_page_2->setPalette(pale);
+        ui->scaling_page->setPalette(pale);
+        ui->scaling_page_2->setPalette(pale);
         ui->sampling_page->setPalette(pale);
         ui->gray_page->setPalette(pale);
         ui->histogram_page->setPalette(pale);
@@ -183,9 +186,9 @@ void MainWindow::open()
         ui->smooth_type->setCurrentIndex(0);
 
         //滚动条
-
         ui->original_page->resize(QSize(imageWidth,imageHeight));
-        ui->original_page_2->resize(QSize(imageWidth,imageHeight));
+        ui->scaling_page->resize(QSize(imageWidth,imageHeight));
+        ui->scaling_page_2->resize(QSize(imageWidth,imageHeight));
         ui->histogram_page->resize(QSize(imageWidth,imageHeight));
         ui->sampling_page->resize(QSize(imageWidth,imageHeight));
         ui->gray_page->resize(QSize(imageWidth,imageHeight));
@@ -200,10 +203,30 @@ void MainWindow::open()
         ui->mid_page->resize(QSize(imageWidth,imageHeight));
         ui->neighbor_page->resize(QSize(imageWidth,imageHeight));
         ui->sharpen_page->resize(QSize(imageWidth,imageHeight));
+
+        //初始化
+        ui->original_page->saveImage = myImage;
+        ui->scaling_page->saveImage = myImage;
+        ui->scaling_page_2->saveImage = myImage;
+        ui->histogram_page->saveImage = myImage;
+        ui->sampling_page->saveImage = myImage;
+        ui->gray_page->saveImage = myImage;
+        ui->gray_bal_image->saveImage = myImage;
+        ui->line_ori_image->saveImage = myImage;
+        ui->line_trans_image->saveImage = myImage;
+        ui->nline_ori1_image->saveImage = myImage;
+        ui->nline_trans1_image->saveImage = myImage;
+        ui->nline_ori2_image->saveImage = myImage;
+        ui->nline_trans2_image->saveImage = myImage;
+        ui->average_page->saveImage = myImage;
+        ui->mid_page->saveImage = myImage;
+        ui->neighbor_page->saveImage = myImage;
+        ui->sharpen_page->saveImage = myImage;
     }
     return ;
 }
 
+//输入是否合法
 bool MainWindow::checkInput(QLineEdit *labeltest)
 {
     if( labeltest->text() == "" )
@@ -221,6 +244,7 @@ bool MainWindow::checkInput(QLineEdit *labeltest)
     return true;
 }
 
+//采样率变换
 void MainWindow::on_sampling_clicked()
 {
     //QMessageBox::information(NULL, tr("Path"), tr("You selected ") + path);
@@ -269,6 +293,7 @@ void MainWindow::on_sampling_clicked()
     return ;
 }
 
+//灰度级变换
 void MainWindow::on_gray_determine_clicked()
 {
     if( !checkInput(ui->gray_level) ) return ;
@@ -304,6 +329,7 @@ void MainWindow::on_gray_determine_clicked()
     return ;
 }
 
+//保存8幅位平面图
 void MainWindow::mySaveBitplane()
 {
     for(int i=1;i<=8;i++)
@@ -311,6 +337,7 @@ void MainWindow::mySaveBitplane()
     return ;
 }
 
+//显示8幅位平面图
 void MainWindow::myShowBitplane()
 {
     for(int i=1;i<=8;i++)
@@ -318,6 +345,7 @@ void MainWindow::myShowBitplane()
     return ;
 }
 
+//显示1幅位平面图
 void MainWindow::myShow(int num, char flag)
 {
     int w = myImage.width(), h = myImage.height();
@@ -408,11 +436,13 @@ void MainWindow::myShow(int num, char flag)
     return ;
 }
 
+//保存8幅位平面图
 void MainWindow::on_bitplane_save_clicked()
 {
     mySaveBitplane();
 }
 
+//计算灰度信息-均值等
 void MainWindow::createHistogramInfo(QImage nowImage, double *image_gray, bool flag)
 {
     int w = nowImage.width(), h = nowImage.height();
@@ -465,6 +495,7 @@ void MainWindow::createHistogramInfo(QImage nowImage, double *image_gray, bool f
     return ;
 }
 
+//画直方图
 void MainWindow::createHistogramPaint(QCustomPlot *nowlabel, double *image_gray)
 {
     QVector<double> x(256,0.0), y(256,0.0);
@@ -491,6 +522,7 @@ void MainWindow::createHistogramPaint(QCustomPlot *nowlabel, double *image_gray)
     return ;
 }
 
+//创建直方图
 void MainWindow::createHistogram(QCustomPlot *nowlabel, QImage nowImage, bool flag)
 {
     double image_gray[256];
@@ -500,6 +532,7 @@ void MainWindow::createHistogram(QCustomPlot *nowlabel, QImage nowImage, bool fl
     return ;
 }
 
+//灰度变换-阀值
 void MainWindow::on_threshold_update_clicked()
 {
     if( !checkInput(ui->threshold) ) return ;
@@ -538,22 +571,25 @@ void MainWindow::on_threshold_update_clicked()
     return ;
 }
 
+//线性变换
 void MainWindow::on_line_push_clicked()
 {
     ui->line_trans_image->saveImage = *(pointCalc(1));
 }
 
+//非线性变换1
 void MainWindow::on_nline_push1_clicked()
 {
     ui->nline_trans1_image->saveImage = *(pointCalc(2));
 }
 
+//非线性变换2
 void MainWindow::on_nline_push2_clicked()
 {
     ui->nline_trans2_image->saveImage = *(pointCalc(3));
 }
 
-//改变对应页面的结果
+//点运算-改变对应页面的结果
 QImage* MainWindow::pointCalc(int pointType)
 {
     QWidget *trans_image;
@@ -616,6 +652,7 @@ QImage* MainWindow::pointCalc(int pointType)
     return iGray;
 }
 
+//灰度直方图均衡
 void MainWindow::histogramEqualization(QImage nowImage)
 {
     double image_gray[256], sum=0;
@@ -651,7 +688,7 @@ void MainWindow::histogramEqualization(QImage nowImage)
     return ;
 }
 
-
+//最近邻算法缩放
 void MainWindow::on_nearest_horizontalSlider_valueChanged(int value)
 {
     ui->nearest_level->setText(QString("缩放倍数: %1").arg(value));
@@ -689,14 +726,15 @@ void MainWindow::on_nearest_horizontalSlider_valueChanged(int value)
                 nowImage->setPixel(i,j,pixel);
         }
     }
-    ui->original_page->saveImage = *nowImage;
+    ui->scaling_page->saveImage = *nowImage;
 
-    ui->original_page->resize(QSize(newWidth,newHeight));
-    pale.setBrush(this->backgroundRole(),QBrush(ui->original_page->saveImage));
-    ui->original_page->setPalette(pale);
+    ui->scaling_page->resize(QSize(newWidth,newHeight));
+    pale.setBrush(this->backgroundRole(),QBrush(ui->scaling_page->saveImage));
+    ui->scaling_page->setPalette(pale);
     return ;
 }
 
+//双线性算法缩放
 void MainWindow::on_bilinear_horizontalSlider_valueChanged(int value)
 {
     ui->bilinear_level->setText(QString("缩放倍数: %1").arg(value));
@@ -760,35 +798,38 @@ void MainWindow::on_bilinear_horizontalSlider_valueChanged(int value)
         }
     }
 
-    ui->original_page_2->saveImage = *nowImage;
-    ui->original_page_2->resize(QSize(newWidth,newHeight));
-    pale.setBrush(this->backgroundRole(),QBrush(ui->original_page_2->saveImage));
-    ui->original_page_2->setPalette(pale);
+    ui->scaling_page_2->saveImage = *nowImage;
+    ui->scaling_page_2->resize(QSize(newWidth,newHeight));
+    pale.setBrush(this->backgroundRole(),QBrush(ui->scaling_page_2->saveImage));
+    ui->scaling_page_2->setPalette(pale);
 
     return ;
 }
 
+//最近邻-旋转
 void MainWindow::on_nearest_spin_push_clicked()
 {
     QMatrix matrix;
     matrix.rotate(90.0);
-    ui->original_page->saveImage = ui->original_page->saveImage.transformed(matrix,Qt::FastTransformation);
-    pale.setBrush(this->backgroundRole(),QBrush(ui->original_page->saveImage));
-    ui->original_page->setPalette(pale);
-    //ui->original_page->resize(QSize(nearestImage.width(),nearestImage.height()));
+    ui->scaling_page->saveImage = ui->scaling_page->saveImage.transformed(matrix,Qt::FastTransformation);
+    pale.setBrush(this->backgroundRole(),QBrush(ui->scaling_page->saveImage));
+    ui->scaling_page->setPalette(pale);
+    //ui->scaling_page->resize(QSize(nearestImage.width(),nearestImage.height()));
     return ;
 }
 
+//双线性-旋转
 void MainWindow::on_bilinear_spin_push_clicked()
 {
     QMatrix matrix;
     matrix.rotate(90.0);
-    ui->original_page_2->saveImage = ui->original_page_2->saveImage.transformed(matrix,Qt::FastTransformation);
-    pale.setBrush(this->backgroundRole(),QBrush(ui->original_page_2->saveImage));
-    ui->original_page_2->setPalette(pale);
+    ui->scaling_page_2->saveImage = ui->scaling_page_2->saveImage.transformed(matrix,Qt::FastTransformation);
+    pale.setBrush(this->backgroundRole(),QBrush(ui->scaling_page_2->saveImage));
+    ui->scaling_page_2->setPalette(pale);
     return ;
 }
 
+//图像平滑-均值
 void MainWindow::imageSmoothAverage(int mode)
 {
     imageSmooth a;
@@ -800,21 +841,25 @@ void MainWindow::imageSmoothAverage(int mode)
     return ;
 }
 
+//图像平滑-均值-3*3
 void MainWindow::on_averageType1_clicked()
 {
     imageSmoothAverage(3);
 }
 
+//图像平滑-均值-5*5
 void MainWindow::on_averageType2_clicked()
 {
     imageSmoothAverage(5);
 }
 
+//图像平滑-均值-7*7
 void MainWindow::on_averageType3_clicked()
 {
     imageSmoothAverage(7);
 }
 
+//图像平滑-中值
 void MainWindow::imageSmoothMid(int mode)
 {
     imageSmooth a;
@@ -826,21 +871,25 @@ void MainWindow::imageSmoothMid(int mode)
     return ;
 }
 
+//图像平滑-中值-三阶方形
 void MainWindow::on_midType1_clicked()
 {
     imageSmoothMid(1);
 }
 
+//图像平滑-中值-三阶环形
 void MainWindow::on_midType2_clicked()
 {
     imageSmoothMid(2);
 }
 
+//图像平滑-中值-五阶十字形
 void MainWindow::on_midType3_clicked()
 {
     imageSmoothMid(3);
 }
 
+//图像平滑-K邻域
 void MainWindow::imageSmoothNeighbor(int mode)
 {
     imageSmooth a;
@@ -852,16 +901,19 @@ void MainWindow::imageSmoothNeighbor(int mode)
     return ;
 }
 
+//图像平滑-K邻域-均值
 void MainWindow::on_neighborType1_clicked()
 {
     imageSmoothNeighbor(1);
 }
 
+//图像平滑-K邻域-中值
 void MainWindow::on_neighborType2_clicked()
 {
     imageSmoothNeighbor(2);
 }
 
+//图像锐化
 void MainWindow::imageSharpenTrans(imageSharpen a, int mode, int x, int y)
 {
     QImage* iGray;
@@ -877,24 +929,28 @@ void MainWindow::imageSharpenTrans(imageSharpen a, int mode, int x, int y)
     return ;
 }
 
+//图像锐化-roberts
 void MainWindow::on_sharpenRoberts_clicked()
 {
     imageSharpen b;
     imageSharpenTrans(b,1,0,0);
 }
 
+//图像锐化-sobel
 void MainWindow::on_sharpenSobel_clicked()
 {
     imageSharpen b;
     imageSharpenTrans(b,2,0,0);
 }
 
+//图像锐化-lapla
 void MainWindow::on_sharpenLapla_clicked()
 {
     imageSharpen b;
     imageSharpenTrans(b,3,0,0);
 }
 
+//图像增强-自定义模板
 void MainWindow::on_sharpenmode_clicked()
 {
     imageSharpenMode ism;

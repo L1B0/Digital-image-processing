@@ -13,6 +13,7 @@ imageSharpenMode::~imageSharpenMode()
     delete ui;
 }
 
+//将模板信息保存
 void imageSharpenMode::on_buttonBox_accepted()
 {
     x = ui->x->text().toInt(), y = ui->y->text().toInt();

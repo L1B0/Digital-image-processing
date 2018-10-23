@@ -4,7 +4,7 @@ imageSmooth::imageSmooth()
 {
     //qDebug() << "I'm in";
 }
-
+//平滑-均值
 QImage* imageSmooth::imageSimpleBlur(QImage nowImage, int mode)
 {
     //qDebug() << nowImage.width() << nowImage.height();
@@ -36,7 +36,7 @@ QImage* imageSmooth::imageSimpleBlur(QImage nowImage, int mode)
 
     return result;
 }
-
+//平滑-中值
 QImage* imageSmooth::imageMdianBlur(QImage nowImage, int mode)
 {
     QImage* result = new QImage(nowImage.width(),nowImage.height(),nowImage.format());
@@ -96,7 +96,7 @@ QImage* imageSmooth::imageMdianBlur(QImage nowImage, int mode)
     }
     return result;
 }
-
+//平滑-K邻域
 QImage* imageSmooth::imageNeighborBlur(QImage nowImage, int mode)
 {
     QImage* result = new QImage(nowImage.width(),nowImage.height(),nowImage.format());
@@ -149,7 +149,7 @@ QImage* imageSmooth::imageNeighborBlur(QImage nowImage, int mode)
     }
     return result;
 }
-
+//查找中位数
 int imageSmooth::findMid(int *array, int num)
 {
     sort(array,array+num);

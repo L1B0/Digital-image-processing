@@ -58,8 +58,6 @@ private slots:
 
     void on_bilinear_spin_push_clicked();
 
-    void on_action_saveMenu_triggered();
-
     void on_averageType1_clicked();
 
     void on_averageType2_clicked();

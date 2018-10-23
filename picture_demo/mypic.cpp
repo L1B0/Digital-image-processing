@@ -1,12 +1,13 @@
 #include <mypic.h>
 
+//是否均为数字
 bool isDigitString(const QString& src)
 {
     const char *s = src.toUtf8().data();
     while(*s && *s>='0' && *s<='9')s++;
     return !bool(*s);
 }
-
+//QString->char*
 void qstring2char(QString ppath)
 {
     //toLatin1().data() directly is wrong!
@@ -15,7 +16,7 @@ void qstring2char(QString ppath)
     qDebug() << "cpath: " << cpath << "len: " << strlen(cpath);
     return ;
 }
-
+//图片后缀
 char findImageType(QString ppath)
 {
     qstring2char(ppath);
@@ -31,7 +32,7 @@ char findImageType(QString ppath)
     }
     return 0;
 }
-
+//图片数据类型
 void findImageFormat(QImage nowImage)
 {
     char imageFormat[26][50] = {"QImage::Format_Invalid",
@@ -62,7 +63,7 @@ void findImageFormat(QImage nowImage)
     QMessageBox::information(NULL, QObject::tr("ImageFormat"), imageFormat[nowImage.format()]);
     return ;
 }
-
+//整数的第n位
 int getBit(int n, int moveBit)
 {
     if((n>>moveBit)%2){
@@ -71,6 +72,7 @@ int getBit(int n, int moveBit)
     else return 0;
 }
 
+//最佳阀值算法
 int interationGary(double aver)
 {
     int now_gray[256]={0};
@@ -158,6 +160,7 @@ int interationGary(double aver)
 //
 //}
 
+//初始化图片
 void initImage(QImage *nowImage)
 {
     switch (myImage.format()) {

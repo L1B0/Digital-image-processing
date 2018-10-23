@@ -6,6 +6,7 @@ mywidget::mywidget(QWidget *parent):
     QAction *saveMenu = new QAction("保存");
     this->addAction(saveMenu);
     //QMessageBox::information(NULL,QString("Init"),QString("Successfully"));
+    saveMenu->setShortcut(QKeySequence::Save);
     connect(saveMenu,SIGNAL(triggered(bool)),this,SLOT(saveSlotClicked()));
 }
 
