@@ -222,7 +222,13 @@ void MainWindow::open()
         ui->mid_page->saveImage = myImage;
         ui->neighbor_page->saveImage = myImage;
         ui->sharpen_page->saveImage = myImage;
-    }
+		
+		//滚动条初始化
+        ui->nearest_level->setText(QString("缩放倍数: %1").arg(0));
+        ui->bilinear_level->setText(QString("缩放倍数: %1").arg(0));
+        ui->nearest_horizontalSlider->setValue(0);
+        ui->bilinear_horizontalSlider->setValue(0);
+	}
     return ;
 }
 
