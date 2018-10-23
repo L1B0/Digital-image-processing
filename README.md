@@ -4,6 +4,16 @@
 
 *请在连接**外网**的前提下用**markdown编辑器**打开，保证最佳效果:-)*
 
+## 0x00 文件说明
+
+- **Source_Code**文件夹包含项目的所有源码。
+- **Test_Images**文件夹包含测试用的图片
+- **Result_Images**文件夹包含所有测试结果的截图
+- **picture_demo**是可执行文件
+- **imageTrans.py**是第八周图像变换的作业
+
+
+
 ## 0x01 picture-demo（除第八周作业）
 
 ### 1. 系统亮点
