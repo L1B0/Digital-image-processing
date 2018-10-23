@@ -814,7 +814,7 @@ void MainWindow::on_nearest_spin_push_clicked()
     ui->scaling_page->saveImage = ui->scaling_page->saveImage.transformed(matrix,Qt::FastTransformation);
     pale.setBrush(this->backgroundRole(),QBrush(ui->scaling_page->saveImage));
     ui->scaling_page->setPalette(pale);
-    //ui->scaling_page->resize(QSize(nearestImage.width(),nearestImage.height()));
+    ui->scaling_page->resize(QSize(ui->scaling_page->saveImage.width(),ui->scaling_page->saveImage.height()));
     return ;
 }
 
@@ -826,6 +826,7 @@ void MainWindow::on_bilinear_spin_push_clicked()
     ui->scaling_page_2->saveImage = ui->scaling_page_2->saveImage.transformed(matrix,Qt::FastTransformation);
     pale.setBrush(this->backgroundRole(),QBrush(ui->scaling_page_2->saveImage));
     ui->scaling_page_2->setPalette(pale);
+    ui->scaling_page_2->resize(QSize(ui->scaling_page_2->saveImage.width(),ui->scaling_page_2->saveImage.height()));
     return ;
 }
 
