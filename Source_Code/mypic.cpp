@@ -177,3 +177,18 @@ void initImage(QImage *nowImage)
         break;
     }
 }
+
+QImage rgb2grayImage(QImage &nowImage)
+{
+    for(int i=0;i<nowImage.width();i++)
+    {
+        for(int j=0;j<nowImage.height();j++)
+        {
+            QRgb pixel = nowImage.pixel(i,j);
+            QColor col = QColor(pixel);
+            int nowGray = (col.red()+col.green()+col.blue())/3;
+            nowImage.setPixel(i,j,qRgb(nowGray,nowGray,nowGray));
+        }
+    }
+    return nowImage;
+}

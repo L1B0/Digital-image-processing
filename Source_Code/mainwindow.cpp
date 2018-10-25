@@ -142,6 +142,15 @@ void MainWindow::open()
         myImage.load(path);
         findImageFormat(myImage);
 
+        if( myImage.format() == QImage::Format_ARGB32 || myImage.format() == QImage::Format_RGB32 )
+        {
+            QMessageBox rgb2gray(QMessageBox::Warning,"Image","该图像类型为彩色图，要转为灰度图吗？(本系统不支持对彩图进行处理)",QMessageBox::Yes|QMessageBox::No,NULL);
+            if( rgb2gray.exec() == QMessageBox::Yes )
+            {
+                myImage = rgb2grayImage(myImage);
+            }
+        }
+
         //初始化
         imageWidth = myImage.width();
         imageHeight = myImage.height();
