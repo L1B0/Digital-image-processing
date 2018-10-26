@@ -163,7 +163,7 @@ int interationGary(double aver)
 //初始化图片
 void initImage(QImage *nowImage)
 {
-    switch (myImage.format()) {
+    switch (nowImage->format()) {
         case QImage::Format_Indexed8:{
             QVector<QRgb> grayTable;
             for(int i = 0; i < 256; i++)
@@ -178,8 +178,11 @@ void initImage(QImage *nowImage)
     }
 }
 
-QImage rgb2grayImage(QImage &nowImage)
+QImage rgb2grayImage(QImage nowImage)
 {
+    QImage *iGray = new QImage(nowImage.width(),nowImage.height(),QImage::Format_Indexed8);
+    initImage(iGray);
+
     for(int i=0;i<nowImage.width();i++)
     {
         for(int j=0;j<nowImage.height();j++)
@@ -187,8 +190,8 @@ QImage rgb2grayImage(QImage &nowImage)
             QRgb pixel = nowImage.pixel(i,j);
             QColor col = QColor(pixel);
             int nowGray = (col.red()+col.green()+col.blue())/3;
-            nowImage.setPixel(i,j,qRgb(nowGray,nowGray,nowGray));
+            iGray->setPixel(i,j,nowGray);
         }
     }
-    return nowImage;
+    return *iGray;
 }
