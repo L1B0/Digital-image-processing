@@ -39,6 +39,8 @@ public:
     QTabWidget *tabWidget;
     QWidget *original;
     mywidget *original_page;
+    QWidget *houghLines;
+    mywidget *hough_page;
     QWidget *scaling;
     QLabel *nearest_insert;
     QLabel *bilinear_insert;
@@ -179,6 +181,7 @@ public:
     QPushButton *sharpenRoberts;
     QPushButton *sharpenSobel;
     QPushButton *sharpenLapla;
+    QPushButton *kirsch;
     QPushButton *sharpenmode;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -213,6 +216,13 @@ public:
         original_page->setGeometry(QRect(20, 30, 1081, 751));
         original_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         tabWidget->addTab(original, QString());
+        houghLines = new QWidget();
+        houghLines->setObjectName(QStringLiteral("houghLines"));
+        hough_page = new mywidget(houghLines);
+        hough_page->setObjectName(QStringLiteral("hough_page"));
+        hough_page->setGeometry(QRect(20, 30, 1081, 751));
+        hough_page->setContextMenuPolicy(Qt::ActionsContextMenu);
+        tabWidget->addTab(houghLines, QString());
         scaling = new QWidget();
         scaling->setObjectName(QStringLiteral("scaling"));
         nearest_insert = new QLabel(scaling);
@@ -850,7 +860,7 @@ public:
         sharpen_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         layoutWidget7 = new QWidget(sharpen);
         layoutWidget7->setObjectName(QStringLiteral("layoutWidget7"));
-        layoutWidget7->setGeometry(QRect(30, 10, 301, 51));
+        layoutWidget7->setGeometry(QRect(30, 10, 370, 51));
         horizontalLayout_15 = new QHBoxLayout(layoutWidget7);
         horizontalLayout_15->setSpacing(6);
         horizontalLayout_15->setContentsMargins(11, 11, 11, 11);
@@ -874,9 +884,15 @@ public:
 
         horizontalLayout_15->addWidget(sharpenLapla);
 
+        kirsch = new QPushButton(layoutWidget7);
+        kirsch->setObjectName(QStringLiteral("kirsch"));
+        kirsch->setFont(font3);
+
+        horizontalLayout_15->addWidget(kirsch);
+
         sharpenmode = new QPushButton(sharpen);
         sharpenmode->setObjectName(QStringLiteral("sharpenmode"));
-        sharpenmode->setGeometry(QRect(410, 10, 111, 41));
+        sharpenmode->setGeometry(QRect(480, 10, 111, 41));
         sharpenmode->setFont(font3);
         tabWidget->addTab(sharpen, QString());
         MainWindow->setCentralWidget(centralWidget);
@@ -889,8 +905,8 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(8);
-        gray_hist->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
+        gray_hist->setCurrentIndex(1);
         point_type->setCurrentIndex(2);
         smooth_type->setCurrentIndex(2);
 
@@ -907,6 +923,7 @@ public:
         original->setAccessibleDescription(QString());
 #endif // QT_NO_ACCESSIBILITY
         tabWidget->setTabText(tabWidget->indexOf(original), QApplication::translate("MainWindow", "\345\216\237\345\233\276", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(houghLines), QApplication::translate("MainWindow", "\347\233\264\347\272\277\346\243\200\346\265\213", nullptr));
         nearest_insert->setText(QApplication::translate("MainWindow", "\346\234\200\350\277\221\351\202\273\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));
         bilinear_insert->setText(QApplication::translate("MainWindow", "\345\217\214\347\272\277\346\200\247\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));
         bilinear_level->setText(QApplication::translate("MainWindow", "\347\274\251\346\224\276\345\200\215\346\225\260: 0    ", nullptr));
@@ -984,6 +1001,7 @@ public:
         sharpenRoberts->setText(QApplication::translate("MainWindow", "Roberts", nullptr));
         sharpenSobel->setText(QApplication::translate("MainWindow", "Sobel", nullptr));
         sharpenLapla->setText(QApplication::translate("MainWindow", "Laplacian", nullptr));
+        kirsch->setText(QApplication::translate("MainWindow", "Kirsch", nullptr));
         sharpenmode->setText(QApplication::translate("MainWindow", "\350\207\252\345\256\232\344\271\211\346\250\241\346\235\277", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(sharpen), QApplication::translate("MainWindow", "\345\233\276\345\203\217\351\224\220\345\214\226", nullptr));
     } // retranslateUi

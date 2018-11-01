@@ -15,7 +15,6 @@ mywidget::mywidget(QWidget *parent):
 
     connect(saveMenu,SIGNAL(triggered(bool)),this,SLOT(saveSlotClicked()));
     connect(apply,SIGNAL(triggered(bool)),this,SLOT(applySlotClicked()));
-
 }
 
 void mywidget::saveSlotClicked()
@@ -42,3 +41,4 @@ void mywidget::applySlotClicked()
     x->apply(saveImage);
     return ;
 }
+

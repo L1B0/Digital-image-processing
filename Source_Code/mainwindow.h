@@ -34,6 +34,7 @@ public:
     void imageSmoothMid(int mode);
     void imageSmoothNeighbor(int mode);
     void imageSharpenTrans(imageSharpen b, int mode,int x, int y);
+    QImage houghLines(QImage nowImage);
 
 private slots:
     void open();
@@ -82,6 +83,8 @@ private slots:
     void on_sharpenLapla_clicked();
 
     void on_sharpenmode_clicked();
+
+    void on_kirsch_clicked();
 
 public:
     Ui::MainWindow *ui;

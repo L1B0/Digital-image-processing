@@ -11,6 +11,7 @@ public:
     QImage* imageSharpenRoberts(QImage nowImage);
     QImage* imageSharpenSobel(QImage nowImage);
     QImage* imageSharpenLapla(QImage nowImage);
+    QImage* imageSharpenKirsch(QImage nowImage);
     QImage* imageSharpenMode(QImage nowImage, int x, int y);
 };
 

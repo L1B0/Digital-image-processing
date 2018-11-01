@@ -198,12 +198,12 @@ QImage rgb2grayImage(QImage nowImage)
 
 int testGray(QImage nowImage)
 {
-    for(int i=0;i<myImage.height();i++)
+    for(int i=0;i<myImage.width();i++)
     {
-        QColor testColor = QColor(myImage.pixel(0,i));
-        if( testColor.red() != testColor.blue() )
+        for(int j=0;j<myImage.height();j++)
         {
-            return 1;
+            QColor testColor = QColor(myImage.pixel(i,j));
+            if( testColor.red() != testColor.blue() ) return 1;
         }
     }
     return 0;

@@ -33,7 +33,7 @@
      <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
-     <number>8</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -49,6 +49,24 @@
       <string>原图</string>
      </attribute>
      <widget class="mywidget" name="original_page" native="true">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>1081</width>
+        <height>751</height>
+       </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="houghLines">
+     <attribute name="title">
+      <string>直线检测</string>
+     </attribute>
+     <widget class="mywidget" name="hough_page" native="true">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -508,7 +526,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="gray_count">
        <attribute name="title">
@@ -1342,7 +1360,7 @@
        <rect>
         <x>30</x>
         <y>10</y>
-        <width>301</width>
+        <width>370</width>
         <height>51</height>
        </rect>
       </property>
@@ -1383,12 +1401,24 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="kirsch">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Kirsch</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QPushButton" name="sharpenmode">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>480</x>
         <y>10</y>
         <width>111</width>
         <height>41</height>
