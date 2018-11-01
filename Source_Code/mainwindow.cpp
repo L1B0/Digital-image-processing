@@ -108,6 +108,19 @@ MainWindow::MainWindow(QWidget *parent) :
     QScrollArea *sharpen_scrollarea = new QScrollArea(ui->sharpen);
     sharpen_scrollarea->setGeometry(QRect(30,60,571,731));
     sharpen_scrollarea->setWidget(ui->sharpen_page);
+    ui->original_page->x = this;
+    ui->scaling_page->x = this;
+    ui->scaling_page_2->x = this;
+    ui->sampling_page->x = this;
+    ui->gray_page->x = this;
+    ui->histogram_page->x = this;
+    ui->line_ori_image->x = this;
+    ui->nline_ori1_image->x = this;
+    ui->nline_ori2_image->x = this;
+    ui->average_page->x = this;
+    ui->mid_page->x = this;
+    ui->neighbor_page->x = this;
+    ui->sharpen_page->x = this;
 
 }
 
@@ -142,7 +155,8 @@ void MainWindow::open()
         myImage.load(path);
         findImageFormat(myImage);
 
-        if( myImage.format() == QImage::Format_ARGB32 || myImage.format() == QImage::Format_RGB32 )
+        int flag=testGray(myImage);
+        if( flag )
         {
             QMessageBox rgb2gray(QMessageBox::Warning,"Image","该图像类型为彩色图，要转为灰度图吗？(本系统不支持对彩图进行处理)",QMessageBox::Yes|QMessageBox::No,NULL);
             if( rgb2gray.exec() == QMessageBox::Yes )
@@ -239,6 +253,96 @@ void MainWindow::open()
         ui->bilinear_horizontalSlider->setValue(0);
 	}
     return ;
+}
+
+void MainWindow::apply(QImage nowImage)
+{
+    myImage = nowImage;
+    imageWidth = myImage.width();
+    imageHeight = myImage.height();
+    imageGray = 256;
+    imageType = findImageType(path);
+    ui->width->setText(QString::number(imageWidth));
+    ui->length->setText(QString::number(imageHeight));
+    ui->gray_level->setText(QString::number(imageGray));
+
+    qDebug() << "open: " << "width = " << imageWidth << "height = " << imageHeight;
+    //初始化功能页面
+    pale.setBrush(this->backgroundRole(),QBrush(myImage));
+    ui->original_page->setPalette(pale);
+    ui->scaling_page->setPalette(pale);
+    ui->scaling_page_2->setPalette(pale);
+    ui->sampling_page->setPalette(pale);
+    ui->gray_page->setPalette(pale);
+    ui->histogram_page->setPalette(pale);
+    ui->line_ori_image->setPalette(pale);
+    ui->nline_ori1_image->setPalette(pale);
+    ui->nline_ori2_image->setPalette(pale);
+    ui->average_page->setPalette(pale);
+    ui->mid_page->setPalette(pale);
+    ui->neighbor_page->setPalette(pale);
+    ui->sharpen_page->setPalette(pale);
+
+    myShowBitplane();
+    createHistogram(ui->histogram_paint, myImage, true);
+    createHistogram(ui->sampling_paint, myImage, false);
+    createHistogram(ui->gray_paint, myImage, false);
+    createHistogram(ui->line_ori_paint, myImage, false);
+    createHistogram(ui->nline_ori1_paint, myImage, false);
+    createHistogram(ui->nline_ori2_paint, myImage, false);
+    createHistogram(ui->average_paint, myImage, false);
+    createHistogram(ui->mid_paint, myImage, false);
+    createHistogram(ui->neighbor_paint, myImage, false);
+    createHistogram(ui->sharpen_paint, myImage, false);
+
+    histogramEqualization(myImage); // Histogram equalization
+    ui->tabWidget->setCurrentIndex(0);
+    ui->gray_hist->setCurrentIndex(0);
+    ui->smooth_type->setCurrentIndex(0);
+
+    //滚动条
+    ui->original_page->resize(QSize(imageWidth,imageHeight));
+    ui->scaling_page->resize(QSize(imageWidth,imageHeight));
+    ui->scaling_page_2->resize(QSize(imageWidth,imageHeight));
+    ui->histogram_page->resize(QSize(imageWidth,imageHeight));
+    ui->sampling_page->resize(QSize(imageWidth,imageHeight));
+    ui->gray_page->resize(QSize(imageWidth,imageHeight));
+    ui->gray_bal_image->resize(QSize(imageWidth,imageHeight));
+    ui->line_ori_image->resize(QSize(imageWidth,imageHeight));
+    ui->line_trans_image->resize(QSize(imageWidth,imageHeight));
+    ui->nline_ori1_image->resize(QSize(imageWidth,imageHeight));
+    ui->nline_trans1_image->resize(QSize(imageWidth,imageHeight));
+    ui->nline_ori2_image->resize(QSize(imageWidth,imageHeight));
+    ui->nline_trans2_image->resize(QSize(imageWidth,imageHeight));
+    ui->average_page->resize(QSize(imageWidth,imageHeight));
+    ui->mid_page->resize(QSize(imageWidth,imageHeight));
+    ui->neighbor_page->resize(QSize(imageWidth,imageHeight));
+    ui->sharpen_page->resize(QSize(imageWidth,imageHeight));
+
+    //初始化
+    ui->original_page->saveImage = myImage;
+    ui->scaling_page->saveImage = myImage;
+    ui->scaling_page_2->saveImage = myImage;
+    ui->histogram_page->saveImage = myImage;
+    ui->sampling_page->saveImage = myImage;
+    ui->gray_page->saveImage = myImage;
+    ui->gray_bal_image->saveImage = myImage;
+    ui->line_ori_image->saveImage = myImage;
+    ui->line_trans_image->saveImage = myImage;
+    ui->nline_ori1_image->saveImage = myImage;
+    ui->nline_trans1_image->saveImage = myImage;
+    ui->nline_ori2_image->saveImage = myImage;
+    ui->nline_trans2_image->saveImage = myImage;
+    ui->average_page->saveImage = myImage;
+    ui->mid_page->saveImage = myImage;
+    ui->neighbor_page->saveImage = myImage;
+    ui->sharpen_page->saveImage = myImage;
+
+    //滚动条初始化
+    ui->nearest_level->setText(QString("缩放倍数: %1").arg(0));
+    ui->bilinear_level->setText(QString("缩放倍数: %1").arg(0));
+    ui->nearest_horizontalSlider->setValue(0);
+    ui->bilinear_horizontalSlider->setValue(0);
 }
 
 //输入是否合法

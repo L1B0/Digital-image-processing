@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "mywidget.h"
 #include <QApplication>
 
 //very important
@@ -13,6 +14,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QFileDialog fd;
     MainWindow w;
+
     fd.setAcceptMode(QFileDialog::AcceptOpen);
     fd.setViewMode(QFileDialog::Detail);//详细
     fd.setFileMode(QFileDialog::ExistingFile);

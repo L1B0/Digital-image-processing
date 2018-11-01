@@ -36,5 +36,6 @@ int interationGary(double aver);
 //void my_find_children(QWidget *nowWiget,int pointType,QLabel *trans_image,QCustomPlot *trans_point,float &a,float &b);
 void initImage(QImage *nowImage);
 QImage rgb2grayImage(QImage nowImage);
+int testGray(QImage nowImage);
 
 #endif // MYPIC_H

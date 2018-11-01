@@ -3,11 +3,19 @@
 mywidget::mywidget(QWidget *parent):
     QWidget(parent)
 {
-    QAction *saveMenu = new QAction("保存");
-    this->addAction(saveMenu);
-    //QMessageBox::information(NULL,QString("Init"),QString("Successfully"));
-    saveMenu->setShortcut(QKeySequence::Save);
+
+    QAction *saveMenu = new QAction(this);
+    saveMenu->setText("保存");
+    QAction *apply = new QAction(this);
+    apply->setText("应用");
+    QList<QAction*> actionList;
+    actionList<<saveMenu<<apply;
+
+    this->addActions(actionList);
+
     connect(saveMenu,SIGNAL(triggered(bool)),this,SLOT(saveSlotClicked()));
+    connect(apply,SIGNAL(triggered(bool)),this,SLOT(applySlotClicked()));
+
 }
 
 void mywidget::saveSlotClicked()
@@ -29,3 +37,8 @@ void mywidget::saveSlotClicked()
     return ;
 }
 
+void mywidget::applySlotClicked()
+{
+    x->apply(saveImage);
+    return ;
+}

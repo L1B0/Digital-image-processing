@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void apply(QImage nowImage);
     void clearAllText();
     bool checkInput(QLineEdit *labeltest);
     void mySaveBitplane();
@@ -82,7 +83,7 @@ private slots:
 
     void on_sharpenmode_clicked();
 
-private:
+public:
     Ui::MainWindow *ui;
     QAction *openAction;//*saveAction;
     QPalette pale;

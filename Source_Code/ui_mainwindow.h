@@ -889,7 +889,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(7);
         gray_hist->setCurrentIndex(0);
         point_type->setCurrentIndex(0);
         smooth_type->setCurrentIndex(2);
