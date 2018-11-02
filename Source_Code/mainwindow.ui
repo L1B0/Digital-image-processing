@@ -25,7 +25,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1191</width>
+      <width>1171</width>
       <height>831</height>
      </rect>
     </property>
@@ -70,9 +70,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>30</y>
-        <width>1081</width>
-        <height>751</height>
+        <y>60</y>
+        <width>1051</width>
+        <height>721</height>
        </rect>
       </property>
       <property name="contextMenuPolicy">
@@ -98,6 +98,24 @@
         <string>仅支持二值图的直线检测！！！</string>
        </property>
       </widget>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>20</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>默认阀值为100</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="scaling">

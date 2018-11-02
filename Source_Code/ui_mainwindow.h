@@ -42,6 +42,7 @@ public:
     QWidget *houghLines;
     mywidget *hough_page;
     QLabel *label_2;
+    QLabel *label_3;
     QWidget *scaling;
     QLabel *nearest_insert;
     QLabel *bilinear_insert;
@@ -207,7 +208,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 1191, 831));
+        tabWidget->setGeometry(QRect(10, 10, 1171, 831));
         tabWidget->setTabPosition(QTabWidget::West);
         tabWidget->setIconSize(QSize(18, 18));
         original = new QWidget();
@@ -221,7 +222,7 @@ public:
         houghLines->setObjectName(QStringLiteral("houghLines"));
         hough_page = new mywidget(houghLines);
         hough_page->setObjectName(QStringLiteral("hough_page"));
-        hough_page->setGeometry(QRect(20, 30, 1081, 751));
+        hough_page->setGeometry(QRect(20, 60, 1051, 721));
         hough_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         label_2 = new QLabel(hough_page);
         label_2->setObjectName(QStringLiteral("label_2"));
@@ -231,19 +232,25 @@ public:
         font.setPointSize(24);
         font.setUnderline(false);
         label_2->setFont(font);
+        label_3 = new QLabel(houghLines);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(40, 20, 141, 31));
+        QFont font1;
+        font1.setPointSize(14);
+        label_3->setFont(font1);
         tabWidget->addTab(houghLines, QString());
         scaling = new QWidget();
         scaling->setObjectName(QStringLiteral("scaling"));
         nearest_insert = new QLabel(scaling);
         nearest_insert->setObjectName(QStringLiteral("nearest_insert"));
         nearest_insert->setGeometry(QRect(220, 600, 161, 31));
-        QFont font1;
-        font1.setPointSize(12);
-        nearest_insert->setFont(font1);
+        QFont font2;
+        font2.setPointSize(12);
+        nearest_insert->setFont(font2);
         bilinear_insert = new QLabel(scaling);
         bilinear_insert->setObjectName(QStringLiteral("bilinear_insert"));
         bilinear_insert->setGeometry(QRect(810, 590, 161, 31));
-        bilinear_insert->setFont(font1);
+        bilinear_insert->setFont(font2);
         layoutWidget_3 = new QWidget(scaling);
         layoutWidget_3->setObjectName(QStringLiteral("layoutWidget_3"));
         layoutWidget_3->setGeometry(QRect(720, 640, 341, 61));
@@ -254,7 +261,7 @@ public:
         horizontalLayout_26->setContentsMargins(0, 0, 0, 0);
         bilinear_level = new QLabel(layoutWidget_3);
         bilinear_level->setObjectName(QStringLiteral("bilinear_level"));
-        bilinear_level->setFont(font1);
+        bilinear_level->setFont(font2);
 
         horizontalLayout_26->addWidget(bilinear_level);
 
@@ -276,7 +283,7 @@ public:
         horizontalLayout_25->setContentsMargins(0, 0, 0, 0);
         nearest_level = new QLabel(layoutWidget);
         nearest_level->setObjectName(QStringLiteral("nearest_level"));
-        nearest_level->setFont(font1);
+        nearest_level->setFont(font2);
 
         horizontalLayout_25->addWidget(nearest_level);
 
@@ -291,13 +298,13 @@ public:
         nearest_spin_push = new QPushButton(scaling);
         nearest_spin_push->setObjectName(QStringLiteral("nearest_spin_push"));
         nearest_spin_push->setGeometry(QRect(250, 730, 121, 51));
-        QFont font2;
-        font2.setPointSize(18);
-        nearest_spin_push->setFont(font2);
+        QFont font3;
+        font3.setPointSize(18);
+        nearest_spin_push->setFont(font3);
         bilinear_spin_push = new QPushButton(scaling);
         bilinear_spin_push->setObjectName(QStringLiteral("bilinear_spin_push"));
         bilinear_spin_push->setGeometry(QRect(830, 730, 121, 51));
-        bilinear_spin_push->setFont(font2);
+        bilinear_spin_push->setFont(font3);
         scaling_page = new mywidget(scaling);
         scaling_page->setObjectName(QStringLiteral("scaling_page"));
         scaling_page->setGeometry(QRect(20, 10, 561, 571));
@@ -327,11 +334,11 @@ public:
 
         mult = new QLabel(layoutWidget1);
         mult->setObjectName(QStringLiteral("mult"));
-        QFont font3;
-        font3.setPointSize(15);
-        font3.setBold(false);
-        font3.setWeight(50);
-        mult->setFont(font3);
+        QFont font4;
+        font4.setPointSize(15);
+        font4.setBold(false);
+        font4.setWeight(50);
+        mult->setFont(font4);
 
         horizontalLayout->addWidget(mult);
 
@@ -452,7 +459,7 @@ public:
         bitplane_save = new QPushButton(bitplane);
         bitplane_save->setObjectName(QStringLiteral("bitplane_save"));
         bitplane_save->setGeometry(QRect(440, 10, 101, 31));
-        bitplane_save->setFont(font2);
+        bitplane_save->setFont(font3);
         tabWidget->addTab(bitplane, QString());
         histogram = new QWidget();
         histogram->setObjectName(QStringLiteral("histogram"));
@@ -491,7 +498,7 @@ public:
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         label = new QLabel(layoutWidget_8);
         label->setObjectName(QStringLiteral("label"));
-        label->setFont(font1);
+        label->setFont(font2);
 
         horizontalLayout_6->addWidget(label);
 
@@ -547,9 +554,7 @@ public:
         horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
         line_f1 = new QLabel(layoutWidget3);
         line_f1->setObjectName(QStringLiteral("line_f1"));
-        QFont font4;
-        font4.setPointSize(14);
-        line_f1->setFont(font4);
+        line_f1->setFont(font1);
 
         horizontalLayout_12->addWidget(line_f1);
 
@@ -562,7 +567,7 @@ public:
         line_d1 = new QLabel(layoutWidget3);
         line_d1->setObjectName(QStringLiteral("line_d1"));
         line_d1->setEnabled(true);
-        line_d1->setFont(font4);
+        line_d1->setFont(font1);
 
         horizontalLayout_12->addWidget(line_d1);
 
@@ -607,7 +612,7 @@ public:
         horizontalLayout_17->setContentsMargins(0, 0, 0, 0);
         nline_f1 = new QLabel(layoutWidget4);
         nline_f1->setObjectName(QStringLiteral("nline_f1"));
-        nline_f1->setFont(font4);
+        nline_f1->setFont(font1);
 
         horizontalLayout_17->addWidget(nline_f1);
 
@@ -619,7 +624,7 @@ public:
 
         nline_d1 = new QLabel(layoutWidget4);
         nline_d1->setObjectName(QStringLiteral("nline_d1"));
-        nline_d1->setFont(font4);
+        nline_d1->setFont(font1);
 
         horizontalLayout_17->addWidget(nline_d1);
 
@@ -658,7 +663,7 @@ public:
         horizontalLayout_22->setObjectName(QStringLiteral("horizontalLayout_22"));
         nline_f2 = new QLabel(layoutWidget_7);
         nline_f2->setObjectName(QStringLiteral("nline_f2"));
-        nline_f2->setFont(font4);
+        nline_f2->setFont(font1);
 
         horizontalLayout_22->addWidget(nline_f2);
 
@@ -671,7 +676,7 @@ public:
         nline_d2 = new QLabel(layoutWidget_7);
         nline_d2->setObjectName(QStringLiteral("nline_d2"));
         nline_d2->setEnabled(true);
-        nline_d2->setFont(font4);
+        nline_d2->setFont(font1);
 
         horizontalLayout_22->addWidget(nline_d2);
 
@@ -729,7 +734,7 @@ public:
         horizontalLayout_8->setContentsMargins(0, 0, 0, 0);
         average_mode = new QLabel(layoutWidget5);
         average_mode->setObjectName(QStringLiteral("average_mode"));
-        average_mode->setFont(font4);
+        average_mode->setFont(font1);
 
         horizontalLayout_8->addWidget(average_mode);
 
@@ -738,19 +743,19 @@ public:
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         averageType1 = new QPushButton(layoutWidget5);
         averageType1->setObjectName(QStringLiteral("averageType1"));
-        averageType1->setFont(font1);
+        averageType1->setFont(font2);
 
         horizontalLayout_5->addWidget(averageType1);
 
         averageType2 = new QPushButton(layoutWidget5);
         averageType2->setObjectName(QStringLiteral("averageType2"));
-        averageType2->setFont(font1);
+        averageType2->setFont(font2);
 
         horizontalLayout_5->addWidget(averageType2);
 
         averageType3 = new QPushButton(layoutWidget5);
         averageType3->setObjectName(QStringLiteral("averageType3"));
-        averageType3->setFont(font1);
+        averageType3->setFont(font2);
 
         horizontalLayout_5->addWidget(averageType3);
 
@@ -777,7 +782,7 @@ public:
         horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
         average_mode_2 = new QLabel(layoutWidget_4);
         average_mode_2->setObjectName(QStringLiteral("average_mode_2"));
-        average_mode_2->setFont(font4);
+        average_mode_2->setFont(font1);
 
         horizontalLayout_9->addWidget(average_mode_2);
 
@@ -786,19 +791,19 @@ public:
         horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
         midType1 = new QPushButton(layoutWidget_4);
         midType1->setObjectName(QStringLiteral("midType1"));
-        midType1->setFont(font1);
+        midType1->setFont(font2);
 
         horizontalLayout_10->addWidget(midType1);
 
         midType2 = new QPushButton(layoutWidget_4);
         midType2->setObjectName(QStringLiteral("midType2"));
-        midType2->setFont(font1);
+        midType2->setFont(font2);
 
         horizontalLayout_10->addWidget(midType2);
 
         midType3 = new QPushButton(layoutWidget_4);
         midType3->setObjectName(QStringLiteral("midType3"));
-        midType3->setFont(font1);
+        midType3->setFont(font2);
 
         horizontalLayout_10->addWidget(midType3);
 
@@ -825,13 +830,13 @@ public:
         horizontalLayout_11->setContentsMargins(0, 0, 0, 0);
         neighbor_mode = new QLabel(layoutWidget_5);
         neighbor_mode->setObjectName(QStringLiteral("neighbor_mode"));
-        neighbor_mode->setFont(font4);
+        neighbor_mode->setFont(font1);
 
         horizontalLayout_11->addWidget(neighbor_mode);
 
         neighbor_K = new QLabel(layoutWidget_5);
         neighbor_K->setObjectName(QStringLiteral("neighbor_K"));
-        neighbor_K->setFont(font4);
+        neighbor_K->setFont(font1);
 
         horizontalLayout_11->addWidget(neighbor_K);
 
@@ -845,13 +850,13 @@ public:
         horizontalLayout_14->setContentsMargins(0, 0, 0, 0);
         neighborType1 = new QPushButton(layoutWidget6);
         neighborType1->setObjectName(QStringLiteral("neighborType1"));
-        neighborType1->setFont(font4);
+        neighborType1->setFont(font1);
 
         horizontalLayout_14->addWidget(neighborType1);
 
         neighborType2 = new QPushButton(layoutWidget6);
         neighborType2->setObjectName(QStringLiteral("neighborType2"));
-        neighborType2->setFont(font4);
+        neighborType2->setFont(font1);
 
         horizontalLayout_14->addWidget(neighborType2);
 
@@ -877,32 +882,32 @@ public:
         horizontalLayout_15->setContentsMargins(0, 0, 0, 0);
         sharpenRoberts = new QPushButton(layoutWidget7);
         sharpenRoberts->setObjectName(QStringLiteral("sharpenRoberts"));
-        sharpenRoberts->setFont(font4);
+        sharpenRoberts->setFont(font1);
 
         horizontalLayout_15->addWidget(sharpenRoberts);
 
         sharpenSobel = new QPushButton(layoutWidget7);
         sharpenSobel->setObjectName(QStringLiteral("sharpenSobel"));
-        sharpenSobel->setFont(font4);
+        sharpenSobel->setFont(font1);
 
         horizontalLayout_15->addWidget(sharpenSobel);
 
         sharpenLapla = new QPushButton(layoutWidget7);
         sharpenLapla->setObjectName(QStringLiteral("sharpenLapla"));
-        sharpenLapla->setFont(font4);
+        sharpenLapla->setFont(font1);
 
         horizontalLayout_15->addWidget(sharpenLapla);
 
         kirsch = new QPushButton(layoutWidget7);
         kirsch->setObjectName(QStringLiteral("kirsch"));
-        kirsch->setFont(font4);
+        kirsch->setFont(font1);
 
         horizontalLayout_15->addWidget(kirsch);
 
         sharpenmode = new QPushButton(sharpen);
         sharpenmode->setObjectName(QStringLiteral("sharpenmode"));
         sharpenmode->setGeometry(QRect(480, 10, 111, 41));
-        sharpenmode->setFont(font4);
+        sharpenmode->setFont(font1);
         tabWidget->addTab(sharpen, QString());
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
@@ -933,6 +938,7 @@ public:
 #endif // QT_NO_ACCESSIBILITY
         tabWidget->setTabText(tabWidget->indexOf(original), QApplication::translate("MainWindow", "\345\216\237\345\233\276", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "\344\273\205\346\224\257\346\214\201\344\272\214\345\200\274\345\233\276\347\232\204\347\233\264\347\272\277\346\243\200\346\265\213\357\274\201\357\274\201\357\274\201", nullptr));
+        label_3->setText(QApplication::translate("MainWindow", "\351\273\230\350\256\244\351\230\200\345\200\274\344\270\272100", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(houghLines), QApplication::translate("MainWindow", "\347\233\264\347\272\277\346\243\200\346\265\213", nullptr));
         nearest_insert->setText(QApplication::translate("MainWindow", "\346\234\200\350\277\221\351\202\273\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));
         bilinear_insert->setText(QApplication::translate("MainWindow", "\345\217\214\347\272\277\346\200\247\346\217\222\345\200\274\347\256\227\346\263\225", nullptr));

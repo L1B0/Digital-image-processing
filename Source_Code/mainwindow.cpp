@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     original_scrollarea->setGeometry(QRect(20,30,1081,751));
     original_scrollarea->setWidget(ui->original_page);
     QScrollArea *hough_scrollarea = new QScrollArea(ui->houghLines);
-    hough_scrollarea->setGeometry(QRect(20,30,1081,751));
+    hough_scrollarea->setGeometry(QRect(20,60,1051,721));
     hough_scrollarea->setWidget(ui->hough_page);
     QScrollArea *scaling_scrollarea = new QScrollArea(ui->scaling);
     scaling_scrollarea->setGeometry(QRect(10, 10, 525, 537));
@@ -238,13 +238,12 @@ void MainWindow::open()
 
         //初始化
         ui->original_page->saveImage = myImage;
-        if( isBinImage(myImage) == true )
+        if( isBinImage(myImage) )
         {
-            ui->hough_page->saveImage = houghLines(myImage);
+            ui->hough_page->saveImage = houghLines(myImage, 100);
             pale.setBrush(this->backgroundRole(),QBrush(ui->hough_page->saveImage));
             ui->hough_page->setPalette(pale);
         }
-
         ui->scaling_page->saveImage = myImage;
         ui->scaling_page_2->saveImage = myImage;
         ui->histogram_page->saveImage = myImage;
@@ -286,6 +285,7 @@ void MainWindow::apply(QImage nowImage)
     //初始化功能页面
     pale.setBrush(this->backgroundRole(),QBrush(myImage));
     ui->original_page->setPalette(pale);
+    ui->hough_page->setPalette(pale);
     ui->scaling_page->setPalette(pale);
     ui->scaling_page_2->setPalette(pale);
     ui->sampling_page->setPalette(pale);
@@ -338,13 +338,12 @@ void MainWindow::apply(QImage nowImage)
 
     //初始化
     ui->original_page->saveImage = myImage;
-    if( isBinImage(myImage) == true )
+    if( isBinImage(myImage) )
     {
-        ui->hough_page->saveImage = houghLines(myImage);
+        ui->hough_page->saveImage = houghLines(myImage, 100);
         pale.setBrush(this->backgroundRole(),QBrush(ui->hough_page->saveImage));
         ui->hough_page->setPalette(pale);
     }
-
     ui->scaling_page->saveImage = myImage;
     ui->scaling_page_2->saveImage = myImage;
     ui->histogram_page->saveImage = myImage;
@@ -1124,7 +1123,118 @@ void MainWindow::on_sharpenmode_clicked()
 
 //霍夫变换检测直线
 //Reference: https://blog.csdn.net/jia20003/article/details/7724530
-QImage MainWindow::houghLines(QImage nowImage)
+//QImage MainWindow::houghLines(QImage nowImage)
+//{
+//    QImage houghImage(nowImage.width(),nowImage.height(),QImage::Format_RGB32);
+//    for(int i=0;i<nowImage.width();i++)
+//    {
+//        for(int j=0;j<nowImage.height();j++)
+//        {
+//            int gray = QColor(nowImage.pixel(i,j)).red();
+//            houghImage.setPixel(i,j,qRgb(gray,gray,gray));
+//        }
+//    }
+//    //prepare for hough transform
+//    float thershold = 0.5;
+//    double PI_VALUE = M_PI;
+//    int hough_space = 500, width = nowImage.width(), height = nowImage.height();
+//    int centerX = width/2, centerY = height/2;
+//    double hough_interval = PI_VALUE/(double)hough_space;
+//
+//    int m4x = max(width,height);
+//    int m4x_length = (int)(sqrt((double)2.0)*m4x);
+//    int **hough_2d = new int *[hough_space];
+//    for(int i=0;i<hough_space;i++)
+//        hough_2d[i] = new int[2*m4x_length];
+//    for(int i=0;i<hough_space;i++)
+//    {
+//        for(int j=0;j<2*m4x_length;j++)
+//            hough_2d[i][j] = 0;
+//    }
+//    //start hough transform now
+//    for(int i=0;i<width;i++)
+//    {
+//        for(int j=0;j<height;j++)
+//        {
+//            int p = QColor(nowImage.pixel(i,j)).red();
+//            if( p == 0 ) continue; // background color
+//
+//            for(int cell=0;cell<hough_space;cell++)
+//            {
+//                m4x = (int)((i-centerX)*cos(cell*hough_interval)+(j-centerY)*sin(cell*hough_interval));
+//                m4x += m4x_length;
+//                if( m4x < 0 || (m4x >= 2*m4x_length) ) continue;
+//                hough_2d[cell][m4x] += 1;
+//            }
+//        }
+//    }
+//    //find the m4x hough value
+//    int m4x_hough = 0;
+//    for(int i=0;i<hough_space;i++)
+//    {
+//        for(int j=0;j<2*m4x_length;j++)
+//        {
+//            if( hough_2d[i][j] > m4x_hough )
+//                m4x_hough = hough_2d[i][j];
+//        }
+//    }
+//    //transfer back to image pixels space from hough parameter space
+//    int hough_thershold = (int)(thershold*m4x_hough);
+//    for(int i=0;i<hough_space;i++)
+//    {
+//        for(int j=0;j<2*m4x_length;j++)
+//        {
+//            if( hough_2d[i][j] < hough_thershold ) continue;
+//            int hough_value = hough_2d[i][j];
+//            bool isLine = true;
+//            for(int x=-1;x<2;x++)
+//            {
+//                for(int y=-1;y<2;y++)
+//                {
+//                    if( x != 0 || y != 0 )
+//                    {
+//                        int yf = i+x;
+//                        int xf = j+y;
+//                        if( xf < 0 ) continue;
+//                        if( xf < 2*m4x_length )
+//                        {
+//                            if( yf < 0 ) yf += hough_space;
+//                            if( yf >= hough_space ) yf -= hough_space;
+//                            if( hough_2d[yf][xf] <= hough_value ) continue;
+//                            isLine = false;
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//            if(!isLine) continue;
+//            //transform back to pixel data now
+//            double dy = sin(i * hough_interval);
+//            double dx = cos(i * hough_interval);
+//            if( (i <= hough_value/4) || (i >= 3*hough_value/4) )
+//            {
+//                for(int subi=0;subi<height;++subi)
+//                {
+//                    int subj = (int)((j - m4x_length - (subi - centerY)*dy) / dx) + centerX;
+//                    if( (subj < width) && subj >= 0 )
+//                        houghImage.setPixel(subj,subi,qRgb(0,0,0xff));
+//                }
+//            }
+//            else
+//            {
+//                for(int subi=0;subi<width;subi++)
+//                {
+//                    int subj = (int)((j - m4x_length - ((subi - centerX) * dx)) / dy) + centerY;
+//                    if( (subj < height) && (subj >= 0) )
+//                        houghImage.setPixel(subi,subj,qRgb(0,0,0xff));
+//                }
+//            }
+//        }
+//    }
+//    return houghImage;
+//}
+
+QImage MainWindow::houghLines(QImage nowImage, int threshold)
 {
     QImage houghImage(nowImage.width(),nowImage.height(),QImage::Format_RGB32);
     for(int i=0;i<nowImage.width();i++)
@@ -1132,185 +1242,84 @@ QImage MainWindow::houghLines(QImage nowImage)
         for(int j=0;j<nowImage.height();j++)
         {
             int gray = QColor(nowImage.pixel(i,j)).red();
-            houghImage.setPixel(i,j,qRgb(gray,gray,gray));
+            houghImage.setPixel(i,j,qRgb(gray,gray,gray)); //复制原图
         }
     }
-    //prepare for hough transform
-    float thershold = 0.5;
-    double PI_VALUE = M_PI;
-    int hough_space = 500, width = nowImage.width(), height = nowImage.height();
-    int centerX = width/2, centerY = height/2;
-    double hough_interval = PI_VALUE/(double)hough_space;
 
-    int m4x = max(width,height);
-    int m4x_length = (int)(sqrt((double)2.0)*m4x);
-    int *hough_1d = new int[2*hough_space*m4x_length];
-    int **hough_2d = new int *[hough_space];
-    for(int i=0;i<hough_space;i++)
-        hough_2d[i] = new int[2*m4x_length];
-    for(int i=0;i<hough_space;i++)
+    int width = nowImage.width(), height = nowImage.height(), ro = (int)sqrt(width*width+height*height);
+    int doublero = ro*2, maxtheta = 180;
+    double thetaStep = M_PI/maxtheta;
+    int centerX = width/2, centerY = height/2; //中心点
+
+    //打表0-180度的正余弦值
+    double *mysin = new double[maxtheta];
+    double *mycos = new double[maxtheta];
+    for(int i=0;i<maxtheta;i++)
     {
-        for(int j=0;j<2*m4x_length;j++)
-            hough_2d[i][j] = 0;
+        double nowTheta = i * thetaStep;
+        mysin[i] = sin(nowTheta);
+        mycos[i] = cos(nowTheta);
     }
-    //start hough transform now
+    //二维直方图
+    int **hist = new int* [doublero];
+    for(int i=0;i<doublero;i++)
+        hist[i] = new int[maxtheta];
+    for(int i=0;i<doublero;i++)
+    {
+        for(int j=0;j<maxtheta;j++)
+            hist[i][j]=0;
+    }
+    //
     for(int i=0;i<width;i++)
     {
         for(int j=0;j<height;j++)
         {
-            int p = QColor(nowImage.pixel(i,j)).red();
-            if( p == 0 ) continue; // background color
-
-            for(int cell=0;cell<hough_space;cell++)
-            {
-                m4x = (int)((i-centerX)*cos(cell*hough_interval)+(j-centerY)*sin(cell*hough_interval));
-                m4x += m4x_length;
-                if( m4x < 0 || (m4x >= 2*m4x_length) ) continue;
-                hough_2d[cell][m4x] += 1;
-            }
-        }
-    }
-    //find the m4x hough value
-    int m4x_hough = 0;
-    for(int i=0;i<hough_space;i++)
-    {
-        for(int j=0;j<2*m4x_length;j++)
-        {
-            hough_1d[(i+j*hough_space)] = hough_2d[i][j];
-            if( hough_2d[i][j] > m4x_hough )
-                m4x_hough = hough_2d[i][j];
-        }
-    }
-    //transfer back to image pixels space from hough parameter space
-    int hough_thershold = (int)(thershold*m4x_hough);
-    for(int i=0;i<hough_space;i++)
-    {
-        for(int j=0;j<2*m4x_length;j++)
-        {
-            if( hough_2d[i][j] < hough_thershold ) continue;
-            int hough_value = hough_2d[i][j];
-            bool isLine = true;
-            for(int x=-1;x<2;x++)
-            {
-                for(int y=-1;y<2;y++)
-                {
-                    if( x != 0 || y != 0 )
-                    {
-                        int yf = i+x;
-                        int xf = j+y;
-                        if( xf < 0 ) continue;
-                        if( xf < 2*m4x_length )
-                        {
-                            if( yf < 0 ) yf += hough_space;
-                            if( yf >= hough_space ) yf -= hough_space;
-                            if( hough_2d[yf][xf] <= hough_value ) continue;
-                            isLine = false;
-                            break;
-                        }
-                    }
-                }
-            }
-            if(!isLine) continue;
-            //transform back to pixel data now
-            double dy = sin(i * hough_interval);
-            double dx = cos(i * hough_interval);
-            if( (i <= hough_value/4) || (i >= 3*hough_value/4) )
-            {
-                for(int subi=0;subi<height;++subi)
-                {
-                    int subj = (int)((j - m4x_length - (subi - centerY)*dy) / dx) + centerX;
-                    if( (subj < width) && subj >= 0 )
-                        houghImage.setPixel(subj,subi,qRgb(0,0,0xff));
-                }
-            }
-            else
-            {
-                for(int subi=0;subi<width;subi++)
-                {
-                    int subj = (int)((j - m4x_length - ((subi - centerX) * dx)) / dy) + centerY;
-                    if( (subj < height) && (subj >= 0) )
-                        houghImage.setPixel(subi,subj,qRgb(0,0,0xff));
-                }
-            }
-        }
-    }
-    return houghImage;
-}
-
-QImage MainWindow::houghLines2(QImage nowImage)
-{
-    QImage houghImage(nowImage.width(),nowImage.height(),QImage::Format_RGB32);
-    for(int i=0;i<nowImage.width();i++)
-    {
-        for(int j=0;j<nowImage.height();j++)
-        {
             int gray = QColor(nowImage.pixel(i,j)).red();
-            houghImage.setPixel(i,j,qRgb(gray,gray,gray));
-        }
-    }
-
-    int ro = (int)sqrt(nowImage.width()*nowImage.width()+nowImage.height()*nowImage.height());
-    int theta = 180;
-    int **hist = new int* [ro];
-    for(int i=0;i<ro;i++)
-        hist[i] = new int[theta];
-    for(int i=0;i<ro;i++)
-    {
-        for(int j=0;j<theta;j++)
-            hist[i][j]=0;
-    }
-    for(int i=0;i<theta;i++)
-    {
-        for(int j=0;j<nowImage.height();j++)
-        {
-            for(int k=0;k<nowImage.width();k++)
+            if( gray ==0 ) continue;
+            for(int k=0;k<maxtheta;k++)
             {
-                int gray = QColor(nowImage.pixel(k,j)).red();
-                if( gray != 0)
-                {
-                    int rho = (int)(j*cos(k*M_PI/(theta*2))+i*sin(k*M_PI/(theta*2)));
-                    hist[rho][i] ++;
-                }
+                int nowRo = (int)((i-centerX)*mycos[k]+(j-centerY)*mysin[k]);
+                nowRo += ro;
+                //qDebug() << doublero << nowRo;
+                hist[nowRo][k] ++;
             }
         }
     }
-    int angle[1000],roo[1000],num=0;
-    for(int i=0;i<ro;i++)
+    int m4x = 0;
+    //qDebug() << "4";
+    for(int i=0;i<doublero;i++)
     {
-        for(int j=0;j<theta;j++)
-            if(hist[i][j] > 70)
+        for(int j=0;j<maxtheta;j++)
+        {
+            //qDebug() << hist[i][j];
+            if( m4x < hist[i][j] ) m4x = hist[i][j];
+        }
+    }
+    int angle[1000000],roo[1000000],num=0;
+    for(int i=0;i<doublero;i++)
+    {
+        for(int j=0;j<maxtheta;j++)
+            if(hist[i][j] > threshold )
                 angle[num] = j, roo[num++] = i;
+    }
+    if( num > 10000 )
+    {
+        QMessageBox::information(NULL,tr("Warning"),tr("阀值过小！"));
+        return nowImage;
     }
     for(int k=0;k<num;k++)
     {
-        double resTheta = angle[k] *M_PI/(theta*2);
+        int resTheta = angle[k];
         for(int i=0;i<nowImage.width();i++)
         {
             for(int j=0;j<nowImage.height();j++)
             {
-                int rho = (int)(i*cos(resTheta)+j*sin(resTheta));
+                int rho = (int)((i-centerX)*mycos[resTheta]+(j-centerY)*mysin[resTheta]);
+                rho += ro;
                 if(QColor(nowImage.pixel(i,j)).red() != 0 && rho == roo[k])
-                    houghImage.setPixel(i,j,qRgb(0,0,0xff));   //在直线上的点设为红色
+                    houghImage.setPixel(i,j,qRgb(0,0,0xff));   //在直线上的点设为蓝色
             }
         }
     }
     return houghImage;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
