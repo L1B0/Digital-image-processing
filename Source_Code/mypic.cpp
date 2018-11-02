@@ -208,3 +208,17 @@ int testGray(QImage nowImage)
     }
     return 0;
 }
+
+bool isBinImage(QImage nowImage)
+{
+    for(int i=0;i<nowImage.width();i++)
+    {
+        for(int j=0;j<nowImage.height();j++)
+        {
+            int gray = QColor(nowImage.pixel(i,j)).red();
+            if( gray != 0 && gray != 255 )
+                return false;
+        }
+    }
+    return true;
+}

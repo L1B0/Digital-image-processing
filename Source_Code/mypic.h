@@ -37,5 +37,6 @@ int interationGary(double aver);
 void initImage(QImage *nowImage);
 QImage rgb2grayImage(QImage nowImage);
 int testGray(QImage nowImage);
+bool isBinImage(QImage nowImage);
 
 #endif // MYPIC_H

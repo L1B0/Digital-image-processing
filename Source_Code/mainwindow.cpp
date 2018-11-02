@@ -238,11 +238,13 @@ void MainWindow::open()
 
         //初始化
         ui->original_page->saveImage = myImage;
-        ui->hough_page->saveImage = houghLines(myImage);
-        qDebug() << "1";
-        pale.setBrush(this->backgroundRole(),QBrush(ui->hough_page->saveImage));
-        qDebug() << "2";
-        ui->hough_page->setPalette(pale);
+        if( isBinImage(myImage) == true )
+        {
+            ui->hough_page->saveImage = houghLines(myImage);
+            pale.setBrush(this->backgroundRole(),QBrush(ui->hough_page->saveImage));
+            ui->hough_page->setPalette(pale);
+        }
+
         ui->scaling_page->saveImage = myImage;
         ui->scaling_page_2->saveImage = myImage;
         ui->histogram_page->saveImage = myImage;
@@ -336,11 +338,13 @@ void MainWindow::apply(QImage nowImage)
 
     //初始化
     ui->original_page->saveImage = myImage;
-    ui->hough_page->saveImage = houghLines(myImage);
-    qDebug() << "1";
-    pale.setBrush(this->backgroundRole(),QBrush(ui->hough_page->saveImage));
-    qDebug() << "2";
-    ui->hough_page->setPalette(pale);
+    if( isBinImage(myImage) == true )
+    {
+        ui->hough_page->saveImage = houghLines(myImage);
+        pale.setBrush(this->backgroundRole(),QBrush(ui->hough_page->saveImage));
+        ui->hough_page->setPalette(pale);
+    }
+
     ui->scaling_page->saveImage = myImage;
     ui->scaling_page_2->saveImage = myImage;
     ui->histogram_page->saveImage = myImage;
@@ -449,9 +453,10 @@ void MainWindow::on_gray_determine_clicked()
         {
             QRgb pixel = myImage.pixel(i,j);
             QColor gray = QColor(pixel);
-            int r = gray.red(), level_g = (256/level_gray);
+            int r = gray.red(), level_g = (255/level_gray);
             //qDebug() << r << level_g;
-            r = level_g*(r/level_g);
+            if( r - level_g*(r/level_g) > level_g*(r/level_g+1)-r ) r = level_g*(r/level_g+1);
+            else r = level_g*(r/level_g);
             QRgb newpixel = qRgb(r,r,r);
             if(iGray->format() == QImage::Format_Indexed8)
                 iGray->setPixel(i,j,r);
@@ -1126,11 +1131,8 @@ QImage MainWindow::houghLines(QImage nowImage)
     {
         for(int j=0;j<nowImage.height();j++)
         {
-            QColor c = QColor(nowImage.pixel(i,j));
-            if( nowImage.format() == QImage::Format_Indexed8 )
-                houghImage.setPixel(i,j,qRgb(c.red(),c.red(),c.red()));
-            else
-                houghImage.setPixel(i,j,qRgb(c.red(),c.green(),c.blue()));
+            int gray = QColor(nowImage.pixel(i,j)).red();
+            houghImage.setPixel(i,j,qRgb(gray,gray,gray));
         }
     }
     //prepare for hough transform
@@ -1235,7 +1237,65 @@ QImage MainWindow::houghLines(QImage nowImage)
     return houghImage;
 }
 
+QImage MainWindow::houghLines2(QImage nowImage)
+{
+    QImage houghImage(nowImage.width(),nowImage.height(),QImage::Format_RGB32);
+    for(int i=0;i<nowImage.width();i++)
+    {
+        for(int j=0;j<nowImage.height();j++)
+        {
+            int gray = QColor(nowImage.pixel(i,j)).red();
+            houghImage.setPixel(i,j,qRgb(gray,gray,gray));
+        }
+    }
 
+    int ro = (int)sqrt(nowImage.width()*nowImage.width()+nowImage.height()*nowImage.height());
+    int theta = 180;
+    int **hist = new int* [ro];
+    for(int i=0;i<ro;i++)
+        hist[i] = new int[theta];
+    for(int i=0;i<ro;i++)
+    {
+        for(int j=0;j<theta;j++)
+            hist[i][j]=0;
+    }
+    for(int i=0;i<theta;i++)
+    {
+        for(int j=0;j<nowImage.height();j++)
+        {
+            for(int k=0;k<nowImage.width();k++)
+            {
+                int gray = QColor(nowImage.pixel(k,j)).red();
+                if( gray != 0)
+                {
+                    int rho = (int)(j*cos(k*M_PI/(theta*2))+i*sin(k*M_PI/(theta*2)));
+                    hist[rho][i] ++;
+                }
+            }
+        }
+    }
+    int angle[1000],roo[1000],num=0;
+    for(int i=0;i<ro;i++)
+    {
+        for(int j=0;j<theta;j++)
+            if(hist[i][j] > 70)
+                angle[num] = j, roo[num++] = i;
+    }
+    for(int k=0;k<num;k++)
+    {
+        double resTheta = angle[k] *M_PI/(theta*2);
+        for(int i=0;i<nowImage.width();i++)
+        {
+            for(int j=0;j<nowImage.height();j++)
+            {
+                int rho = (int)(i*cos(resTheta)+j*sin(resTheta));
+                if(QColor(nowImage.pixel(i,j)).red() != 0 && rho == roo[k])
+                    houghImage.setPixel(i,j,qRgb(0,0,0xff));   //在直线上的点设为红色
+            }
+        }
+    }
+    return houghImage;
+}
 
 
 

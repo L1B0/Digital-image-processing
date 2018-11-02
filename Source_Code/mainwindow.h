@@ -35,6 +35,7 @@ public:
     void imageSmoothNeighbor(int mode);
     void imageSharpenTrans(imageSharpen b, int mode,int x, int y);
     QImage houghLines(QImage nowImage);
+    QImage houghLines2(QImage nowImage);
 
 private slots:
     void open();
