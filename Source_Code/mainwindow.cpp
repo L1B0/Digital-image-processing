@@ -1305,7 +1305,6 @@ QImage MainWindow::houghLines(QImage nowImage, int threshold)
     if( num > 10000 )
     {
         QMessageBox::information(NULL,tr("Warning"),tr("阀值过小！"));
-        return nowImage;
     }
     for(int k=0;k<num;k++)
     {

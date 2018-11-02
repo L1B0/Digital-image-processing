@@ -357,11 +357,11 @@ public:
 
         sampling_paint = new QCustomPlot(sampling_rate);
         sampling_paint->setObjectName(QStringLiteral("sampling_paint"));
-        sampling_paint->setGeometry(QRect(600, 70, 521, 721));
+        sampling_paint->setGeometry(QRect(590, 70, 511, 721));
         sampling_paint->setContextMenuPolicy(Qt::ActionsContextMenu);
         sampling_page = new mywidget(sampling_rate);
         sampling_page->setObjectName(QStringLiteral("sampling_page"));
-        sampling_page->setGeometry(QRect(29, 70, 551, 721));
+        sampling_page->setGeometry(QRect(20, 70, 551, 721));
         sampling_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         tabWidget->addTab(sampling_rate, QString());
         gray = new QWidget();
@@ -387,11 +387,11 @@ public:
 
         gray_paint = new QCustomPlot(gray);
         gray_paint->setObjectName(QStringLiteral("gray_paint"));
-        gray_paint->setGeometry(QRect(610, 60, 521, 731));
+        gray_paint->setGeometry(QRect(590, 60, 491, 731));
         gray_paint->setContextMenuPolicy(Qt::ActionsContextMenu);
         gray_page = new mywidget(gray);
         gray_page->setObjectName(QStringLiteral("gray_page"));
-        gray_page->setGeometry(QRect(29, 60, 571, 731));
+        gray_page->setGeometry(QRect(29, 60, 541, 731));
         gray_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         tabWidget->addTab(gray, QString());
         bitplane = new QWidget();
@@ -919,7 +919,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(5);
         gray_hist->setCurrentIndex(1);
         point_type->setCurrentIndex(2);
         smooth_type->setCurrentIndex(2);
