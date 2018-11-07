@@ -8,13 +8,28 @@ mywidget::mywidget(QWidget *parent):
     saveMenu->setText("保存");
     QAction *apply = new QAction(this);
     apply->setText("应用");
+    QAction *compress = new QAction(this);
+    compress->setText("压缩");
     QList<QAction*> actionList;
-    actionList<<saveMenu<<apply;
+    actionList<<saveMenu<<apply<<compress;
 
     this->addActions(actionList);
 
+    QMenu *compressChild = new QMenu();
+    QAction *huffman = new QAction(compressChild);
+    huffman->setText("Huffman编码");
+    QAction *runLength = new QAction(compressChild);
+    runLength->setText("游程编码");
+    QList<QAction*> compressActionList;
+    compressActionList<<huffman<<runLength;
+    compressChild->addActions(compressActionList);
+
+    compress->setMenu(compressChild);
+
     connect(saveMenu,SIGNAL(triggered(bool)),this,SLOT(saveSlotClicked()));
     connect(apply,SIGNAL(triggered(bool)),this,SLOT(applySlotClicked()));
+    connect(huffman,SIGNAL(triggered(bool)),this,SLOT(huffmanCodingSlotClicked()));
+    connect(runLength,SIGNAL(triggered(bool)),this,SLOT(runLengthCodingSlotClicked()));
 }
 
 void mywidget::saveSlotClicked()
@@ -42,3 +57,113 @@ void mywidget::applySlotClicked()
     return ;
 }
 
+
+void mywidget::huffmanCodingSlotClicked()
+{
+
+    int noZero = 0, huffLength = 0;
+    double image_gray[256];
+
+    x->createHistogramInfo(saveImage,image_gray,false);
+    for(int i=0;i<256;i++)
+        if(image_gray[i] != 0.0)
+            noZero ++;
+
+    huffmanCoding h(image_gray,256);
+    //double test[7] = { 0, 1.1, 0, 0.4, 0, 0.8, 0.5 };
+    //huffmanCoding h(test,7);
+
+    QStringList s = path.split('/');
+    QString fileName = s.at(s.size()-1), lastpath = "";
+    for(int i=0;i<s.size()-1;i++)
+    {
+        lastpath += s.at(i) + "/";
+    }
+    QString spath = lastpath+fileName.split('.').at(0)+".huff";
+    char *savepath;
+    QByteArray ba = spath.toLatin1();
+    savepath = ba.data();
+    qDebug() << savepath;
+
+    ofstream ofile;
+    ofile.open(savepath);
+
+    for(int i=0;i<saveImage.width();i++)
+    {
+        for(int j=0;j<saveImage.height();j++)
+        {
+            int g = QColor(saveImage.pixel(i,j)).red();
+            //g = h.hcode[g];
+            if( image_gray[g] != 0 )
+                huffLength += strlen(h.hcode[g]);
+        }
+    }
+
+    //width height gray_table huffmanCodeLength
+    ofile<< saveImage.width() << " " << saveImage.height() << " " << noZero << " " << huffLength << endl;
+
+    //gray_huffmanCode
+    for(int i=0;i<256;i++)
+    {
+        if( image_gray[i] != 0.0 )
+        {
+            ofile<< i << " " << h.hcode[i] << endl;
+        }
+    }
+    ofile.close();//stop
+    FILE *f = fopen(savepath,"ab");
+    qDebug() << f;
+    //imageHuffmanCode
+    int gray = 0;
+    char x;
+    for(int i=0;i<saveImage.width();i++)
+    {
+        for(int j=0;j<saveImage.height();j++)
+        {
+            int g = QColor(saveImage.pixel(i,j)).red();
+            char *hc = h.hcode[g];
+
+            //binary2int
+            for(int k=0;k<strlen(hc);k++) gray = (gray<<1) + hc[k]-'0';
+            //qDebug() << gray;
+            while( gray >= 256 )
+            {
+                x = gray%256;
+                fwrite(&x,1,1,f);
+                gray = gray >> 8;
+            }
+        }
+    }
+    //the last one
+    if( gray != 0 )
+    {
+        x = gray;
+        fwrite(&x,1,1,f);
+    }
+    fclose(f);
+
+    int oriSize,nowSize;
+
+    //original file
+    ba = path.toLatin1();
+    char *ppath = ba.data();
+    FILE *ff = fopen(ppath,"r");
+    fseek(ff,0,SEEK_END);
+    oriSize = ftell(ff);
+    fclose(ff);
+    //compressed file
+    ff = fopen(savepath,"r");
+    fseek(ff,0,SEEK_END);
+    nowSize = ftell(ff);
+    fclose(ff);
+
+    float compress = (float)nowSize/oriSize;
+    QMessageBox::information(NULL, tr("huffmanCode"),QString("压缩率为%1").arg(compress));
+    QMessageBox::information(NULL, tr("Path"),tr("压缩文件保存在原图所在文件夹下"));
+    return ;
+}
+
+void mywidget::runLengthCodingSlotClicked()
+{
+    QMessageBox::information(NULL, tr("runLength"),tr("hi"));
+}

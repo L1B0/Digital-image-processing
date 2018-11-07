@@ -1302,10 +1302,7 @@ QImage MainWindow::houghLines(QImage nowImage, int threshold)
             if(hist[i][j] > threshold )
                 angle[num] = j, roo[num++] = i;
     }
-    if( num > 10000 )
-    {
-        QMessageBox::information(NULL,tr("Warning"),tr("阀值过小！"));
-    }
+
     for(int k=0;k<num;k++)
     {
         int resTheta = angle[k];

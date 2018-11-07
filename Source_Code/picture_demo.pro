@@ -27,7 +27,8 @@ HEADERS += customtabstyle.h \
            mywidget.h \
            qcustomplot.h \
            ui_imagesharpenmode.h \
-           ui_mainwindow.h
+           ui_mainwindow.h \
+    huffmancoding.h
 FORMS += imagesharpenmode.ui mainwindow.ui
 SOURCES += imagesharpen.cpp \
            imagesharpenmode.cpp \
@@ -36,4 +37,5 @@ SOURCES += imagesharpen.cpp \
            mainwindow.cpp \
            mypic.cpp \
            mywidget.cpp \
-           qcustomplot.cpp
+           qcustomplot.cpp \
+    huffmancoding.cpp

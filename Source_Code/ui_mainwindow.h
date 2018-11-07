@@ -226,7 +226,7 @@ public:
         hough_page->setContextMenuPolicy(Qt::ActionsContextMenu);
         label_2 = new QLabel(hough_page);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(480, 550, 531, 91));
+        label_2->setGeometry(QRect(320, 550, 531, 91));
         QFont font;
         font.setFamily(QString::fromUtf8("\346\226\207\346\263\211\351\251\277\345\276\256\347\261\263\351\273\221"));
         font.setPointSize(24);
@@ -919,7 +919,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(5);
+        tabWidget->setCurrentIndex(1);
         gray_hist->setCurrentIndex(1);
         point_type->setCurrentIndex(2);
         smooth_type->setCurrentIndex(2);

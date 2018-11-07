@@ -1,6 +1,8 @@
 #ifndef MYWIDGET_H
 #define MYWIDGET_H
 
+#include<iostream>
+#include<algorithm>
 #include<QWidget>
 #include<QAction>
 #include<QMenu>
@@ -11,6 +13,11 @@
 #include <QDebug>
 #include <QFileDialog>
 #include "mainwindow.h"
+#include "huffmancoding.h"
+#include<fstream>
+#include<iomanip>
+using namespace std;
+
 
 class mywidget: public QWidget
 {
@@ -25,6 +32,8 @@ public:
 public slots:
     void saveSlotClicked();
     void applySlotClicked();
+    void huffmanCodingSlotClicked();
+    void runLengthCodingSlotClicked();
 
 };
 
