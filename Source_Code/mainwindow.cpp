@@ -58,9 +58,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QScrollArea *original_scrollarea = new QScrollArea(ui->original);
     original_scrollarea->setGeometry(QRect(20,30,1081,751));
     original_scrollarea->setWidget(ui->original_page);
-    QScrollArea *hough_scrollarea = new QScrollArea(ui->houghLines);
-    hough_scrollarea->setGeometry(QRect(20,60,1051,721));
-    hough_scrollarea->setWidget(ui->hough_page);
     QScrollArea *scaling_scrollarea = new QScrollArea(ui->scaling);
     scaling_scrollarea->setGeometry(QRect(10, 10, 525, 537));
     scaling_scrollarea->setWidget(ui->scaling_page);
@@ -112,7 +109,6 @@ MainWindow::MainWindow(QWidget *parent) :
     sharpen_scrollarea->setGeometry(QRect(30,60,571,731));
     sharpen_scrollarea->setWidget(ui->sharpen_page);
     ui->original_page->x = this;
-    ui->hough_page->x = this;
     ui->scaling_page->x = this;
     ui->scaling_page_2->x = this;
     ui->sampling_page->x = this;
@@ -230,7 +226,6 @@ void MainWindow::open()
 
         //滚动条
         ui->original_page->resize(QSize(imageWidth,imageHeight));
-        ui->hough_page->resize(QSize(imageWidth,imageHeight));
         ui->scaling_page->resize(QSize(imageWidth,imageHeight));
         ui->scaling_page_2->resize(QSize(imageWidth,imageHeight));
         ui->histogram_page->resize(QSize(imageWidth,imageHeight));
@@ -250,12 +245,6 @@ void MainWindow::open()
 
         //初始化
         ui->original_page->saveImage = myImage;
-        if( isBinImage(myImage) )
-        {
-            ui->hough_page->saveImage = houghLines(myImage, 100);
-            pale.setBrush(this->backgroundRole(),QBrush(ui->hough_page->saveImage));
-            ui->hough_page->setPalette(pale);
-        }
         ui->scaling_page->saveImage = myImage;
         ui->scaling_page_2->saveImage = myImage;
         ui->histogram_page->saveImage = myImage;
@@ -297,7 +286,6 @@ void MainWindow::apply(QImage nowImage)
     //初始化功能页面
     pale.setBrush(this->backgroundRole(),QBrush(myImage));
     ui->original_page->setPalette(pale);
-    ui->hough_page->setPalette(pale);
     ui->scaling_page->setPalette(pale);
     ui->scaling_page_2->setPalette(pale);
     ui->sampling_page->setPalette(pale);
@@ -330,7 +318,6 @@ void MainWindow::apply(QImage nowImage)
 
     //滚动条
     ui->original_page->resize(QSize(imageWidth,imageHeight));
-    ui->hough_page->resize(QSize(imageWidth,imageHeight));
     ui->scaling_page->resize(QSize(imageWidth,imageHeight));
     ui->scaling_page_2->resize(QSize(imageWidth,imageHeight));
     ui->histogram_page->resize(QSize(imageWidth,imageHeight));
@@ -350,12 +337,6 @@ void MainWindow::apply(QImage nowImage)
 
     //初始化
     ui->original_page->saveImage = myImage;
-    if( isBinImage(myImage) )
-    {
-        ui->hough_page->saveImage = houghLines(myImage, 100);
-        pale.setBrush(this->backgroundRole(),QBrush(ui->hough_page->saveImage));
-        ui->hough_page->setPalette(pale);
-    }
     ui->scaling_page->saveImage = myImage;
     ui->scaling_page_2->saveImage = myImage;
     ui->histogram_page->saveImage = myImage;
@@ -1245,89 +1226,3 @@ void MainWindow::on_sharpenmode_clicked()
 //    }
 //    return houghImage;
 //}
-
-QImage MainWindow::houghLines(QImage nowImage, int threshold)
-{
-    QImage houghImage(nowImage.width(),nowImage.height(),QImage::Format_RGB32);
-    for(int i=0;i<nowImage.width();i++)
-    {
-        for(int j=0;j<nowImage.height();j++)
-        {
-            int gray = QColor(nowImage.pixel(i,j)).red();
-            houghImage.setPixel(i,j,qRgb(gray,gray,gray)); //复制原图
-        }
-    }
-
-    int width = nowImage.width(), height = nowImage.height(), ro = (int)sqrt(width*width+height*height);
-    int doublero = ro*2, maxtheta = 180;
-    double thetaStep = M_PI/maxtheta;
-    int centerX = width/2, centerY = height/2; //中心点
-
-    //打表0-180度的正余弦值
-    double *mysin = new double[maxtheta];
-    double *mycos = new double[maxtheta];
-    for(int i=0;i<maxtheta;i++)
-    {
-        double nowTheta = i * thetaStep;
-        mysin[i] = sin(nowTheta);
-        mycos[i] = cos(nowTheta);
-    }
-    //二维直方图
-    int **hist = new int* [doublero];
-    for(int i=0;i<doublero;i++)
-        hist[i] = new int[maxtheta];
-    for(int i=0;i<doublero;i++)
-    {
-        for(int j=0;j<maxtheta;j++)
-            hist[i][j]=0;
-    }
-    //
-    for(int i=0;i<width;i++)
-    {
-        for(int j=0;j<height;j++)
-        {
-            int gray = QColor(nowImage.pixel(i,j)).red();
-            if( gray ==0 ) continue;
-            for(int k=0;k<maxtheta;k++)
-            {
-                int nowRo = (int)((i-centerX)*mycos[k]+(j-centerY)*mysin[k]);
-                nowRo += ro;
-                //qDebug() << doublero << nowRo;
-                hist[nowRo][k] ++;
-            }
-        }
-    }
-    int m4x = 0;
-    //qDebug() << "4";
-    for(int i=0;i<doublero;i++)
-    {
-        for(int j=0;j<maxtheta;j++)
-        {
-            //qDebug() << hist[i][j];
-            if( m4x < hist[i][j] ) m4x = hist[i][j];
-        }
-    }
-    int angle[1000000],roo[1000000],num=0;
-    for(int i=0;i<doublero;i++)
-    {
-        for(int j=0;j<maxtheta;j++)
-            if(hist[i][j] > threshold )
-                angle[num] = j, roo[num++] = i;
-    }
-
-    for(int k=0;k<num;k++)
-    {
-        int resTheta = angle[k];
-        for(int i=0;i<nowImage.width();i++)
-        {
-            for(int j=0;j<nowImage.height();j++)
-            {
-                int rho = (int)((i-centerX)*mycos[resTheta]+(j-centerY)*mysin[resTheta]);
-                rho += ro;
-                if(QColor(nowImage.pixel(i,j)).red() != 0 && rho == roo[k])
-                    houghImage.setPixel(i,j,qRgb(0,0,0xff));   //在直线上的点设为蓝色
-            }
-        }
-    }
-    return houghImage;
-}

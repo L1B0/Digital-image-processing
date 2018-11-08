@@ -33,7 +33,7 @@
      <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -59,62 +59,6 @@
       </property>
       <property name="contextMenuPolicy">
        <enum>Qt::ActionsContextMenu</enum>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="houghLines">
-     <attribute name="title">
-      <string>直线检测</string>
-     </attribute>
-     <widget class="mywidget" name="hough_page" native="true">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>60</y>
-        <width>1051</width>
-        <height>721</height>
-       </rect>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::ActionsContextMenu</enum>
-      </property>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>320</x>
-         <y>550</y>
-         <width>531</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>文泉驿微米黑</family>
-         <pointsize>24</pointsize>
-         <underline>false</underline>
-        </font>
-       </property>
-       <property name="text">
-        <string>仅支持二值图的直线检测！！！</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>20</y>
-        <width>141</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>默认阀值为100</string>
       </property>
      </widget>
     </widget>

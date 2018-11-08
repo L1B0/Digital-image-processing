@@ -36,7 +36,6 @@ public:
     void imageSmoothMid(int mode);
     void imageSmoothNeighbor(int mode);
     void imageSharpenTrans(imageSharpen b, int mode,int x, int y);
-    QImage houghLines(QImage nowImage, int threshold);
 
 private slots:
     void open();

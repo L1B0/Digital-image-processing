@@ -30,9 +30,10 @@ public:
 public slots:
     void saveSlotClicked();
     void applySlotClicked();
+    void houghSlotClicked();
     void huffmanCodingSlotClicked();
     void runLengthCodingSlotClicked();
-
+    void marginalClosureSlotClicked();
 };
 
 #endif // MYWIDGET_H
