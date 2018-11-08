@@ -38,5 +38,6 @@ void initImage(QImage *nowImage);
 QImage rgb2grayImage(QImage nowImage);
 int testGray(QImage nowImage);
 bool isBinImage(QImage nowImage);
+int bin2dec(char *s);
 
 #endif // MYPIC_H

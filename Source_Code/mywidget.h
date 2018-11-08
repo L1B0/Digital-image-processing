@@ -1,7 +1,7 @@
 #ifndef MYWIDGET_H
 #define MYWIDGET_H
 
-#include<iostream>
+
 #include<algorithm>
 #include<QWidget>
 #include<QAction>
@@ -14,9 +14,7 @@
 #include <QFileDialog>
 #include "mainwindow.h"
 #include "huffmancoding.h"
-#include<fstream>
-#include<iomanip>
-using namespace std;
+
 
 
 class mywidget: public QWidget

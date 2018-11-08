@@ -60,18 +60,10 @@ void mywidget::applySlotClicked()
 
 void mywidget::huffmanCodingSlotClicked()
 {
-
-    int noZero = 0, huffLength = 0;
     double image_gray[256];
-
     x->createHistogramInfo(saveImage,image_gray,false);
-    for(int i=0;i<256;i++)
-        if(image_gray[i] != 0.0)
-            noZero ++;
 
-    huffmanCoding h(image_gray,256);
-    //double test[7] = { 0, 1.1, 0, 0.4, 0, 0.8, 0.5 };
-    //huffmanCoding h(test,7);
+    huffmanCoding h(image_gray,256,true);
 
     QStringList s = path.split('/');
     QString fileName = s.at(s.size()-1), lastpath = "";
@@ -88,53 +80,39 @@ void mywidget::huffmanCodingSlotClicked()
     ofstream ofile;
     ofile.open(savepath);
 
-    for(int i=0;i<saveImage.width();i++)
-    {
-        for(int j=0;j<saveImage.height();j++)
-        {
-            int g = QColor(saveImage.pixel(i,j)).red();
-            //g = h.hcode[g];
-            if( image_gray[g] != 0 )
-                huffLength += strlen(h.hcode[g]);
-        }
-    }
+    ofile<< saveImage.width() << " " << saveImage.height() << endl;
 
-    //width height gray_table huffmanCodeLength
-    ofile<< saveImage.width() << " " << saveImage.height() << " " << noZero << " " << huffLength << endl;
-
-    //gray_huffmanCode
-    for(int i=0;i<256;i++)
+    /*gray_huffmanTree*/
+    for(int i=0;i<256*2;i++)
     {
-        if( image_gray[i] != 0.0 )
-        {
-            ofile<< i << " " << h.hcode[i] << endl;
-        }
+        ofile << i << " " << h.htree[i].left << " " << h.htree[i].right << " " << h.htree[i].parent << endl;
     }
-    ofile.close();//stop
+    ofile.close();/*stop*/
     FILE *f = fopen(savepath,"ab");
     qDebug() << f;
-    //imageHuffmanCode
-    int gray = 0;
-    char x;
+    /*imageHuffmanCode*/
+    int gray = 0, grayBitNum=0;
+    unsigned char x;
     for(int i=0;i<saveImage.width();i++)
     {
         for(int j=0;j<saveImage.height();j++)
         {
             int g = QColor(saveImage.pixel(i,j)).red();
             char *hc = h.hcode[g];
-
-            //binary2int
-            for(int k=0;k<strlen(hc);k++) gray = (gray<<1) + hc[k]-'0';
-            //qDebug() << gray;
-            while( gray >= 256 )
+            if( i == 27 ) qDebug() << g;
+            /*binary2int*/
+            for(int k=0;k<strlen(hc);k++) gray = ((hc[k]-'0')<<grayBitNum) + gray, grayBitNum ++;
+            //if(i==0&&j<10) qDebug() << hc;
+            while( grayBitNum >= 8 )
             {
                 x = gray%256;
                 fwrite(&x,1,1,f);
-                gray = gray >> 8;
+                gray = (gray >> 8);
+                grayBitNum -= 8;
             }
         }
     }
-    //the last one
+    /*the last one*/
     if( gray != 0 )
     {
         x = gray;

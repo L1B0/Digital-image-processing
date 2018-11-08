@@ -5,6 +5,7 @@
 #include <imagesmooth.h>
 #include <imagesharpen.h>
 #include "imagesharpenmode.h"
+#include "huffmancoding.h"
 #include <QScrollArea>
 class QAction;
 

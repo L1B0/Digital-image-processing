@@ -222,3 +222,13 @@ bool isBinImage(QImage nowImage)
     }
     return true;
 }
+
+int bin2dec(char *s)
+{
+    int res=0;
+    for(int i=0;i<strlen(s);i++)
+    {
+        res = (res<<1) + s[i]-'0';
+    }
+    return res;
+}
