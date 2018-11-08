@@ -143,5 +143,74 @@ void mywidget::huffmanCodingSlotClicked()
 
 void mywidget::runLengthCodingSlotClicked()
 {
-    QMessageBox::information(NULL, tr("runLength"),tr("hi"));
+    //QMessageBox::information(NULL, tr("runLength"),tr("hi"));
+    //get savepath
+    QStringList s = path.split('/');
+    QString fileName = s.at(s.size()-1), lastpath = "";
+    for(int i=0;i<s.size()-1;i++)
+    {
+        lastpath += s.at(i) + "/";
+    }
+    QString spath = lastpath+fileName.split('.').at(0)+".runlen";
+    char *savepath;
+    QByteArray ba = spath.toLatin1();
+    savepath = ba.data();
+    qDebug() << savepath;
+
+    FILE *f = fopen(savepath,"ab");
+    int width = saveImage.width(), height = saveImage.height();
+    fwrite(&width,sizeof(width),1,f);
+    fwrite(&height,sizeof(height),1,f);
+
+    //compress image data
+    int pixelNum=1,repeatTimes=1;
+    unsigned char nowGray,lastGray;
+    lastGray = QColor(saveImage.pixel(0,0)).red();
+    qDebug() << width << height;
+    while( pixelNum < width*height )
+    {
+        nowGray = QColor(saveImage.pixel(pixelNum/height,pixelNum%height)).red();
+        if( nowGray == lastGray ) repeatTimes ++;
+        else
+        {
+            while( repeatTimes > 0 )
+            {
+                unsigned char t = repeatTimes%256;
+                fwrite(&t,1,1,f);
+                fwrite(&lastGray,1,1,f);
+                repeatTimes /= 256;
+            }
+            lastGray = nowGray;
+            repeatTimes = 1;
+        }
+        pixelNum++;
+    }
+    //The last one
+    while( repeatTimes > 0 )
+    {
+        unsigned char t = repeatTimes%256;
+        fwrite(&t,1,1,f);
+        fwrite(&lastGray,1,1,f);
+        repeatTimes /= 256;
+    }
+    fclose(f);
+
+    int oriSize,nowSize;
+    //original file
+    ba = path.toLatin1();
+    char *ppath = ba.data();
+    FILE *ff = fopen(ppath,"r");
+    fseek(ff,0,SEEK_END);
+    oriSize = ftell(ff);
+    fclose(ff);
+    //compressed file
+    ff = fopen(savepath,"r");
+    fseek(ff,0,SEEK_END);
+    nowSize = ftell(ff);
+    fclose(ff);
+
+    float compress = (float)nowSize/oriSize;
+    QMessageBox::information(NULL, tr("huffmanCode"),QString("压缩率为%1").arg(compress));
+    QMessageBox::information(NULL, tr("Path"),tr("压缩文件保存在原图所在文件夹下"));
+    return ;
 }

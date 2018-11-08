@@ -152,7 +152,7 @@ void MainWindow::clearAllText()
 void MainWindow::open()
 {
     clearAllText();
-    path = QFileDialog::getOpenFileName(this, tr("Open Image"), ".", tr("Image Files(*.jpg *.png *.bmp *.huff)"));
+    path = QFileDialog::getOpenFileName(this, tr("Open Image"), ".", tr("Image Files(*.jpg *.png *.bmp *.huff *.runlen)"));
     if(path.length() == 0)
     {
         QMessageBox::information(NULL, tr("Path"), tr("You didn't select any files."));
@@ -166,6 +166,11 @@ void MainWindow::open()
             double t[5]={1,2,3,4,5};
             huffmanCoding h(t,5,false);
             myImage = h.decompressFile(path);
+        }
+        else if(path.lastIndexOf("runlen") != -1)
+        {
+            runlengthcoding r;
+            myImage = r.decompressFile(path);
         }
         else myImage.load(path);
         findImageFormat(myImage);

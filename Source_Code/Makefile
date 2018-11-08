@@ -58,7 +58,8 @@ SOURCES       = imagesharpen.cpp \
 		mypic.cpp \
 		mywidget.cpp \
 		qcustomplot.cpp \
-		huffmancoding.cpp moc_imagesharpenmode.cpp \
+		huffmancoding.cpp \
+		runlengthcoding.cpp moc_imagesharpenmode.cpp \
 		moc_mainwindow.cpp \
 		moc_mywidget.cpp \
 		moc_qcustomplot.cpp
@@ -71,6 +72,7 @@ OBJECTS       = imagesharpen.o \
 		mywidget.o \
 		qcustomplot.o \
 		huffmancoding.o \
+		runlengthcoding.o \
 		moc_imagesharpenmode.o \
 		moc_mainwindow.o \
 		moc_mywidget.o \
@@ -273,7 +275,8 @@ DIST          = /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		qcustomplot.h \
 		ui_imagesharpenmode.h \
 		ui_mainwindow.h \
-		huffmancoding.h imagesharpen.cpp \
+		huffmancoding.h \
+		runlengthcoding.h imagesharpen.cpp \
 		imagesharpenmode.cpp \
 		imagesmooth.cpp \
 		main.cpp \
@@ -281,7 +284,8 @@ DIST          = /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		mypic.cpp \
 		mywidget.cpp \
 		qcustomplot.cpp \
-		huffmancoding.cpp
+		huffmancoding.cpp \
+		runlengthcoding.cpp
 QMAKE_TARGET  = picture_demo
 DESTDIR       = 
 TARGET        = picture_demo
@@ -695,8 +699,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.11.1/5.11.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents customtabstyle.h imagesharpen.h imagesharpenmode.h imagesmooth.h mainwindow.h mypic.h mywidget.h qcustomplot.h ui_imagesharpenmode.h ui_mainwindow.h huffmancoding.h $(DISTDIR)/
-	$(COPY_FILE) --parents imagesharpen.cpp imagesharpenmode.cpp imagesmooth.cpp main.cpp mainwindow.cpp mypic.cpp mywidget.cpp qcustomplot.cpp huffmancoding.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents customtabstyle.h imagesharpen.h imagesharpenmode.h imagesmooth.h mainwindow.h mypic.h mywidget.h qcustomplot.h ui_imagesharpenmode.h ui_mainwindow.h huffmancoding.h runlengthcoding.h $(DISTDIR)/
+	$(COPY_FILE) --parents imagesharpen.cpp imagesharpenmode.cpp imagesmooth.cpp main.cpp mainwindow.cpp mypic.cpp mywidget.cpp qcustomplot.cpp huffmancoding.cpp runlengthcoding.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents imagesharpenmode.ui mainwindow.ui $(DISTDIR)/
 
 
@@ -1747,6 +1751,7 @@ moc_mainwindow.cpp: mypic.h \
 		imagesharpen.h \
 		imagesharpenmode.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QDialog \
+		huffmancoding.h \
 		mainwindow.h \
 		moc_predefs.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc
@@ -2262,6 +2267,7 @@ moc_mywidget.cpp: /opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QWidget \
 		imagesharpen.h \
 		imagesharpenmode.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QDialog \
+		huffmancoding.h \
 		mywidget.h \
 		moc_predefs.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/bin/moc
@@ -3776,7 +3782,8 @@ ui_mainwindow.h: mainwindow.ui \
 		imagesmooth.h \
 		imagesharpen.h \
 		imagesharpenmode.h \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QDialog
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QDialog \
+		huffmancoding.h
 	/opt/Qt5.11.1/5.11.1/gcc_64/bin/uic mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -5820,6 +5827,7 @@ main.o: main.cpp mainwindow.h \
 		imagesharpen.h \
 		imagesharpenmode.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QDialog \
+		huffmancoding.h \
 		mywidget.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QAction \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtGui/QList \
@@ -6333,6 +6341,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		imagesharpen.h \
 		imagesharpenmode.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QDialog \
+		huffmancoding.h \
 		ui_mainwindow.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QAction \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QApplication \
@@ -7363,7 +7372,8 @@ mywidget.o: mywidget.cpp mywidget.h \
 		imagesmooth.h \
 		imagesharpen.h \
 		imagesharpenmode.h \
-		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QDialog
+		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtWidgets/QDialog \
+		huffmancoding.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mywidget.o mywidget.cpp
 
 qcustomplot.o: qcustomplot.cpp qcustomplot.h \
@@ -8363,6 +8373,9 @@ huffmancoding.o: huffmancoding.cpp huffmancoding.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
 		/opt/Qt5.11.1/5.11.1/gcc_64/include/QtPrintSupport/qtprintsupportversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o huffmancoding.o huffmancoding.cpp
+
+runlengthcoding.o: runlengthcoding.cpp runlengthcoding.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o runlengthcoding.o runlengthcoding.cpp
 
 moc_imagesharpenmode.o: moc_imagesharpenmode.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_imagesharpenmode.o moc_imagesharpenmode.cpp

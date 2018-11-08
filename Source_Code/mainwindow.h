@@ -6,6 +6,7 @@
 #include <imagesharpen.h>
 #include "imagesharpenmode.h"
 #include "huffmancoding.h"
+#include "runlengthcoding.h"
 #include <QScrollArea>
 class QAction;
 
