@@ -330,12 +330,12 @@ void mywidget::houghSlotClicked()
     {
         for(int j=0;j<maxtheta;j++)
         {
-            qDebug() << i << j << hist[i][j];
+            //qDebug() << i << j << hist[i][j];
             if(hist[i][j] > threshold )
                 angle[num] = j, roo[num++] = i;
         }
     }
-    qDebug() << num;
+    //qDebug() << num;
     for(int k=0;k<num;k++)
     {
         int resTheta = angle[k];
